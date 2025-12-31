@@ -10,8 +10,8 @@ const ProjectsAction = () => {
         <BlurFade key={idx} delay={0.3 + idx * 0.1} inView>
           <ProjectCard
             card={{
-              title: "project",
-              description: "This is a project description.",
+              title: "Project Name",
+              description: "This is a card description.",
             }}
           />
         </BlurFade>

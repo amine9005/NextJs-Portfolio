@@ -5,7 +5,7 @@ import { motion } from "motion/react";
 
 const HeroText = () => {
   return (
-    <div className="max-w-xl">
+    <div className="max-w-xl text-center lg:text-start">
       <H2 size={"4xl"}>
         {"Full Name - ".split(" ").map((word, index) => (
           <motion.span
