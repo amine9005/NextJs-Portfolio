@@ -5,7 +5,7 @@ const ProjectsAction = () => {
   const images = [1, 2, 3];
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 p-4">
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 p-4 mt-15 sm:mt-0">
       {images.map((_, idx) => (
         <BlurFade key={idx} delay={0.3 + idx * 0.1} inView>
           <ProjectCard

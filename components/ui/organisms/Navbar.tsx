@@ -11,7 +11,7 @@ import { Button, buttonVariants } from "../atoms/button/button";
 import Link from "next/link";
 import {
   isAuthenticatedAction,
-  isSubscribedAction,
+  // isSubscribedAction,
   signOutAction,
 } from "@/app/api/actions/auth/auth.controller";
 import { useEffect, useState } from "react";
@@ -49,12 +49,12 @@ export const Navbar = () => {
     setUser();
   });
 
-  useEffect(() => {
-    const setSubscription = async () => {
-      setIsSubscribed(await isSubscribedAction());
-    };
-    setSubscription();
-  });
+  // useEffect(() => {
+  //   const setSubscription = async () => {
+  //     setIsSubscribed(await isSubscribedAction());
+  //   };
+  //   setSubscription();
+  // });
 
   return (
     <header

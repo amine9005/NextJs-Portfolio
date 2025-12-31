@@ -61,17 +61,17 @@ export async function resetPasswordAction(newPassword: string, token: string) {
   return { success: true };
 }
 
-export async function isSubscribedAction() {
-  const session = await auth.api.getSession({
-    headers: await headers(),
-  });
+// export async function isSubscribedAction() {
+//   const session = await auth.api.getSession({
+//     headers: await headers(),
+//   });
 
-  if (session?.user?.plan === "premium") {
-    return true;
-  }
+//   if (session?.user?.plan === "premium") {
+//     return true;
+//   }
 
-  return false;
-}
+//   return false;
+// }
 
 export async function isAuthenticatedAction() {
   const session = await auth.api.getSession({

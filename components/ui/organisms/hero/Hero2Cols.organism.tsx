@@ -24,23 +24,23 @@ const Hero2Cols = ({
   right_align = "center",
   right_children = "Right col",
 }: Props) => {
-  const const_cols = `grid-cols-${cols}`;
-  const const_left_span = `col-span-${left_span}`;
-  const const_right_span = `col-span-${right_span}`;
+  const const_cols = `lg:grid-cols-${cols}` as string;
+  const const_left_span = `col-span-${left_span}` as string;
+  const const_right_span = `col-span-${right_span}` as string;
 
   return (
     <div className="hero-section w-full h-dvh">
       <div
-        className={` w-full h-full p-4 grid grid-cols-1 lg:${const_cols} gap-8 lg:gap-4`}
+        className={` w-full h-full p-4 grid grid-cols-1 lg:grid-cols-10 gap-8 lg:gap-4`}
       >
-        <div className={const_left_span}>
+        <div className={"col-span-5"}>
           <div
             className={`w-full h-full flex flex-col justify-${left_justify} items-${left_align} w-full space-y-4`}
           >
             {left_children}
           </div>
         </div>
-        <div className={const_right_span}>
+        <div className={"col-span-5"}>
           <div
             className={`w-full h-full flex flex-col justify-${right_justify} items-${right_align} w-full`}
           >

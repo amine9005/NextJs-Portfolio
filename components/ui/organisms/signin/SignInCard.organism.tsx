@@ -13,7 +13,7 @@ import { FormEvent, memo } from "react";
 import { H2 } from "@/components/ui/atoms/heading/heading2";
 import LoadingSubmitButton from "@/components/ui/molecules/loading-submit-button/loadingSubmitButton.molecule";
 import ButtonLink from "@/components/ui/molecules/Button-Link/Button-Link.molecule";
-import SocialLoginsOrganism from "@/components/ui/organisms/social-logins/SocialLogins.organism";
+// import SocialLoginsOrganism from "@/components/ui/organisms/social-logins/SocialLogins.organism";
 interface Card {
   title?: React.ReactNode;
   description?: React.ReactNode;
@@ -59,7 +59,7 @@ const SignInFormCard = ({
             Sign In
           </LoadingSubmitButton>
         </div>
-        <SocialLoginsOrganism />
+        {/* <SocialLoginsOrganism /> */}
 
         <div>
           Don&apos;t have an account?

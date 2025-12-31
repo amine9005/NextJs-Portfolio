@@ -1,5 +1,5 @@
 "use server";
-import { isSubscribedAction } from "@/app/api/actions/auth/auth.controller";
+// import { isSubscribedAction } from "@/app/api/actions/auth/auth.controller";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
@@ -39,10 +39,10 @@ export async function authNotRequired() {
   }
 }
 
-export async function isPremiumUser() {
-  const result = await isSubscribedAction();
+// export async function isPremiumUser() {
+//   const result = await isSubscribedAction();
 
-  if (!result) {
-    redirect("/");
-  }
-}
+//   if (!result) {
+//     redirect("/");
+//   }
+// }
