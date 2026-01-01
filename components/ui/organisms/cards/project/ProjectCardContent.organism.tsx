@@ -5,11 +5,11 @@ const ProjectCardContent = () => {
   return (
     <div className="flex flex-col items-center justify-center space-y-4">
       <Image
-        className="relative w-full bg-gray-400 object-cover  rounded-lg"
+        className="relative w-full h-60 bg-gray-400 object-cover  rounded-lg"
         src={"/project.png"}
         alt="project image"
         width={240}
-        height={360}
+        height={240}
       />
       <P className="line-clamp-3">
         Project description goes here. Lorem ipsum dolor sit amet consectetur

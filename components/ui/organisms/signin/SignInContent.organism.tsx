@@ -3,7 +3,7 @@ import { FieldGroup } from "@/components/ui/atoms/field/field";
 import InputField from "../../molecules/input-field/InputField.molecule";
 import { Controller } from "react-hook-form";
 import { SignInFormType } from "@/validations/user.zod";
-import { FormEvent, memo } from "react";
+import { FormEvent } from "react";
 import LabelWithSideLink from "../../molecules/label-with-side-link/LabelWithSideLink.molecule";
 import FormsCheckBoxMolecule from "../../molecules/forms-checkbox/FormsCheckBox.molecule";
 
@@ -39,7 +39,7 @@ const LoginFormContent = ({ form, formName, handle_submit }: Props) => {
   const checkboxValues = { labelTitle: "Remember Me", form };
 
   return (
-    <form id={`form-${formName}`} onSubmit={handle_submit}>
+    <form id={formName} onSubmit={handle_submit}>
       <FieldGroup>
         <Controller
           name="email"
@@ -69,4 +69,4 @@ const LoginFormContent = ({ form, formName, handle_submit }: Props) => {
   );
 };
 
-export default memo(LoginFormContent);
+export default LoginFormContent;

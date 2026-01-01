@@ -29,7 +29,7 @@ const Hero2Cols = ({
   const const_right_span = `col-span-${right_span}` as string;
 
   return (
-    <div className="hero-section w-full h-dvh">
+    <div className="hero-section w-full ">
       <div
         className={` w-full h-full p-4 grid grid-cols-1 lg:grid-cols-10 gap-8 lg:gap-4`}
       >

@@ -1,4 +1,4 @@
-import Hero2Cols from "@/components/ui/organisms/hero/Hero2Cols.organism";
+import Hero2Cols from "@/components/ui/layouts/hero/Hero2Cols.layout";
 import HeroText from "@/components/ui/organisms/hero-text/HeroText.organism";
 import HeroImage from "@/components/ui/molecules/hero-image/HeroImage.molecule";
 

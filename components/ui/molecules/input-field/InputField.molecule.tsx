@@ -5,6 +5,7 @@ import {
 } from "@/components/ui/atoms/field/field";
 import { Input } from "@/components/ui/atoms/input/input";
 import { memo } from "react";
+import { FieldValues } from "react-hook-form";
 
 interface Item {
   name: string;
@@ -15,7 +16,7 @@ interface Item {
 }
 interface Props {
   item: Item;
-  field: object;
+  field: FieldValues;
   fieldState: {
     invalid: boolean;
     isTouched: boolean;

@@ -16,7 +16,7 @@ export const passwordValidation = z
 export const usernameValidation = z
   .string()
   .min(3, { message: "Username must be at least 3 char longs" })
-  .max(31, { message: "Username cannot exceed 20 characters" })
+  .max(32, { message: "Username cannot exceed 32 characters" })
   .regex(/^[a-z0-9A-Z ]+$/, "Username must not contain special characters");
 export const emailValidation = z.email({ message: "Invalid Email Address" });
 

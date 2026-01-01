@@ -33,7 +33,7 @@ const LoadingSubmitButton = ({
     <Button
       disabled={loading}
       type={type}
-      form={`form-${formName}`}
+      form={formName}
       width={width}
       variant={variant}
       onClick={handle_click}

@@ -44,7 +44,7 @@ const passwordConfirmInputValues = {
 //
 const SignUpFormContent = ({ form, formName, handle_submit }: Props) => {
   return (
-    <form id={`form-${formName}`} onSubmit={handle_submit}>
+    <form id={formName} onSubmit={handle_submit}>
       <FieldGroup>
         <Controller
           name="username"

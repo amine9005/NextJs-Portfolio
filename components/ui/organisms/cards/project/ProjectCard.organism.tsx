@@ -22,7 +22,7 @@ interface Props {
 
 const ProjectCard = ({ card }: Props) => {
   return (
-    <Card className="w-full max-w-sm border-none p-0 shadow-none hover:scale-105 cursor-pointer  transition-transform duration-300">
+    <Card className="w-full max-w-xl border-none p-0 shadow-none hover:scale-105 cursor-pointer  transition-transform duration-300">
       <MagicCard gradientSize={300} className="p-0">
         <CardHeader className="border-border border-b p-4 [.border-b]:pb-4">
           <CardTitle className="text-center">{card.title}</CardTitle>
