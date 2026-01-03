@@ -1,21 +1,34 @@
-import Image from "next/image";
+"use client";
+import { validateFiles } from "@/validations/upload.validate";
+import { UploadIcon } from "lucide-react";
 
-const UploadImageMolecule = ({ index }: { index: number }) => {
+interface Props {
+  index: number;
+  filePath: FileList | null;
+  setFilePath: (files: FileList | null) => void;
+}
+
+const UploadImageMolecule = ({ index, filePath, setFilePath }: Props) => {
   return (
-    <label key={index} htmlFor={`image${index}`}>
+    <label
+      key={index}
+      htmlFor={`image${index}`}
+      className="flex flex-wrap justify-center items-center gap-2 hover:cursor-pointer"
+    >
       <input
-        accept="image/* application/pdf application/docx"
         type="file"
+        multiple
+        onChange={(e) => setFilePath(validateFiles(e.target.files))}
         id={`image${index}`}
         hidden
       />
-      <Image
-        className="max-w-24 cursor-pointer"
-        src="/uploadArea.png"
-        alt="uploadArea"
-        width={100}
-        height={100}
-      />
+      <UploadIcon className="h-12 w-20 p-2 hover:cursor-pointer border border-white rounded-lg" />
+
+      {filePath && filePath.length !== 0
+        ? filePath.length > 1
+          ? `${filePath.length} Files Selected`
+          : filePath.item(0)?.name
+        : "Multiple File Upload"}
     </label>
   );
 };

@@ -2,7 +2,7 @@
 import { FieldGroup } from "@/components/ui/atoms/field/field";
 import InputField from "@/components/ui/molecules/input-field/InputField.molecule";
 import { Controller } from "react-hook-form";
-import { FormEvent } from "react";
+import { FormEvent, useState } from "react";
 import { ContactMeFormType } from "@/validations/ContactMe.zod";
 import TextareaField from "@/components/ui/molecules/textarea-field/TextareaField.molecule";
 import UploadImageMolecule from "../../molecules/upload-image/UploadImage.molecule";
@@ -11,6 +11,8 @@ interface Props {
   form: ContactMeFormType;
   handle_submit: (formEvent: FormEvent) => void;
   formName: string;
+  filePath: FileList | null;
+  setFilePath: (files: FileList | null) => void;
 }
 
 const firstNameInputValues = {
@@ -52,11 +54,17 @@ const descriptionInputValues = {
   autoComplete: "off",
   charLimits: 50,
 };
-const ContactMeContent = ({ form, formName, handle_submit }: Props) => {
+const ContactMeContent = ({
+  form,
+  formName,
+  handle_submit,
+  filePath,
+  setFilePath,
+}: Props) => {
   return (
     <form id={formName} onSubmit={handle_submit}>
       <FieldGroup>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 ">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-8 ">
           <Controller
             name="firstName"
             control={form?.control}
@@ -113,12 +121,12 @@ const ContactMeContent = ({ form, formName, handle_submit }: Props) => {
             />
           )}
         />
-        <div className="flex flex-wrap justify-center items-center gap-3 mt-2">
-          {Array(4)
-            .fill("")
-            .map((_, index) => (
-              <UploadImageMolecule key={index} index={index} />
-            ))}
+        <div className="flex flex-wrap justify-between items-center gap-3 mt-2">
+          <UploadImageMolecule
+            filePath={filePath}
+            setFilePath={setFilePath}
+            index={1}
+          />
         </div>
       </FieldGroup>
     </form>

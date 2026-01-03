@@ -24,6 +24,8 @@ interface Props {
   formName: string;
   loading: boolean;
   handle_submit: (formEvent: FormEvent) => void;
+  filePath: FileList | null;
+  setFilePath: (files: FileList | null) => void;
 }
 
 const ContactMeFormCard = ({
@@ -32,6 +34,8 @@ const ContactMeFormCard = ({
   formName,
   handle_submit,
   loading,
+  filePath,
+  setFilePath,
 }: Props) => {
   return (
     <Card className="w-full sm:max-w-xl">
@@ -46,6 +50,8 @@ const ContactMeFormCard = ({
           formName={formName}
           form={form}
           handle_submit={handle_submit}
+          filePath={filePath}
+          setFilePath={setFilePath}
         />
       </CardContent>
       <CardFooter className="flex flex-col space-y-2">

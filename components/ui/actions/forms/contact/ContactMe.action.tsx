@@ -3,11 +3,13 @@ import FormLayout from "@/components/ui/layouts/Form.layout";
 import ContactMeFormCard from "@/components/ui/organisms/contact-me/ContactMeCard.organism";
 import { useContactMe } from "@/hooks/useContactMeForm.hook";
 import { useContactMeSubmit } from "@/hooks/useContactMeSubmit.hook";
+import { useState } from "react";
 
 const ContactMeAction = () => {
+  const [filePath, setFilePath] = useState<FileList | null>(null);
   const form = useContactMe();
   const { handleSubmit } = form;
-  const { loading, onSubmit } = useContactMeSubmit();
+  const { loading, onSubmit } = useContactMeSubmit(filePath);
 
   const card = { title: "Contact Me", description: "" };
   const formName = "contact-me";
@@ -18,6 +20,8 @@ const ContactMeAction = () => {
         card={card}
         formName={formName}
         loading={loading}
+        filePath={filePath}
+        setFilePath={setFilePath}
         handle_submit={handleSubmit(onSubmit)}
       />
     </FormLayout>

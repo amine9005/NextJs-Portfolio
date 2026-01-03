@@ -12,12 +12,15 @@ export default function UploadForm() {
     upload(data.file[0], {
       onSuccess: (response) => {
         if (response.status === 200) {
+          console.log("response: ", JSON.stringify(response));
           alert("Uploaded");
         } else {
+          console.log("Error " + JSON.stringify(response));
           alert("Error");
         }
       },
-      onError: () => {
+      onError: (error) => {
+        console.log(error);
         alert("Error");
       },
     });
