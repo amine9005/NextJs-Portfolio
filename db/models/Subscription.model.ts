@@ -15,8 +15,8 @@ const subscriptionSchema = new mongoose.Schema(
 );
 
 const SubscriptionModel =
-  mongoose.model("subscription", subscriptionSchema) ||
-  mongoose.models.subscription;
+  mongoose.models.subscription ||
+  mongoose.model("subscription", subscriptionSchema);
 export default SubscriptionModel;
 export type Subscription = InferSchemaType<typeof subscriptionSchema>;
 export type SubscriptionDocument = HydratedDocument<Subscription>;

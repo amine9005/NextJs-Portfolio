@@ -13,7 +13,7 @@ const UploadImageMolecule = ({ index, filePath, setFilePath }: Props) => {
     <label
       key={index}
       htmlFor={`image${index}`}
-      className="flex flex-wrap justify-center items-center gap-2 hover:cursor-pointer"
+      className="flex flex-wrap overflow-x-hidden justify-center items-center gap-2 hover:cursor-pointer"
     >
       <input
         type="file"
@@ -23,12 +23,13 @@ const UploadImageMolecule = ({ index, filePath, setFilePath }: Props) => {
         hidden
       />
       <UploadIcon className="h-12 w-20 p-2 hover:cursor-pointer border border-white rounded-lg" />
-
-      {filePath && filePath.length !== 0
-        ? filePath.length > 1
-          ? `${filePath.length} Files Selected`
-          : filePath.item(0)?.name
-        : "Multiple File Upload"}
+      <span className="max-w-full">
+        {filePath && filePath.length !== 0
+          ? filePath.length > 1
+            ? `${filePath.length} Files Selected`
+            : filePath.item(0)?.name
+          : "Multiple File Upload"}
+      </span>
     </label>
   );
 };

@@ -6,24 +6,12 @@ type UploadData = {
 };
 export default function UploadForm() {
   const { register, handleSubmit } = useForm<UploadData>();
-  const { mutate: upload, isPending } = useUpload();
-  const onSubmit = (data: UploadData) => {
+  const { mutateAsync: upload, isPending } = useUpload();
+  const onSubmit = async (data: UploadData) => {
     if (!data.file?.[0]) return;
-    upload(data.file[0], {
-      onSuccess: (response) => {
-        if (response.status === 200) {
-          console.log("response: ", JSON.stringify(response));
-          alert("Uploaded");
-        } else {
-          console.log("Error " + JSON.stringify(response));
-          alert("Error");
-        }
-      },
-      onError: (error) => {
-        console.log(error);
-        alert("Error");
-      },
-    });
+    const res = await (await upload(data.file[0])).json();
+
+    console.log(res.json());
   };
   return isPending ? (
     <div>Uploading...</div>

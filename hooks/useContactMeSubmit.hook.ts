@@ -6,15 +6,17 @@ import { useCallback, useState } from "react";
 import { SubmitHandler } from "react-hook-form";
 import toast from "react-hot-toast";
 import { useUpload } from "@/hooks/useUpload.hook";
+import { useSaveProjectRequest } from "@/hooks/useRequestProject.hook";
 
 export function useContactMeSubmit(files?: FileList | null) {
   const [loading, setLoading] = useState(false);
-  const { mutate: upload } = useUpload();
+  const { mutateAsync: upload } = useUpload();
+  const { mutateAsync: saveProjectRequest } = useSaveProjectRequest();
 
   const onSubmit: SubmitHandler<ContactMeSchemaType> = useCallback(
     async (data) => {
       let success = false;
-      const fileUrls = [];
+      const fileUrls: string[] = [];
       setLoading(true);
       try {
         const fullName = data.firstName + data.lastName;
@@ -25,22 +27,18 @@ export function useContactMeSubmit(files?: FileList | null) {
         if (files) {
           for (const file of files) {
             console.log("uploading file");
-            upload(file, {
-              onSuccess: (response) => {
-                if (response.status === 200) {
-                } else {
-                  toast.error("failed to upload files");
-                  throw new Error("failed to upload file ");
-                }
-              },
-              onError: (error) => {
-                toast.error("failed to upload file");
-                throw new Error("failed to upload file ", error);
-              },
-            });
+            const response = await upload(file);
+            const { filename } = await response.json();
+            fileUrls.push(filename);
           }
         }
-
+        await saveProjectRequest({
+          fullName,
+          email,
+          subject,
+          description,
+          fileUrls,
+        });
         await sendContactMeEmailAction(fullName, email, subject, description);
 
         success = true;
@@ -55,7 +53,7 @@ export function useContactMeSubmit(files?: FileList | null) {
       }
     },
 
-    [files, upload],
+    [files, saveProjectRequest, upload],
   );
 
   return { loading, onSubmit };
