@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import Image from "next/image";
-// import img1 from "@/images/productImage.png";
+
 const product = {
   name: "Nike Pegasus 41 shoes",
   category: "Sports",
@@ -10,9 +10,9 @@ const product = {
   rating: 4,
   images: [
     await import("@/images/productImage.png"),
-    await import("@/images/productImage1.png"),
     await import("@/images/productImage2.png"),
     await import("@/images/productImage3.png"),
+    await import("@/images/productImage4.png"),
   ],
   description: [
     "High-quality material",

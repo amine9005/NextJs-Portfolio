@@ -1,5 +1,4 @@
 "use client";
-import BackgroundVideo from "next-video/background-video";
 import { motion } from "motion/react";
 
 const HeroVideoMolecule = () => {
@@ -16,16 +15,17 @@ const HeroVideoMolecule = () => {
         delay: 0.6,
       }}
     >
-      <BackgroundVideo
-        className="rounded-lg bg-transparent w-auto sm:w-140 h-auto"
+      <video
+        className="rounded-lg bg-transparent w-full md:w-160 h-80 p-4"
         preload="true"
+        controls={false}
         muted
         autoPlay={true}
         loop={true}
         src={
           "https://stream.mux.com/Uj3xQat00Dsg8023Y01IKzYBlTnnp567ad5ZLQ2c00hZlOs.m3u8"
         }
-      ></BackgroundVideo>
+      ></video>
     </motion.div>
     // <iframe
     //   className="rounded-lg bg-gray-300 object-cover w-auto sm:w-140 h-100"
