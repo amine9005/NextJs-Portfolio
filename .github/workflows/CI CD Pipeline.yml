@@ -33,11 +33,17 @@ jobs:
       - name: Run Prettier
         run: yarn format:check
 
-      - name: Archive Production Artifact
+      - name: Archive Production Artifact NextJs
         uses: actions/upload-artifact@v5
         with:
           name: build
-          path: dist/
+          path: .next/
+
+      # - name: Archive Production Artifact
+      #   uses: actions/upload-artifact@v5
+      #   with:
+      #     name: build
+      #     path: dist/
 
   # deploy:
   #   name: Deploy To Renderer

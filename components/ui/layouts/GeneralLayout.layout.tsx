@@ -1,4 +1,4 @@
-const FormLayout = ({ children }: { children?: React.ReactNode }) => {
+const GeneralLayout = ({ children }: { children?: React.ReactNode }) => {
   return (
     <div className="flex justify-center items-center min-h-[calc(100dvh-60px)] p-4">
       {children}
@@ -6,4 +6,4 @@ const FormLayout = ({ children }: { children?: React.ReactNode }) => {
   );
 };
 
-export default FormLayout;
+export default GeneralLayout;
