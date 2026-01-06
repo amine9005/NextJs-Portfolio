@@ -57,3 +57,6 @@ y/*
 public/_next-video
 uploads/*
 !uploads/*.json
+
+videos/*
+!videos/*.json
