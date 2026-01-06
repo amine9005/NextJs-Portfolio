@@ -97,19 +97,19 @@ const text = {
 //   color: "#fffe00",
 // };
 
-const button: CSSProperties = {
-  backgroundColor: "#5e6ad2",
-  borderRadius: "5px",
-  color: "#fff",
-  fontSize: "16px",
-  fontWeight: "bold",
-  textDecoration: "none",
-  textAlign: "center" as const,
-  display: "block",
-  width: "100%",
-  padding: "12px",
-  marginTop: "40px",
-};
+// const button: CSSProperties = {
+//   backgroundColor: "#5e6ad2",
+//   borderRadius: "5px",
+//   color: "#fff",
+//   fontSize: "16px",
+//   fontWeight: "bold",
+//   textDecoration: "none",
+//   textAlign: "center" as const,
+//   display: "block",
+//   width: "100%",
+//   padding: "12px",
+//   marginTop: "40px",
+// };
 
 const hr = {
   borderColor: "#e6e6e6",

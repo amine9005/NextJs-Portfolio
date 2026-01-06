@@ -14,14 +14,14 @@ interface Props {
 }
 
 const Hero2Cols = ({
-  cols = 10,
-  left_span = 5,
-  left_justify = "center",
-  left_align = "center",
+  // cols = 10,
+  // left_span = 5,
+  // left_justify = "center",
+  // left_align = "center",
   left_children = "Left col",
-  right_span = 5,
-  right_justify = "center",
-  right_align = "center",
+  // right_span = 5,
+  // right_justify = "center",
+  // right_align = "center",
   right_children = "Right col",
 }: Props) => {
   return (

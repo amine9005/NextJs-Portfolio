@@ -1,10 +1,6 @@
 "use client";
 import BackgroundVideo from "next-video/background-video";
-import awesomeVideo from "@/videos/sparkles-video-720.mp4";
-import Player from "next-video/player";
-import Video from "next-video";
 import { motion } from "motion/react";
-import BackgroundPlayer from "next-video/background-player";
 
 const HeroVideoMolecule = () => {
   return (
@@ -26,7 +22,9 @@ const HeroVideoMolecule = () => {
         muted
         autoPlay={true}
         loop={true}
-        src={awesomeVideo}
+        src={
+          "https://stream.mux.com/Uj3xQat00Dsg8023Y01IKzYBlTnnp567ad5ZLQ2c00hZlOs.m3u8"
+        }
       ></BackgroundVideo>
     </motion.div>
     // <iframe
