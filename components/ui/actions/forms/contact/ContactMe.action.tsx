@@ -14,17 +14,15 @@ const ContactMeAction = () => {
   const card = { title: "Contact Me", description: "" };
   const formName = "contact-me";
   return (
-    <FormLayout>
-      <ContactMeFormCard
-        form={form}
-        card={card}
-        formName={formName}
-        loading={loading}
-        filePath={filePath}
-        setFilePath={setFilePath}
-        handle_submit={handleSubmit(onSubmit)}
-      />
-    </FormLayout>
+    <ContactMeFormCard
+      form={form}
+      card={card}
+      formName={formName}
+      loading={loading}
+      filePath={filePath}
+      setFilePath={setFilePath}
+      handle_submit={handleSubmit(onSubmit)}
+    />
   );
 };
 

@@ -1,20 +1,8 @@
-"use client";
-import { motion } from "motion/react";
+import { BlurFade } from "../../Effects/blur-fade";
 
 const HeroVideoMolecule = () => {
   return (
-    <motion.div
-      initial={{
-        opacity: 0,
-      }}
-      animate={{
-        opacity: 1,
-      }}
-      transition={{
-        duration: 0.3,
-        delay: 0.6,
-      }}
-    >
+    <BlurFade onlyOnce={false} delay={0.6} inView>
       <video
         className="rounded-lg bg-transparent w-full md:w-160 h-80 p-4"
         preload="true"
@@ -26,7 +14,7 @@ const HeroVideoMolecule = () => {
           "https://stream.mux.com/Uj3xQat00Dsg8023Y01IKzYBlTnnp567ad5ZLQ2c00hZlOs.m3u8"
         }
       ></video>
-    </motion.div>
+    </BlurFade>
     // <iframe
     //   className="rounded-lg bg-gray-300 object-cover w-auto sm:w-140 h-100"
     //   width={720}

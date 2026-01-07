@@ -1,5 +1,5 @@
 import ProjectPageAction from "@/components/ui/actions/project/ProjectPage.action";
-import GeneralLayout from "@/components/ui/layouts/GeneralLayout.layout";
+import GeneralLayout from "@/components/ui/layouts/HeroLayout.layout";
 
 const ProjectPage = () => {
   return (

@@ -1,59 +1,41 @@
-"use client";
 import { H2 } from "@/components/ui/atoms/heading/heading2";
 import { P } from "@/components/ui/atoms/text/Text";
-import { motion } from "motion/react";
+import { BlurFade } from "@/components/ui/Effects/blur-fade";
 
 const HeroText = () => {
+  const fullName = "Full Name " + "- ";
+  const FullNameDelay = fullName.split(" ").length * 0.1;
   return (
     <div className="max-w-xl text-center lg:text-start">
       <H2 size={"4xl"}>
-        {"Full Name - ".split(" ").map((word, index) => (
-          <motion.span
-            key={index}
-            initial={{ opacity: 0, filter: "blur(4px)", y: 10 }}
-            animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
-            transition={{
-              duration: 0.3,
-              delay: index * 0.1,
-              ease: "easeInOut",
-            }}
+        {fullName.split(" ").map((word, index) => (
+          <BlurFade
             className="mr-2 inline-block"
+            key={index}
+            inView
+            onlyOnce={false}
+            delay={index * 0.1}
           >
             {word}
-          </motion.span>
+          </BlurFade>
         ))}
 
-        <motion.span
-          initial={{ opacity: 0, filter: "blur(4px)", y: 10 }}
-          animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
-          transition={{
-            duration: 0.1,
-            delay: 0.3,
-            ease: "easeInOut",
-          }}
+        <BlurFade
           className="mr-2 inline-block text-transparent bg-clip-text bg-linear-to-r from-purple-500 to bg-yellow-400"
+          onlyOnce={false}
+          delay={FullNameDelay}
+          inView
         >
           {"3D Developer"}
-        </motion.span>
+        </BlurFade>
       </H2>
-      <motion.div
-        initial={{
-          opacity: 0,
-        }}
-        animate={{
-          opacity: 1,
-        }}
-        transition={{
-          duration: 0.3,
-          delay: 0.5,
-        }}
-      >
+      <BlurFade inView onlyOnce={false} delay={FullNameDelay + 0.2}>
         <P size={"lg"} className="dark mt-10">
           I&apos;m a Blender 3D developer, animator and creator. I specialize in
           creating high-quality 3D models for games,Youtube, movies, and other
           projects.
         </P>
-      </motion.div>
+      </BlurFade>
     </div>
   );
 };
