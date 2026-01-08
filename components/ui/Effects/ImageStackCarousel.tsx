@@ -1,34 +1,33 @@
 "use client";
 import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
-import Image, { StaticImageData } from "next/image";
-import { useEffect, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 
-type Testimonial = {
+type Stack = {
   quote: string;
   name: string;
   designation: string;
-  src: StaticImageData | string;
+  node: ReactNode;
 };
 
 const randomRotateY = () => {
   return Math.floor(Math.random() * 21) - 10;
 };
 export const ImageStackCarousel = ({
-  testimonials,
+  stack,
   autoplay = false,
 }: {
-  testimonials: Testimonial[];
+  stack: Stack[];
   autoplay?: boolean;
 }) => {
   const [active, setActive] = useState(0);
 
   const handleNextCopy = () => {
-    setActive((prev) => (prev + 1) % testimonials.length);
+    setActive((prev) => (prev + 1) % stack.length);
   };
 
   const handlePrev = () => {
-    setActive((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+    setActive((prev) => (prev - 1 + stack.length) % stack.length);
   };
 
   const isActive = (index: number) => {
@@ -37,72 +36,63 @@ export const ImageStackCarousel = ({
 
   useEffect(() => {
     const handleNext = () => {
-      setActive((prev) => (prev + 1) % testimonials.length);
+      setActive((prev) => (prev + 1) % stack.length);
     };
     if (autoplay) {
       const interval = setInterval(handleNext, 5000);
       return () => clearInterval(interval);
     }
-  }, [autoplay, testimonials.length]);
+  }, [autoplay, stack.length]);
 
   return (
-    <div className="mx-auto max-w-sm px-4 py-20 font-sans antialiased md:max-w-4xl md:px-8 lg:px-12">
-      <div className="relative h-120 w-full">
-        <button
-          onClick={handlePrev}
-          className="absolute opacity-70 cursor-pointer z-41 top-1/2 hover:scale-110 transition-transform duration-300 flex size-10 items-center justify-center rounded-full bg-gray-100 dark:bg-neutral-800"
-        >
-          <ArrowLeftIcon className="size-8 text-black transition-transform duration-300  dark:text-neutral-400" />
-        </button>
-        <button
-          onClick={handleNextCopy}
-          className="absolute opacity-70 cursor-pointer justify-self-end z-41 top-1/2 hover:scale-110 transition-transform duration-300 flex size-10 items-center justify-center rounded-full bg-gray-100 dark:bg-neutral-800"
-        >
-          <ArrowRightIcon className="size-8 text-black transition-transform duration-300  dark:text-neutral-400" />
-        </button>
+    <div className=" relative h-120 w-full ">
+      <button
+        onClick={handlePrev}
+        className="absolute opacity-85 cursor-pointer z-41 top-1/2 hover:scale-110 transition-transform duration-300 flex size-10 items-center justify-center rounded-full bg-gray-100 dark:bg-neutral-800"
+      >
+        <ArrowLeftIcon className="size-8 text-black transition-transform duration-300  dark:text-neutral-400" />
+      </button>
+      <button
+        onClick={handleNextCopy}
+        className="absolute opacity-85 cursor-pointer justify-self-end z-41 top-1/2 hover:scale-110 transition-transform duration-300 flex size-10 items-center justify-center rounded-full bg-gray-100 dark:bg-neutral-800"
+      >
+        <ArrowRightIcon className="size-8 text-black transition-transform duration-300  dark:text-neutral-400" />
+      </button>
 
-        <AnimatePresence>
-          {testimonials.map((testimonial, index) => (
-            <motion.div
-              key={index}
-              initial={{
-                opacity: 0,
-                scale: 0.9,
-                z: -100,
-                rotate: randomRotateY(),
-              }}
-              animate={{
-                opacity: isActive(index) ? 1 : 0.7,
-                scale: isActive(index) ? 1 : 0.95,
-                z: isActive(index) ? 0 : -100,
-                rotate: isActive(index) ? 0 : randomRotateY(),
-                zIndex: isActive(index) ? 40 : testimonials.length + 2 - index,
-                y: isActive(index) ? [0, -80, 0] : 0,
-              }}
-              exit={{
-                opacity: 0,
-                scale: 0.9,
-                z: 100,
-                rotate: randomRotateY(),
-              }}
-              transition={{
-                duration: 0.4,
-                ease: "easeInOut",
-              }}
-              className="absolute w-full inset-0 origin-bottom"
-            >
-              <Image
-                src={testimonial.src}
-                alt={testimonial.name}
-                width={1080}
-                height={720}
-                draggable={false}
-                className="h-full w-full rounded-3xl object-cover object-center"
-              />
-            </motion.div>
-          ))}
-        </AnimatePresence>
-      </div>
+      <AnimatePresence>
+        {stack.map((testimonial, index) => (
+          <motion.div
+            key={index}
+            initial={{
+              opacity: 0,
+              scale: 0.9,
+              z: -100,
+              rotate: randomRotateY(),
+            }}
+            animate={{
+              opacity: isActive(index) ? 1 : 0.7,
+              scale: isActive(index) ? 1 : 0.95,
+              z: isActive(index) ? 0 : -100,
+              rotate: isActive(index) ? 0 : randomRotateY(),
+              zIndex: isActive(index) ? 40 : stack.length + 2 - index,
+              y: isActive(index) ? [0, -80, 0] : 0,
+            }}
+            exit={{
+              opacity: 0,
+              scale: 0.9,
+              z: 100,
+              rotate: randomRotateY(),
+            }}
+            transition={{
+              duration: 0.4,
+              ease: "easeInOut",
+            }}
+            className="absolute w-full inset-0 origin-bottom"
+          >
+            {testimonial.node}
+          </motion.div>
+        ))}
+      </AnimatePresence>
     </div>
   );
 };
