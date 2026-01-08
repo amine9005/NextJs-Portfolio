@@ -2,13 +2,31 @@
 import img1 from "@/images/productImage.png";
 import img2 from "@/images/productImage2.png";
 import img3 from "@/images/productImage3.png";
-import img4 from "@/images/productImage4.png";
 import { ImageStackCarousel } from "@/components/ui/Effects/ImageStackCarousel";
 import Image from "next/image";
 import { motion } from "motion/react";
 
 const ProjectPageAction = () => {
   const testimonials = [
+    {
+      quote:
+        "Outstanding support and robust features. It's rare to find a product that delivers on all its promises.",
+      name: "James Kim",
+      designation: "Engineering Lead at DataPro",
+      node: (
+        <video
+          className="rounded-lg bg-transparent h-full w-full"
+          preload="true"
+          controls={true}
+          muted
+          autoPlay={false}
+          loop={false}
+          src={
+            "https://stream.mux.com/Uj3xQat00Dsg8023Y01IKzYBlTnnp567ad5ZLQ2c00hZlOs.m3u8"
+          }
+        ></video>
+      ),
+    },
     {
       quote:
         "The attention to detail and innovative features have completely transformed our workflow. This is exactly what we've been looking for.",
@@ -55,25 +73,6 @@ const ProjectPageAction = () => {
           draggable={false}
           className="h-full w-full rounded-3xl object-cover object-center"
         />
-      ),
-    },
-    {
-      quote:
-        "Outstanding support and robust features. It's rare to find a product that delivers on all its promises.",
-      name: "James Kim",
-      designation: "Engineering Lead at DataPro",
-      node: (
-        <video
-          className="rounded-lg bg-transparent h-full w-full"
-          preload="true"
-          controls={true}
-          muted
-          autoPlay={false}
-          loop={false}
-          src={
-            "https://stream.mux.com/Uj3xQat00Dsg8023Y01IKzYBlTnnp567ad5ZLQ2c00hZlOs.m3u8"
-          }
-        ></video>
       ),
     },
   ];
