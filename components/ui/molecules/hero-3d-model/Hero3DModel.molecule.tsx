@@ -2,6 +2,7 @@
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Stage, useGLTF } from "@react-three/drei";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function Model(props: any) {
   const { scene } = useGLTF("/computer-optimized-transformed.glb");
   return <primitive object={scene} {...props} />;
