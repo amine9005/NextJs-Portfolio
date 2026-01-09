@@ -1,7 +1,7 @@
 "use client";
-import img1 from "@/images/productImage.png";
-import img2 from "@/images/productImage2.png";
-import img3 from "@/images/productImage3.png";
+import img1 from "/images/productImage.png";
+import img2 from "/images/productImage2.png";
+import img3 from "/images/productImage3.png";
 import { ImageStackCarousel } from "@/components/ui/Effects/ImageStackCarousel";
 import Image from "next/image";
 import { motion } from "motion/react";

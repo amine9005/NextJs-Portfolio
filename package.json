@@ -42,7 +42,6 @@
     "better-call": "^1.1.7",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "file-loader": "^6.2.0",
     "lucide-react": "^0.561.0",
     "mongoose": "^9.0.2",
     "motion": "^12.24.10",

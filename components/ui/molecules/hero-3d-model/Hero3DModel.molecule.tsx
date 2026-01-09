@@ -2,21 +2,18 @@
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Stage, useGLTF } from "@react-three/drei";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function Model(props: any) {
-  const { scene } = useGLTF("/computer-optimized-transformed.glb");
-  return <primitive object={scene} {...props} />;
+function Model({ scale }: { scale: number }) {
+  const { scene } = useGLTF("/models/computer-optimized-transformed.glb");
+  return <primitive object={scene} scale={scale} />;
 }
 const Hero3DModelMolecule = () => {
   return (
-    <Canvas dpr={[1, 2]} camera={{ fov: 45 }}>
-      <ambientLight intensity={0.2} color="#1a1a40" />
-      <directionalLight position={[5, 5, 5]} intensity={5} />
-
+    <Canvas camera={{ fov: 45 }} className="cursor-pointer">
+      {" "}
+      {/* Fallback component */}
       <OrbitControls></OrbitControls>
-
       <Stage environment={"sunset"}>
-        <Model scale={0.01} />
+        <Model scale={0.1} />
       </Stage>
     </Canvas>
   );
