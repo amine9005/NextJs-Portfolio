@@ -4,6 +4,7 @@ import ProjectsAction from "@/components/ui/actions/project/ProjectsSection.acti
 import { H2 } from "@/components/ui/atoms/heading/heading2";
 import { BlurFade } from "@/components/ui/Effects/blur-fade";
 import GeneralLayout from "@/components/ui/layouts/GeneralLayout.layout";
+import Footer1Organism from "@/components/ui/organisms/footers/Footer1.organism";
 
 export default function Home() {
   return (
@@ -33,6 +34,8 @@ export default function Home() {
           <ContactMeAction />
         </BlurFade>
       </GeneralLayout>
+
+      <Footer1Organism />
     </main>
   );
 }
