@@ -1,7 +1,4 @@
 "use client";
-import img1 from "/images/productImage.png";
-import img2 from "/images/productImage2.png";
-import img3 from "/images/productImage3.png";
 import { ImageStackCarousel } from "@/components/ui/Effects/ImageStackCarousel";
 import Image from "next/image";
 import { motion } from "motion/react";
@@ -34,7 +31,7 @@ const ProjectPageAction = () => {
       designation: "Product Manager at TechFlow",
       node: (
         <Image
-          src={img1}
+          src={"/images/productImage.png"}
           alt={"Sarah Chen"}
           width={1080}
           height={720}
@@ -50,7 +47,7 @@ const ProjectPageAction = () => {
       designation: "CTO at InnovateSphere",
       node: (
         <Image
-          src={img2}
+          src={"/images/productImage2.png"}
           alt={"Michael Rodriguez"}
           width={1080}
           height={720}
@@ -66,7 +63,7 @@ const ProjectPageAction = () => {
       designation: "Operations Director at CloudScale",
       node: (
         <Image
-          src={img3}
+          src={"/images/productImage3.png"}
           alt={"Emily Watson"}
           width={1080}
           height={720}

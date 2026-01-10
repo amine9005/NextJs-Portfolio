@@ -9,7 +9,6 @@ import {
   Text,
   Hr,
 } from "@react-email/components";
-import { CSSProperties } from "react";
 
 interface props {
   fullName: string;

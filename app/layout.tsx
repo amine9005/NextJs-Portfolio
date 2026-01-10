@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
 import TanStackProvider from "@/providers/TanStackProvider";
+import Navbar1Organism from "@/components/ui/organisms/navbars/Navbar1.organism";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,11 +18,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${inter.className} dark`}>
-        <Toaster />
-        <TanStackProvider>{children}</TanStackProvider>
-      </body>
-    </html>
+    <>
+      <Navbar1Organism />
+      <html lang="en">
+        <body className={`${inter.className} dark`}>
+          <Toaster />
+          <TanStackProvider>{children}</TanStackProvider>
+        </body>
+      </html>
+    </>
   );
 }
