@@ -8,7 +8,8 @@ import {
 
 import { buttonVariants } from "@/components/ui/atoms/button/button";
 import Link from "next/link";
-import MenuButtonMolecule from "../../molecules/menu-button/MenuButton.molecule";
+import MenuButtonMolecule from "@/components/ui/molecules/menu-button/MenuButton.molecule";
+import { motion } from "motion/react";
 import { useState } from "react";
 interface RouteProps {
   href: string;
@@ -37,7 +38,7 @@ const Navbar1Organism = () => {
       className={`sticky border-b top-0 z-50 w-full dark:border-b-slate-700 overflow-x-hidden
       bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60 min-h-15`}
     >
-      <NavigationMenu className="flex transition-transform duration-300 flex-col items-center justify-center">
+      <NavigationMenu className="flex overflow-hidden flex-col items-center justify-center">
         <NavigationMenuList className="container w-screen px-8 min-h-14 flex justify-between ">
           <NavigationMenuItem className="font-bold ">
             <Link
@@ -72,7 +73,11 @@ const Navbar1Organism = () => {
           <MenuButtonMolecule isOpen={isOpen} setIsOpen={setIsOpen} />
         </NavigationMenuList>
 
-        {isOpen && (
+        <motion.div
+          initial={{ height: 0 }}
+          animate={{ height: isOpen ? "auto" : "0px" }}
+          transition={{ duration: 0.3 }}
+        >
           <NavigationMenuList className="md:hidden flex flex-col justify-center items-center">
             {routeList.map((route: RouteProps, i) => (
               <NavigationMenuItem key={i}>
@@ -91,7 +96,7 @@ const Navbar1Organism = () => {
               </NavigationMenuItem>
             ))}
           </NavigationMenuList>
-        )}
+        </motion.div>
       </NavigationMenu>
     </header>
   );

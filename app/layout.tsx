@@ -4,6 +4,7 @@ import "./globals.css";
 import { Toaster } from "react-hot-toast";
 import TanStackProvider from "@/providers/TanStackProvider";
 import Navbar1Organism from "@/components/ui/organisms/navbars/Navbar1.organism";
+import Footer1Organism from "@/components/ui/organisms/footers/Footer1.organism";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,6 +27,7 @@ export default function RootLayout({
           <TanStackProvider>{children}</TanStackProvider>
         </body>
       </html>
+      <Footer1Organism />
     </>
   );
 }

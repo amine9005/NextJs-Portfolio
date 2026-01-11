@@ -5,6 +5,9 @@ import { BlurFade } from "@/components/ui/Effects/blur-fade";
 const HeroText = () => {
   const fullName = "Full Name " + "- ";
   const FullNameDelay = fullName.split(" ").length * 0.1;
+  const titleLeftColor = "from-purple-500";
+  const titleRightColor = "to-yellow-400";
+
   return (
     <div className="max-w-xl text-center lg:text-start">
       <H2 size={"4xl"}>
@@ -21,7 +24,12 @@ const HeroText = () => {
         ))}
 
         <BlurFade
-          className="mr-2 inline-block text-transparent bg-clip-text bg-linear-to-r from-purple-500 to bg-yellow-400"
+          className={
+            `mr-2 inline-block text-transparent bg-clip-text bg-linear-to-r ` +
+            titleLeftColor +
+            " " +
+            titleRightColor
+          }
           onlyOnce={false}
           delay={FullNameDelay}
           inView
