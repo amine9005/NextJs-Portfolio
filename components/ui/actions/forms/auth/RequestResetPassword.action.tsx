@@ -1,6 +1,6 @@
 "use client";
 import { FieldGroup } from "@/components/ui/atoms/field/field";
-import { useRequestResetPasswordForm } from "@/hooks/useAuthForms.hook";
+import { useRequestResetPasswordForm } from "@/hooks/forms/useAuthForms.hook";
 import { Controller } from "react-hook-form";
 import InputField from "@/components/ui/molecules/input-field/InputField.molecule";
 import {
@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/atoms/card/card";
 import { H2 } from "@/components/ui/atoms/heading/heading2";
 import LoadingSubmitButton from "@/components/ui/molecules/loading-submit-button/loadingSubmitButton.molecule";
-import { useRequestResetPasswordSubmit } from "@/hooks/useAuthSubmit.hook";
+import { useRequestResetPasswordSubmit } from "@/hooks/submit/useAuthSubmit.hook";
 
 import EmailSent from "@/components/ui/organisms/email-sent/EmailSent";
 import { memo } from "react";

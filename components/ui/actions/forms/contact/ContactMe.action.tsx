@@ -1,7 +1,7 @@
 "use client";
 import ContactMeFormCard from "@/components/ui/organisms/contact-me/ContactMeCard.organism";
-import { useContactMe } from "@/hooks/useContactMeForm.hook";
-import { useContactMeSubmit } from "@/hooks/useContactMeSubmit.hook";
+import { useContactMe } from "@/hooks/forms/useContactMeForm.hook";
+import { useContactMeSubmit } from "@/hooks/submit/useContactMeSubmit.hook";
 import { useState } from "react";
 
 const ContactMeAction = () => {

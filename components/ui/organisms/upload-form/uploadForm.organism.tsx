@@ -1,6 +1,6 @@
 "use client";
 import { useForm } from "react-hook-form";
-import { useUpload } from "@/hooks/useUpload.hook";
+import { useUpload } from "@/hooks/mutations/useUpload.hook";
 type UploadData = {
   file: FileList;
 };

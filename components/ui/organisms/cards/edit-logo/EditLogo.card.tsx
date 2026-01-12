@@ -7,32 +7,44 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/atoms/card/card";
-import LoginFormContent from "./SignInContent.organism";
-import { SignInFormType } from "@/validations/user.zod";
 import { FormEvent } from "react";
 import { H2 } from "@/components/ui/atoms/heading/heading2";
 import LoadingSubmitButton from "@/components/ui/molecules/loading-submit-button/loadingSubmitButton.molecule";
-import ButtonLink from "@/components/ui/molecules/Button-Link/Button-Link.molecule";
-// import SocialLoginsOrganism from "@/components/ui/organisms/social-logins/SocialLogins.organism";
+import EditLogoFormContent from "@/components/ui/organisms/contents/edit-logo/EditLogo.content";
+import { LogoFormType } from "@/validations/logo.zod";
+
 interface Card {
   title?: React.ReactNode;
   description?: React.ReactNode;
 }
 
 interface Props {
-  form: SignInFormType;
+  form: LogoFormType;
   card: Card;
   formName: string;
   loading: boolean;
   handle_submit: (formEvent: FormEvent) => void;
+  filePath: FileList | null;
+  setFilePath: (files: FileList | null) => void;
+  leftColorPicker: colorPicker;
+  rightColorPicker: colorPicker;
 }
 
-const SignInFormCard = ({
+interface colorPicker {
+  color: string;
+  setColor: (color: string) => void;
+}
+
+const EditLogoCard = ({
   form,
   card,
   formName,
   handle_submit,
   loading,
+  filePath,
+  setFilePath,
+  leftColorPicker,
+  rightColorPicker,
 }: Props) => {
   return (
     <Card className="w-full sm:max-w-md">
@@ -43,10 +55,14 @@ const SignInFormCard = ({
         <CardDescription>{card.description}</CardDescription>
       </CardHeader>
       <CardContent>
-        <LoginFormContent
+        <EditLogoFormContent
           form={form}
           formName={formName}
           handle_submit={handle_submit}
+          filePath={filePath}
+          setFilePath={setFilePath}
+          rightColorPicker={rightColorPicker}
+          leftColorPicker={leftColorPicker}
         />
       </CardContent>
       <CardFooter className="flex flex-col space-y-2">
@@ -56,18 +72,12 @@ const SignInFormCard = ({
             loading={loading}
             formName={formName}
           >
-            Sign In
+            Update Logo And Title
           </LoadingSubmitButton>
-        </div>
-        {/* <SocialLoginsOrganism /> */}
-
-        <div>
-          Don&apos;t have an account?
-          <ButtonLink href="/sign-up">Sign Up</ButtonLink>
         </div>
       </CardFooter>
     </Card>
   );
 };
 
-export default SignInFormCard;
+export default EditLogoCard;

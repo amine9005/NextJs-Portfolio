@@ -1,9 +1,9 @@
 "use client";
 import { memo } from "react";
-import { useSignUp } from "@/hooks/useAuthForms.hook";
+import { useSignUp } from "@/hooks/forms/useAuthForms.hook";
 import FormLayout from "@/components/ui/layouts/Form.layout";
 import SignUpFormCard from "@/components/ui/organisms/signup/SignUpCard.organism";
-import { useSignUpSubmit } from "@/hooks/useAuthSubmit.hook";
+import { useSignUpSubmit } from "@/hooks/submit/useAuthSubmit.hook";
 
 const SignInCardAction = () => {
   const form = useSignUp();

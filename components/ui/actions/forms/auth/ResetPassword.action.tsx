@@ -11,8 +11,8 @@ import {
 } from "@/components/ui/atoms/card/card";
 import { H2 } from "@/components/ui/atoms/heading/heading2";
 import LoadingSubmitButton from "@/components/ui/molecules/loading-submit-button/loadingSubmitButton.molecule";
-import { useResetPasswordSubmit } from "@/hooks/useAuthSubmit.hook";
-import { useResetPasswordForm } from "@/hooks/useAuthForms.hook";
+import { useResetPasswordSubmit } from "@/hooks/submit/useAuthSubmit.hook";
+import { useResetPasswordForm } from "@/hooks/forms/useAuthForms.hook";
 import { memo } from "react";
 import { redirect, useSearchParams } from "next/navigation";
 

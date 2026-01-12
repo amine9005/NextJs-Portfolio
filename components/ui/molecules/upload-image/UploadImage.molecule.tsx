@@ -6,9 +6,17 @@ interface Props {
   index: number;
   filePath: FileList | null;
   setFilePath: (files: FileList | null) => void;
+  text?: string;
+  limit?: number;
 }
 
-const UploadImageMolecule = ({ index, filePath, setFilePath }: Props) => {
+const UploadImageMolecule = ({
+  index,
+  filePath,
+  setFilePath,
+  text = "Multiple File Upload",
+  limit,
+}: Props) => {
   return (
     <label
       key={index}
@@ -18,17 +26,17 @@ const UploadImageMolecule = ({ index, filePath, setFilePath }: Props) => {
       <input
         type="file"
         multiple
-        onChange={(e) => setFilePath(validateFiles(e.target.files))}
+        onChange={(e) => setFilePath(validateFiles(e.target.files, limit))}
         id={`image${index}`}
         hidden
       />
-      <UploadIcon className="h-12 w-20 p-2 hover:cursor-pointer border border-white rounded-lg" />
+      <UploadIcon className="h-10 w-16 p-2 hover:cursor-pointer border border-white rounded-lg" />
       <span className="max-w-full">
         {filePath && filePath.length !== 0
           ? filePath.length > 1
             ? `${filePath.length} Files Selected`
             : filePath.item(0)?.name
-          : "Multiple File Upload"}
+          : text}
       </span>
     </label>
   );

@@ -1,6 +1,9 @@
 import toast from "react-hot-toast";
 
-export function validateFiles(files: FileList | null) {
+export function validateFiles(files: FileList | null, limit?: number) {
+  if (limit && files && files?.length > limit) {
+    return null;
+  }
   if (files && files.length > 0) {
     let totalSize = 0;
     for (let i = 0; i < files.length; i++) {
@@ -24,6 +27,7 @@ export function validateFile(file: File | null) {
   const fileTypes = [
     "image/png",
     "image/jpg",
+    "image/svg",
     "image/jpeg",
     "video/mp4",
     "video/vlc",

@@ -32,7 +32,6 @@ export async function authIsRequired() {
 
 export async function authNotRequired() {
   const session = await getSession();
-  console.log("auth not required ", session);
 
   if (session) {
     redirect("/");

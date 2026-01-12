@@ -1,45 +1,37 @@
 "use client";
-import { sendContactMeEmailAction } from "@/app/api/actions/emails/emails.controller";
-import { ContactMeSchemaType } from "@/validations/ContactMe.zod";
 import { redirect } from "next/navigation";
 import { useCallback, useState } from "react";
 import { SubmitHandler } from "react-hook-form";
 import toast from "react-hot-toast";
-import { useUpload } from "@/hooks/useUpload.hook";
-import { useSaveProjectRequest } from "@/hooks/useRequestProject.hook";
+import { useUpload } from "@/hooks/mutations/useUpload.hook";
+import { LogoSchemaType } from "@/validations/logo.zod";
+import { useLogoMutation } from "@/hooks/mutations/useLogoMutation.hook";
 
-export function useContactMeSubmit(files?: FileList | null) {
+export function useLogoSubmit(files?: FileList | null) {
   const [loading, setLoading] = useState(false);
   const { mutateAsync: upload } = useUpload();
-  const { mutateAsync: saveProjectRequest } = useSaveProjectRequest();
+  const { mutateAsync: updateLogo } = useLogoMutation();
 
-  const onSubmit: SubmitHandler<ContactMeSchemaType> = useCallback(
+  const onSubmit: SubmitHandler<LogoSchemaType> = useCallback(
     async (data) => {
       let success = false;
       const fileUrls: string[] = [];
       setLoading(true);
       try {
-        const fullName = data.firstName + data.lastName;
-        const email = data.email;
-        const subject = data.subject;
-        const description = data.description;
+        const fullName = data.fullName;
+        const useImage = data.useImage;
 
         if (files) {
           for (const file of files) {
-            console.log("uploading file");
             const response = await upload(file);
             const { filename } = await response.json();
             fileUrls.push(filename);
           }
         }
-        await saveProjectRequest({
-          fullName,
-          email,
-          subject,
-          description,
-          fileUrls,
-        });
-        await sendContactMeEmailAction(fullName, email, subject, description);
+
+        const imagePath = fileUrls.length > 0 ? fileUrls[0] : null;
+
+        await updateLogo({ fullName, imagePath, useImage });
 
         success = true;
         toast.success("Email was sent successfully");
@@ -53,7 +45,7 @@ export function useContactMeSubmit(files?: FileList | null) {
       }
     },
 
-    [files, saveProjectRequest, upload],
+    [files, upload, updateLogo],
   );
 
   return { loading, onSubmit };

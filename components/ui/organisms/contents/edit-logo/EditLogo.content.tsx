@@ -1,0 +1,90 @@
+"use client";
+import { FieldGroup } from "@/components/ui/atoms/field/field";
+import InputField from "@/components/ui/molecules/input-field/InputField.molecule";
+import { Controller } from "react-hook-form";
+import { FormEvent } from "react";
+import FormsCheckBoxMolecule from "@/components/ui/molecules/forms-checkbox/FormsCheckBox.molecule";
+import { LogoFormType } from "@/validations/logo.zod";
+import UploadImageMolecule from "@/components/ui/molecules/upload-image/UploadImage.molecule";
+import ColorPickerMolecule from "@/components/ui/molecules/color-picker/ColorPicker.molecule";
+
+interface Props {
+  form: LogoFormType;
+  handle_submit: (formEvent: FormEvent) => void;
+  formName: string;
+  filePath: FileList | null;
+  setFilePath: (files: FileList | null) => void;
+  leftColorPicker: colorPicker;
+  rightColorPicker: colorPicker;
+}
+
+interface colorPicker {
+  color: string;
+  setColor: (color: string) => void;
+}
+
+const fullNameInputValues = {
+  name: "Site Title",
+  labelTitle: "Site Title",
+  type: "text",
+  placeholder: "Site Title",
+  autoComplete: "off",
+};
+
+const EditLogoFormContent = ({
+  form,
+  formName,
+  handle_submit,
+  filePath,
+  setFilePath,
+  rightColorPicker,
+  leftColorPicker,
+}: Props) => {
+  const checkboxValues = { labelTitle: "Use an Image", form };
+
+  return (
+    <form id={formName} onSubmit={handle_submit}>
+      <FieldGroup>
+        <Controller
+          name="fullName"
+          control={form?.control}
+          render={({ field, fieldState }) => (
+            <InputField
+              field={field}
+              fieldState={fieldState}
+              item={fullNameInputValues}
+            />
+          )}
+        />{" "}
+        <div className="grid grid-cols-1 md:grid-cols-2 mt-2 gap-4">
+          <ColorPickerMolecule
+            color={leftColorPicker.color}
+            name={"Left"}
+            setColorFn={leftColorPicker.setColor}
+          />
+          <ColorPickerMolecule
+            color={rightColorPicker.color}
+            name={"Right"}
+            setColorFn={rightColorPicker.setColor}
+          />
+        </div>
+        <FormsCheckBoxMolecule
+          checkFor="useImage"
+          values={checkboxValues}
+          className="mt-4"
+        />
+        <div className="flex flex-wrap justify-between items-center gap-3 mt-2">
+          <UploadImageMolecule
+            filePath={filePath}
+            setFilePath={setFilePath}
+            index={1}
+            text="Change Logo"
+            limit={1}
+          />
+        </div>
+      </FieldGroup>
+    </form>
+  );
+};
+
+export default EditLogoFormContent;

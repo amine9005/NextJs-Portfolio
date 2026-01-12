@@ -1,11 +1,11 @@
 "use client";
 import { FieldGroup } from "@/components/ui/atoms/field/field";
-import InputField from "../../molecules/input-field/InputField.molecule";
+import InputField from "@/components/ui/molecules/input-field/InputField.molecule";
 import { Controller } from "react-hook-form";
 import { SignInFormType } from "@/validations/user.zod";
 import { FormEvent } from "react";
-import LabelWithSideLink from "../../molecules/label-with-side-link/LabelWithSideLink.molecule";
-import FormsCheckBoxMolecule from "../../molecules/forms-checkbox/FormsCheckBox.molecule";
+import LabelWithSideLink from "@/components/ui/molecules/label-with-side-link/LabelWithSideLink.molecule";
+import FormsCheckBoxMolecule from "@/components/ui/molecules/forms-checkbox/FormsCheckBox.molecule";
 
 interface Props {
   form: SignInFormType;
@@ -63,7 +63,11 @@ const LoginFormContent = ({ form, formName, handle_submit }: Props) => {
             />
           )}
         />
-        <FormsCheckBoxMolecule values={checkboxValues} className="mt-4" />
+        <FormsCheckBoxMolecule
+          checkFor="remember"
+          values={checkboxValues}
+          className="mt-4"
+        />
       </FieldGroup>
     </form>
   );
