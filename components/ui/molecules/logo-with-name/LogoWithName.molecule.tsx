@@ -1,5 +1,5 @@
-import Image from "next/image";
 import { CSSProperties } from "react";
+import DynamicImage from "@/components/ui/molecules/Dynamic-image/DynamicImage.molecule";
 
 interface Props {
   imageUrl: string;
@@ -26,12 +26,13 @@ const LogoWithNameMolecule = ({
     <div className="flex justify-start items-center bg-linear-to">
       {" "}
       {useImage && (
-        <Image
-          src={imageUrl}
+        <DynamicImage
+          className="mr-3 rounded-full"
           alt="logo"
+          folder="logos"
+          imageName={imageUrl}
           width={24}
           height={24}
-          className="mr-3"
         />
       )}
       <span style={spanStyle}>{name}</span>
