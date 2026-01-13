@@ -1,7 +1,6 @@
-"use client";
+"use server";
 import Image from "next/image";
-import { ImageImporter } from "@/helpers/ImageImporter.molecule";
-import { useEffect, useState } from "react";
+import { ImageImporter } from "@/helpers/ImageImporter";
 
 interface asyncImageProps {
   folder: string; // Folder where the image is located
@@ -12,7 +11,7 @@ interface asyncImageProps {
   className?: string; // Additional CSS class for styling the image
 }
 
-const AsyncImage = ({
+const AsyncImage = async ({
   folder,
   imageName,
   alt,
@@ -20,25 +19,17 @@ const AsyncImage = ({
   height,
   className,
 }: asyncImageProps) => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const [imageUrl, setImageUrl] = useState<any>(null);
-
-  useEffect(() => {
-    async function getImage(folder: string, imageName: string) {
-      const url = await ImageImporter(folder, imageName);
-      setImageUrl(url);
-    }
-
-    getImage(folder, imageName);
-  });
+  const imageUrl = await ImageImporter(folder, imageName);
   return (
-    <Image
-      src={imageUrl}
-      alt={alt}
-      width={width}
-      height={height}
-      className={className}
-    />
+    imageUrl && (
+      <Image
+        src={imageUrl}
+        alt={alt}
+        width={width}
+        height={height}
+        className={className}
+      />
+    )
   );
 };
 

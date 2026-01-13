@@ -9,20 +9,11 @@ const EditLogoAction = () => {
   const form = useLogoForm();
   useLogoFormData(form);
 
-  const [filePath, setFilePath] = useState<FileList | null>(null);
-
   const { handleSubmit } = form;
-  const { onSubmit, loading } = useLogoSubmit(filePath);
+  const { onSubmit, loading } = useLogoSubmit();
 
   const card = { title: "Update Your Logo", description: "" };
   const formName = "TitleAndLogo-Form";
-
-  const updateFilePath = (files: FileList | null) => {
-    if (files) {
-      setFilePath(files);
-      form.setValue("imagePath", files[0].name); // Set the value of imagePath to the name of the first selected file
-    }
-  };
 
   return (
     <FormLayout>
@@ -32,8 +23,6 @@ const EditLogoAction = () => {
         form={form}
         card={card}
         formName={formName}
-        filePath={filePath}
-        setFilePath={updateFilePath}
         handle_submit={handleSubmit(onSubmit)}
       />
     </FormLayout>

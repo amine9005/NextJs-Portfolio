@@ -3,13 +3,16 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { logoSchema, LogoSchemaType } from "@/validations/logo.zod";
 import { useLogoQuery } from "@/hooks/queries/useLogoQuery.hook";
 import { useEffect } from "react";
+import { useTmpLogoStore } from "@/store/admin/logo.store";
 
 export const useLogoForm = () => {
+  const tmpImagePath = useTmpLogoStore((state) => state.imagePath);
+
   const form = useForm<LogoSchemaType>({
     resolver: zodResolver(logoSchema),
     defaultValues: {
       fullName: "",
-      imagePath: "",
+      imagePath: tmpImagePath ? tmpImagePath : "",
       leftColor: "#fff",
       rightColor: "#fff",
       useImage: false,

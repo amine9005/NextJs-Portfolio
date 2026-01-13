@@ -1,21 +1,18 @@
-// src/components/DynamicImage.js
 "use client"; // Mark as client component (required for Suspense/state)
-
-import { Suspense } from "react";
-import AsyncImage from "@/components/ui/molecules/async-image/AsyncImage.molecule";
+import { ImageImporter } from "@/helpers/ImageImporter";
+import { StaticImport } from "next/dist/shared/lib/get-img-props";
+import Image from "next/image";
+import { useEffect, useState } from "react";
 
 interface asyncImageProps {
   folder: string; // Folder where the image is located
-  imageName: string; // Name of the image file
+  imageName: string | undefined; // Name of the image file
   alt: string; // Alternative text for the image
   width: number; // Width of the image
   height: number; // Height of the image
   className?: string; // Additional CSS class for styling the image
 }
 
-// Component to load the image asynchronously
-
-// Wrapper with Suspense for loading state
 export default function DynamicImage({
   folder,
   imageName,
@@ -24,23 +21,22 @@ export default function DynamicImage({
   height,
   className,
 }: asyncImageProps) {
-  return (
-    <Suspense
-      fallback={
-        <div
-          className="bg-gray-600 animate-pulse rounded-lg mr-3"
-          style={{ width, height }}
-        />
-      }
-    >
-      <AsyncImage
-        className={className}
-        folder={folder}
-        imageName={imageName}
-        alt={alt}
-        width={width}
-        height={height}
+  if (!imageName) {
+    return (
+      <div
+        className="bg-gray-600 animate-pulse rounded-lg mr-3"
+        style={{ width, height }}
       />
-    </Suspense>
+    );
+  }
+
+  return (
+    <Image
+      className={className}
+      src={"/" + folder + "/" + imageName}
+      alt={alt}
+      width={width}
+      height={height}
+    />
   );
 }

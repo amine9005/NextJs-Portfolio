@@ -5,15 +5,13 @@ import { Controller } from "react-hook-form";
 import { FormEvent } from "react";
 import FormsCheckBoxMolecule from "@/components/ui/molecules/forms-checkbox/FormsCheckBox.molecule";
 import { LogoFormType } from "@/validations/logo.zod";
-import UploadImageMolecule from "@/components/ui/molecules/upload-image/UploadImage.molecule";
 import ColorPickerMolecule from "@/components/ui/molecules/color-picker/ColorPicker.molecule";
+import UploadImageInstantMolecule from "@/components/ui/molecules/upload-image-instant/UploadImageInstant.molecule";
 
 interface Props {
   form: LogoFormType;
   handle_submit: (formEvent: FormEvent) => void;
   formName: string;
-  filePath: FileList | null;
-  setFilePath: (files: FileList | null) => void;
 }
 
 const fullNameInputValues = {
@@ -24,13 +22,7 @@ const fullNameInputValues = {
   autoComplete: "off",
 };
 
-const EditLogoFormContent = ({
-  form,
-  formName,
-  handle_submit,
-  filePath,
-  setFilePath,
-}: Props) => {
+const EditLogoFormContent = ({ form, formName, handle_submit }: Props) => {
   const checkboxValues = { labelTitle: "Use an Image", form };
 
   return (
@@ -57,9 +49,9 @@ const EditLogoFormContent = ({
           className="mt-4"
         />
         <div className="flex flex-wrap justify-between items-center gap-3 mt-2">
-          <UploadImageMolecule
-            filePath={filePath}
-            setFilePath={setFilePath}
+          <UploadImageInstantMolecule
+            name={"imagePath"}
+            form={form}
             index={1}
             text="Change Logo"
             limit={1}

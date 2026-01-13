@@ -3,7 +3,7 @@ import fs from "fs";
 import { NextRequest, NextResponse } from "next/server";
 import { v4 as uuidv4 } from "uuid";
 import path from "path";
-const DIR_PATH = path.resolve(`./uploads`);
+const DIR_PATH = path.resolve(`./public`);
 if (!fs.existsSync(DIR_PATH)) {
   fs.mkdirSync(DIR_PATH, { recursive: true });
 }
@@ -14,12 +14,12 @@ export async function POST(req: NextRequest) {
     const logo = formData.get("logo");
 
     if (logo === "YES") {
-      const DIR_PATH = path.resolve(`./uploads/logos`);
+      const DIR_PATH = path.resolve(`./public/logos`);
       if (!fs.existsSync(DIR_PATH)) {
         fs.mkdirSync(DIR_PATH, { recursive: true });
       }
     } else {
-      const DIR_PATH = path.resolve(`./uploads/images`);
+      const DIR_PATH = path.resolve(`./public/images`);
       if (!fs.existsSync(DIR_PATH)) {
         fs.mkdirSync(DIR_PATH, { recursive: true });
       }
@@ -55,6 +55,7 @@ export async function POST(req: NextRequest) {
       logo === "YES" ? DIR_PATH + "/logos" : DIR_PATH + "/images",
       filename,
     );
+
     await fs.writeFileSync(filePath, buffer);
     return NextResponse.json(
       {

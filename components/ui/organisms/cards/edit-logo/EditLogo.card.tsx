@@ -25,8 +25,6 @@ interface Props {
   formName: string;
   loading: boolean;
   handle_submit: (formEvent: FormEvent) => void;
-  filePath: FileList | null;
-  setFilePath: (files: FileList | null) => void;
 }
 
 const EditLogoCard = ({
@@ -35,8 +33,6 @@ const EditLogoCard = ({
   formName,
   handle_submit,
   loading,
-  filePath,
-  setFilePath,
 }: Props) => {
   return (
     <Card className="w-full sm:max-w-md">
@@ -45,7 +41,7 @@ const EditLogoCard = ({
           <H2 size={"xl"}>
             <LogoWithNameMolecule
               useImage={form.watch("useImage")}
-              imageUrl="/vercel.svg"
+              imageUrl={form.watch("imagePath")}
               leftColor={form.watch("leftColor")}
               rightColor={form.watch("rightColor")}
               name={form.watch("fullName")}
@@ -59,8 +55,6 @@ const EditLogoCard = ({
           form={form}
           formName={formName}
           handle_submit={handle_submit}
-          filePath={filePath}
-          setFilePath={setFilePath}
         />
       </CardContent>
       <CardFooter className="flex flex-col space-y-2">

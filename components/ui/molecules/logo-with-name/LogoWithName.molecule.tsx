@@ -2,7 +2,7 @@ import { CSSProperties } from "react";
 import DynamicImage from "@/components/ui/molecules/Dynamic-image/DynamicImage.molecule";
 
 interface Props {
-  imageUrl: string;
+  imageUrl: string | undefined;
   leftColor: string;
   rightColor: string;
   name: string;
