@@ -14,13 +14,6 @@ interface Props {
   formName: string;
   filePath: FileList | null;
   setFilePath: (files: FileList | null) => void;
-  leftColorPicker: colorPicker;
-  rightColorPicker: colorPicker;
-}
-
-interface colorPicker {
-  color: string;
-  setColor: (color: string) => void;
 }
 
 const fullNameInputValues = {
@@ -37,8 +30,6 @@ const EditLogoFormContent = ({
   handle_submit,
   filePath,
   setFilePath,
-  rightColorPicker,
-  leftColorPicker,
 }: Props) => {
   const checkboxValues = { labelTitle: "Use an Image", form };
 
@@ -57,16 +48,8 @@ const EditLogoFormContent = ({
           )}
         />{" "}
         <div className="grid grid-cols-1 md:grid-cols-2 mt-2 gap-4">
-          <ColorPickerMolecule
-            color={leftColorPicker.color}
-            name={"Left"}
-            setColorFn={leftColorPicker.setColor}
-          />
-          <ColorPickerMolecule
-            color={rightColorPicker.color}
-            name={"Right"}
-            setColorFn={rightColorPicker.setColor}
-          />
+          <ColorPickerMolecule name={"leftColor"} title="Left" form={form} />
+          <ColorPickerMolecule name={"rightColor"} title="Right" form={form} />
         </div>
         <FormsCheckBoxMolecule
           checkFor="useImage"

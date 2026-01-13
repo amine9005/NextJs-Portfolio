@@ -6,7 +6,7 @@ await getClient();
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { fullName, imagePath, useImage } = body;
+    const { fullName, imagePath, useImage, leftColor, rightColor } = body;
     const doc = (await LogoModel.find())[0];
     // console.log("doc ", doc);
 
@@ -15,11 +15,15 @@ export async function POST(req: NextRequest) {
         fullName,
         imagePath,
         useImage,
+        leftColor,
+        rightColor,
       });
     } else {
       doc.fullName = fullName;
       doc.imagePath = imagePath;
       doc.useImage = useImage;
+      doc.leftColor = leftColor;
+      doc.rightColor = rightColor;
       await doc.save();
     }
 
@@ -29,6 +33,22 @@ export async function POST(req: NextRequest) {
         status: 200,
       },
     );
+  } catch (error) {
+    console.error(error);
+    return NextResponse.json(
+      { message: "Internal Server Error", error },
+      { status: 500 },
+    );
+  }
+}
+
+export async function GET() {
+  try {
+    const logo = await LogoModel.find().limit(1);
+    if (!logo || logo.length === 0) {
+      return NextResponse.json({ message: "Logo not found" }, { status: 404 });
+    }
+    return NextResponse.json({ logo: logo[0] }, { status: 200 });
   } catch (error) {
     console.error(error);
     return NextResponse.json(

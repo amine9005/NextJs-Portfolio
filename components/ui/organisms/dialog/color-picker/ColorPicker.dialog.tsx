@@ -9,14 +9,16 @@ import {
   DialogTrigger,
 } from "@/components/ui/atoms/dialog/dialog";
 import { HexColorPicker } from "react-colorful";
+import { UseFormReturn } from "react-hook-form";
 
 interface Props {
   title: string;
-  color: string;
-  setColorFn: (color: string) => void;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  form: UseFormReturn<any>;
+  name: string;
 }
 
-const ColorPickerDialog = ({ title, color, setColorFn }: Props) => {
+const ColorPickerDialog = ({ title, form, name }: Props) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -27,7 +29,10 @@ const ColorPickerDialog = ({ title, color, setColorFn }: Props) => {
           <DialogTitle>{title}</DialogTitle>
         </DialogHeader>
         <div className="flex justify-center items-center my-4">
-          <HexColorPicker color={color} onChange={setColorFn} />
+          <HexColorPicker
+            color={form.getValues(name)}
+            onChange={(color) => form.setValue(name, color)}
+          />
         </div>
         <DialogFooter>
           <DialogClose

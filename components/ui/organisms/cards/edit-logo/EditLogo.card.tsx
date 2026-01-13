@@ -12,6 +12,7 @@ import { H2 } from "@/components/ui/atoms/heading/heading2";
 import LoadingSubmitButton from "@/components/ui/molecules/loading-submit-button/loadingSubmitButton.molecule";
 import EditLogoFormContent from "@/components/ui/organisms/contents/edit-logo/EditLogo.content";
 import { LogoFormType } from "@/validations/logo.zod";
+import LogoWithNameMolecule from "@/components/ui/molecules/logo-with-name/LogoWithName.molecule";
 
 interface Card {
   title?: React.ReactNode;
@@ -26,13 +27,6 @@ interface Props {
   handle_submit: (formEvent: FormEvent) => void;
   filePath: FileList | null;
   setFilePath: (files: FileList | null) => void;
-  leftColorPicker: colorPicker;
-  rightColorPicker: colorPicker;
-}
-
-interface colorPicker {
-  color: string;
-  setColor: (color: string) => void;
 }
 
 const EditLogoCard = ({
@@ -43,14 +37,20 @@ const EditLogoCard = ({
   loading,
   filePath,
   setFilePath,
-  leftColorPicker,
-  rightColorPicker,
 }: Props) => {
   return (
     <Card className="w-full sm:max-w-md">
       <CardHeader>
         <CardTitle className="flex justify-center items-center">
-          <H2 size={"xl"}>{card.title}</H2>
+          <H2 size={"xl"}>
+            <LogoWithNameMolecule
+              useImage={form.watch("useImage")}
+              imageUrl="/vercel.svg"
+              leftColor={form.watch("leftColor")}
+              rightColor={form.watch("rightColor")}
+              name={form.watch("fullName")}
+            />
+          </H2>
         </CardTitle>
         <CardDescription>{card.description}</CardDescription>
       </CardHeader>
@@ -61,8 +61,6 @@ const EditLogoCard = ({
           handle_submit={handle_submit}
           filePath={filePath}
           setFilePath={setFilePath}
-          rightColorPicker={rightColorPicker}
-          leftColorPicker={leftColorPicker}
         />
       </CardContent>
       <CardFooter className="flex flex-col space-y-2">

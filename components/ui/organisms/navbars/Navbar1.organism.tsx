@@ -11,8 +11,8 @@ import Link from "next/link";
 import MenuButtonMolecule from "@/components/ui/molecules/menu-button/MenuButton.molecule";
 import { motion } from "motion/react";
 import { useState } from "react";
-import Image from "next/image";
-import { useQuery } from "@tanstack/react-query";
+import { useLogoQuery } from "@/hooks/queries/useLogoQuery.hook";
+import LogoWithNameMolecule from "../../molecules/logo-with-name/LogoWithName.molecule";
 interface RouteProps {
   href: string;
   label: string;
@@ -34,9 +34,8 @@ const routeList: RouteProps[] = [
 
 const Navbar1Organism = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const leftColor = "#783c96"; // Left color
-  const rightColor = "#4285f4"; // Right color
-  const bgClip = "text";
+  const { data: logoData, isLoading } = useLogoQuery();
+
   return (
     <header
       className={`sticky border-b top-0 z-50 w-full dark:border-b-slate-700 overflow-x-hidden
@@ -50,22 +49,16 @@ const Navbar1Organism = () => {
               href="/"
               className="ml-2 font-bold text-xl flex"
             >
-              <Image
-                src={"/images/vercel.svg"}
-                alt="logo"
-                width={24}
-                height={24}
-                className="mr-3"
-              />
-              <span
-                className="uppercase text-transparent bg-clip-text"
-                style={{
-                  background: `linear-gradient(0.25turn, ${leftColor},  ${rightColor})`,
-                  backgroundClip: bgClip,
-                }}
-              >
-                Full Name
-              </span>
+              {" "}
+              {!isLoading && (
+                <LogoWithNameMolecule
+                  imageUrl={logoData.imageUrl}
+                  leftColor={logoData.leftColor}
+                  rightColor={logoData.rightColor}
+                  useImage={logoData.useImage}
+                  name={logoData.fullName}
+                />
+              )}
             </Link>
           </NavigationMenuItem>
 

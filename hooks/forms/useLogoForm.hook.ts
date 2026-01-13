@@ -1,6 +1,8 @@
-import { useForm } from "react-hook-form";
+import { useForm, UseFormReturn } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { logoSchema, LogoSchemaType } from "@/validations/logo.zod";
+import { useLogoQuery } from "@/hooks/queries/useLogoQuery.hook";
+import { useEffect } from "react";
 
 export const useLogoForm = () => {
   const form = useForm<LogoSchemaType>({
@@ -15,4 +17,32 @@ export const useLogoForm = () => {
   });
 
   return form;
+};
+
+export const useLogoFormData = (form: UseFormReturn<LogoSchemaType>) => {
+  const { data: logoData, isLoading } = useLogoQuery();
+
+  useEffect(() => {
+    form.setValue(
+      "leftColor",
+      logoData?.leftColor ? logoData.leftColor : form.getValues("leftColor"),
+    );
+    form.setValue(
+      "rightColor",
+      logoData?.rightColor ? logoData.rightColor : form.getValues("rightColor"),
+    );
+    form.setValue(
+      "imagePath",
+      logoData?.imagePath ? logoData.imagePath : form.getValues("imagePath"),
+    );
+    form.setValue(
+      "fullName",
+      logoData?.fullName ? logoData.fullName : form.getValues("fullName"),
+    );
+    form.setValue(
+      "useImage",
+      logoData?.useImage ? logoData.useImage : form.getValues("useImage"),
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLoading]);
 };

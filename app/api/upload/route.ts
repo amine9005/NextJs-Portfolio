@@ -3,7 +3,6 @@ import fs from "fs";
 import { NextRequest, NextResponse } from "next/server";
 import { v4 as uuidv4 } from "uuid";
 import path from "path";
-
 const DIR_PATH = path.resolve(`./uploads`);
 if (!fs.existsSync(DIR_PATH)) {
   fs.mkdirSync(DIR_PATH, { recursive: true });
@@ -12,6 +11,19 @@ export async function POST(req: NextRequest) {
   try {
     const formData = await req.formData();
     const file = formData.get("file") as File;
+    const logo = formData.get("logo");
+
+    if (logo === "YES") {
+      const DIR_PATH = path.resolve(`./uploads/logos`);
+      if (!fs.existsSync(DIR_PATH)) {
+        fs.mkdirSync(DIR_PATH, { recursive: true });
+      }
+    } else {
+      const DIR_PATH = path.resolve(`./uploads/images`);
+      if (!fs.existsSync(DIR_PATH)) {
+        fs.mkdirSync(DIR_PATH, { recursive: true });
+      }
+    }
     if (!file) {
       return NextResponse.json(
         { error: "No file provided" },
@@ -39,7 +51,10 @@ export async function POST(req: NextRequest) {
     const fileSize = file.size;
     const fileArrayBuffer = await file.arrayBuffer();
     const buffer = Buffer.from(fileArrayBuffer);
-    const filePath = path.resolve(DIR_PATH, filename);
+    const filePath = path.resolve(
+      logo === "YES" ? DIR_PATH + "/logos" : DIR_PATH + "/images",
+      filename,
+    );
     await fs.writeFileSync(filePath, buffer);
     return NextResponse.json(
       {

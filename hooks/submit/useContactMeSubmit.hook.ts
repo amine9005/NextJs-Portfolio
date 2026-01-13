@@ -26,8 +26,7 @@ export function useContactMeSubmit(files?: FileList | null) {
 
         if (files) {
           for (const file of files) {
-            console.log("uploading file");
-            const response = await upload(file);
+            const response = await upload({ file: file, logo: "NO" });
             const { filename } = await response.json();
             fileUrls.push(filename);
           }

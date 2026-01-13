@@ -1,5 +1,5 @@
 "use client";
-import { redirect } from "next/navigation";
+// import { redirect } from "next/navigation";
 import { useCallback, useState } from "react";
 import { SubmitHandler } from "react-hook-form";
 import toast from "react-hot-toast";
@@ -19,11 +19,13 @@ export function useLogoSubmit(files?: FileList | null) {
       setLoading(true);
       try {
         const fullName = data.fullName;
+        const leftColor = data.leftColor;
+        const rightColor = data.rightColor;
         const useImage = data.useImage;
 
         if (files) {
           for (const file of files) {
-            const response = await upload(file);
+            const response = await upload({ file: file, logo: "YES" });
             const { filename } = await response.json();
             fileUrls.push(filename);
           }
@@ -31,18 +33,22 @@ export function useLogoSubmit(files?: FileList | null) {
 
         const imagePath = fileUrls.length > 0 ? fileUrls[0] : null;
 
-        await updateLogo({ fullName, imagePath, useImage });
+        await updateLogo({
+          fullName,
+          imagePath,
+          useImage,
+          leftColor,
+          rightColor,
+        });
 
         success = true;
-        toast.success("Email was sent successfully");
+        toast.success("Logo Updated Successfully");
       } catch (error) {
         toast.error("Something went wrong. Please try again.");
         console.log(JSON.stringify(error));
       }
       setLoading(false);
-      if (success) {
-        redirect("/");
-      }
+      return success;
     },
 
     [files, upload, updateLogo],

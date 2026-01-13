@@ -20,14 +20,16 @@ export default function RootLayout({
 }>) {
   return (
     <>
-      <Navbar1Organism />
-      <html lang="en">
-        <body className={`${inter.className} dark`}>
-          <Toaster />
-          <TanStackProvider>{children}</TanStackProvider>
-        </body>
-      </html>
-      <Footer1Organism />
+      <TanStackProvider>
+        <Navbar1Organism />
+        <html lang="en">
+          <body className={`${inter.className} dark`}>
+            <Toaster />
+            {children}
+          </body>
+        </html>
+        <Footer1Organism />
+      </TanStackProvider>
     </>
   );
 }
