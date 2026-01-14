@@ -4,7 +4,6 @@ import {
   FieldLabel,
 } from "@/components/ui/atoms/field/field";
 import { Input } from "@/components/ui/atoms/input/input";
-import { memo } from "react";
 import { FieldValues } from "react-hook-form";
 
 interface Item {
@@ -42,4 +41,4 @@ const InputField = ({ item, field, fieldState }: Props) => {
   );
 };
 
-export default memo(InputField);
+export default InputField;

@@ -20,7 +20,7 @@ export function useLogoSubmit() {
         const rightColor = data.rightColor;
         const useImage = data.useImage;
 
-        const imagePath = data.imagePath ? data.imagePath : "";
+        const imagePath = data.imagePath ? data.imagePath : null;
 
         await updateLogo({
           fullName,

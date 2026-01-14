@@ -8,19 +8,19 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const { fullName, imagePath, useImage, leftColor, rightColor } = body;
     const doc = (await LogoModel.find())[0];
-    // console.log("doc ", doc);
+    // console.log("fullName ", fullName, "imagePath: ", imagePath);
 
     if (!doc) {
       LogoModel.create({
         fullName,
-        imagePath,
+        imageUrl: imagePath,
         useImage,
         leftColor,
         rightColor,
       });
     } else {
       doc.fullName = fullName;
-      doc.imagePath = imagePath;
+      doc.imageUrl = imagePath;
       doc.useImage = useImage;
       doc.leftColor = leftColor;
       doc.rightColor = rightColor;

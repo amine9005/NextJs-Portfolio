@@ -12,7 +12,7 @@ export const useLogoForm = () => {
     resolver: zodResolver(logoSchema),
     defaultValues: {
       fullName: "",
-      imagePath: tmpImagePath ? tmpImagePath : "",
+      imagePath: tmpImagePath ? tmpImagePath : undefined,
       leftColor: "#fff",
       rightColor: "#fff",
       useImage: false,
@@ -36,7 +36,7 @@ export const useLogoFormData = (form: UseFormReturn<LogoSchemaType>) => {
     );
     form.setValue(
       "imagePath",
-      logoData?.imagePath ? logoData.imagePath : form.getValues("imagePath"),
+      logoData?.imageUrl ? logoData.imageUrl : form.getValues("imagePath"),
     );
     form.setValue(
       "fullName",

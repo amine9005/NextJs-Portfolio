@@ -49,12 +49,20 @@ const EditLogoFormContent = ({ form, formName, handle_submit }: Props) => {
           className="mt-4"
         />
         <div className="flex flex-wrap justify-between items-center gap-3 mt-2">
-          <UploadImageInstantMolecule
-            name={"imagePath"}
-            form={form}
-            index={1}
-            text="Change Logo"
-            limit={1}
+          <Controller
+            name="imagePath"
+            control={form?.control}
+            render={({ field, fieldState }) => (
+              <UploadImageInstantMolecule
+                field={field}
+                fieldState={fieldState}
+                name={"imagePath"}
+                form={form}
+                index={1}
+                text="Change Logo"
+                limit={1}
+              />
+            )}
           />
         </div>
       </FieldGroup>

@@ -25,7 +25,7 @@ export const logoSchema = z
     rightColor: rightColorValidation,
   })
   .superRefine(({ useImage, imagePath }, ctx) => {
-    if (imagePath && !useImage) {
+    if (!imagePath && useImage) {
       ctx.addIssue({
         code: "custom",
         message: "Image Path Not Provided",
