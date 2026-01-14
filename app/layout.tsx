@@ -5,6 +5,8 @@ import { Toaster } from "react-hot-toast";
 import TanStackProvider from "@/providers/TanStackProvider";
 import Navbar1Organism from "@/components/ui/organisms/navbars/Navbar1.organism";
 import Footer1Organism from "@/components/ui/organisms/footers/Footer1.organism";
+import { SkeletonTheme } from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,16 +22,18 @@ export default function RootLayout({
 }>) {
   return (
     <>
-      <TanStackProvider>
-        <Navbar1Organism />
-        <html lang="en">
-          <body className={`${inter.className} dark`}>
-            <Toaster />
-            {children}
-          </body>
-        </html>
-        <Footer1Organism />
-      </TanStackProvider>
+      <SkeletonTheme baseColor="#202020" highlightColor="#444">
+        <TanStackProvider>
+          <Navbar1Organism />
+          <html lang="en">
+            <body className={`${inter.className} dark`}>
+              <Toaster />
+              {children}
+            </body>
+          </html>
+          <Footer1Organism />
+        </TanStackProvider>
+      </SkeletonTheme>
     </>
   );
 }

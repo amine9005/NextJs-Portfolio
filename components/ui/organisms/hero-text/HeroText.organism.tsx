@@ -1,12 +1,38 @@
+"use client";
 import { H2 } from "@/components/ui/atoms/heading/heading2";
 import { P } from "@/components/ui/atoms/text/Text";
 import { BlurFade } from "@/components/ui/Effects/blur-fade";
+import { useHeroQuery } from "@/hooks/queries/useHeroQuery.hook";
+import { CSSProperties } from "react";
+import Skeleton from "react-loading-skeleton";
 
 const HeroText = () => {
-  const fullName = "Full Name " + "- ";
+  const { data: heroData, isLoading } = useHeroQuery();
+
+  if (isLoading) {
+    return (
+      <div className="max-w-xl w-full text-center lg:text-start space-y-8">
+        <div className="w-full grid grid-cols-2 gap-8">
+          <Skeleton width={"100%"} height={40} />
+          <Skeleton width={"100%"} height={40} />
+        </div>
+        <Skeleton width={"100%"} height={200} className="rounded-lg" />
+      </div>
+    );
+  }
+
+  const { leftColor, rightColor, title, description } = heroData;
+
+  const fullName = heroData?.fullName + " - ";
   const FullNameDelay = fullName.split(" ").length * 0.1;
-  const titleLeftColor = "from-purple-500";
-  const titleRightColor = "to-yellow-400";
+
+  const titleStyle: CSSProperties = {
+    marginRight: "8px",
+    display: "inline-block",
+    color: "transparent",
+    backgroundClip: "text",
+    backgroundImage: `linear-gradient(0.25turn, ${leftColor},  ${rightColor})`,
+  };
 
   return (
     <div className="max-w-xl text-center lg:text-start">
@@ -24,24 +50,17 @@ const HeroText = () => {
         ))}
 
         <BlurFade
-          className={
-            `mr-2 inline-block text-transparent bg-clip-text bg-linear-to-r ` +
-            titleLeftColor +
-            " " +
-            titleRightColor
-          }
+          style={titleStyle}
           onlyOnce={false}
           delay={FullNameDelay}
           inView
         >
-          {"3D Developer"}
+          {title}
         </BlurFade>
       </H2>
       <BlurFade inView onlyOnce={false} delay={FullNameDelay + 0.2}>
         <P size={"lg"} className="dark mt-10">
-          I&apos;m a Blender 3D developer, animator and creator. I specialize in
-          creating high-quality 3D models for games,Youtube, movies, and other
-          projects.
+          {description}
         </P>
       </BlurFade>
     </div>

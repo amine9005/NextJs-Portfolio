@@ -1,5 +1,5 @@
 "use client";
-import { memo, useState } from "react";
+import { memo } from "react";
 import FormLayout from "@/components/ui/layouts/Form.layout";
 import EditLogoCard from "@/components/ui/organisms/cards/edit-logo/EditLogo.card";
 import { useLogoForm, useLogoFormData } from "@/hooks/forms/useLogoForm.hook";
