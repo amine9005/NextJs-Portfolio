@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { fileTypeFromBuffer } from "file-type";
 import sharp from "sharp";
 
-export async function GET(req: NextRequest, res: NextResponse) {
+export async function GET(req: NextRequest) {
   const DEFAULT_WIDTH = 1280;
   const DEFAULT_HEIGHT = 620;
   const DEFAULT_QUALITY = 75;
