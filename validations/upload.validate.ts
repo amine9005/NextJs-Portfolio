@@ -36,7 +36,7 @@ export function validateFile(file: File | null) {
     "application/x-compressed",
   ];
   const fileType = file.type;
-  // console.log("fileType: ", fileType);
+  console.log("fileType: ", fileType);
 
   if (!fileTypes.includes(fileType)) {
     toast.error(

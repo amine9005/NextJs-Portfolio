@@ -1,0 +1,158 @@
+"use client";
+import { FieldGroup } from "@/components/ui/atoms/field/field";
+import InputField from "@/components/ui/molecules/input-field/InputField.molecule";
+import { Controller } from "react-hook-form";
+import { FormEvent } from "react";
+import {
+  displayTypes,
+  HeroMediaFormType,
+  videoSource,
+} from "@/validations/hero.zod";
+import SelectField from "@/components/ui/molecules/select-field/SelectField.molecule";
+import { motion } from "framer-motion";
+import UploadImageFieldInstant from "@/components/ui/molecules/upload-image-instant/UploadImageInstant.molecule";
+interface Props {
+  form: HeroMediaFormType;
+  handle_submit: (formEvent: FormEvent) => void;
+  formName: string;
+}
+
+const videoInputValues = {
+  name: "videoUrl",
+  labelTitle: "Video Source",
+  type: "text",
+  placeholder: "Video Url",
+  autoComplete: "off",
+};
+
+const parallaxInputValues = {
+  name: "parallax",
+  labelTitle: "Parallax",
+  type: "text",
+  placeholder: "Parallax Image Source",
+  autoComplete: "off",
+};
+
+const EditHeroMediaContent = ({ form, formName, handle_submit }: Props) => {
+  const selectInputValues = {
+    name: "displayType",
+    labelTitle: "Display",
+    options: displayTypes,
+    placeholder: form.watch("displayType"),
+    form: form,
+  };
+
+  const videoSourceInputValues = {
+    name: "videoSource",
+    labelTitle: "Video Source",
+    options: videoSource,
+    placeholder: form.watch("videoSource"),
+    form: form,
+  };
+
+  return (
+    <form id={formName} onSubmit={handle_submit}>
+      <FieldGroup>
+        <Controller
+          name="displayType"
+          control={form.control}
+          render={({ field, fieldState }) => (
+            <SelectField
+              item={selectInputValues}
+              field={field}
+              fieldState={fieldState}
+            />
+          )}
+        />
+        <div className="relative mt-4">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: form.watch("displayType") === "Image" ? 1 : 0 }}
+            transition={{ duration: 0.3 }}
+            className={`sticky top-0 w-full ${
+              form.watch("displayType") === "Image" ? "block" : "hidden"
+            }
+            `}
+          >
+            <Controller
+              name="imageUrl"
+              control={form?.control}
+              render={({ field, fieldState }) => (
+                <UploadImageFieldInstant
+                  field={field}
+                  fieldState={fieldState}
+                  text="Chose An Image"
+                  limit={1}
+                  form={form}
+                  name="imageUrl"
+                />
+              )}
+            />{" "}
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{
+              opacity: form.watch("displayType") === "Parallax" ? 1 : 0,
+            }}
+            transition={{ duration: 0.3 }}
+            className={`sticky top-0 w-full  ${
+              form.watch("displayType") === "Parallax" ? "block" : "hidden"
+            }
+            `}
+          >
+            <Controller
+              name="imageUrl"
+              control={form?.control}
+              render={({ field, fieldState }) => (
+                <UploadImageFieldInstant
+                  field={field}
+                  fieldState={fieldState}
+                  text="Chose An Image"
+                  limit={1}
+                  form={form}
+                  name="imageUrl"
+                />
+              )}
+            />{" "}
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{
+              opacity: form.watch("displayType") === "Video" ? 1 : 0,
+            }}
+            transition={{ duration: 0.3 }}
+            className={`sticky top-0 w-full space-y-4  ${
+              form.watch("displayType") === "Video" ? "block" : "hidden"
+            }
+            `}
+          >
+            <Controller
+              name="videoSource"
+              control={form.control}
+              render={({ field, fieldState }) => (
+                <SelectField
+                  item={videoSourceInputValues}
+                  field={field}
+                  fieldState={fieldState}
+                />
+              )}
+            />
+            <Controller
+              name="videoUrl"
+              control={form?.control}
+              render={({ field, fieldState }) => (
+                <InputField
+                  field={field}
+                  fieldState={fieldState}
+                  item={videoInputValues}
+                />
+              )}
+            />{" "}
+          </motion.div>
+        </div>
+      </FieldGroup>
+    </form>
+  );
+};
+
+export default EditHeroMediaContent;

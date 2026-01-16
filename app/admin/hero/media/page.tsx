@@ -1,9 +1,9 @@
-import EditHeroAction from "@/components/ui/actions/forms/edit-hero/EditHeroText.action";
+import EditHeroMediaAction from "@/components/ui/actions/forms/edit-hero/EditHeroMedia.action";
 import { authIsRequired } from "@/helpers/authHelper.helper";
 
 const AdminHeroPage = async () => {
   await authIsRequired();
-  return <EditHeroAction />;
+  return <EditHeroMediaAction />;
 };
 
 export default AdminHeroPage;

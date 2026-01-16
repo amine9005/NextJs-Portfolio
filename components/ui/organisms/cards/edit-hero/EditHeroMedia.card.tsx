@@ -10,8 +10,8 @@ import {
 import { FormEvent } from "react";
 import { H2 } from "@/components/ui/atoms/heading/heading2";
 import LoadingSubmitButton from "@/components/ui/molecules/loading-submit-button/loadingSubmitButton.molecule";
-import { HeroTextFormType } from "@/validations/hero.zod";
-import EditHeroContentText from "@/components/ui/organisms/contents/edit-hero/EditHeroText.content";
+import { HeroMediaFormType } from "@/validations/hero.zod";
+import EditHeroMediaContent from "../../contents/edit-hero/EditHeroMedia.content";
 
 interface Card {
   title?: React.ReactNode;
@@ -19,14 +19,14 @@ interface Card {
 }
 
 interface Props {
-  form: HeroTextFormType;
+  form: HeroMediaFormType;
   card: Card;
   formName: string;
   loading: boolean;
   handle_submit: (formEvent: FormEvent) => void;
 }
 
-const EditHeroTextCard = ({
+const EditHeroMediaCard = ({
   form,
   card,
   formName,
@@ -42,7 +42,7 @@ const EditHeroTextCard = ({
         <CardDescription>{card.description}</CardDescription>
       </CardHeader>
       <CardContent>
-        <EditHeroContentText
+        <EditHeroMediaContent
           form={form}
           formName={formName}
           handle_submit={handle_submit}
@@ -63,4 +63,4 @@ const EditHeroTextCard = ({
   );
 };
 
-export default EditHeroTextCard;
+export default EditHeroMediaCard;

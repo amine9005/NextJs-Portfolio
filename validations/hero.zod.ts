@@ -22,7 +22,7 @@ export const rightColorValidation = z.string({ message: "Invalid Color" });
 
 export const leftColorValidation = z.string({ message: "Invalid Color" });
 
-export const heroSchema = z.object({
+export const heroTextSchema = z.object({
   fullName: fullNameValidation,
   title: titleValidation,
   description: descriptionValidation,
@@ -30,6 +30,67 @@ export const heroSchema = z.object({
   rightColor: rightColorValidation,
 });
 
-export type HeroSchemaType = z.infer<typeof heroSchema>;
+export type heroTextSchemaType = z.infer<typeof heroTextSchema>;
 
-export type HeroFormType = UseFormReturn<HeroSchemaType>;
+export type HeroTextFormType = UseFormReturn<heroTextSchemaType>;
+
+export const displayTypes = ["Image", "Parallax", "Video", "3D Model"];
+export const videoSource = ["Youtube", "Google Drive", "Other"];
+
+export const displayTypeValidation = z.enum(displayTypes);
+export const videoSourceValidation = z.enum(videoSource);
+
+export const imagePathValidation = z.string().optional();
+export const videoUrlValidation = z.string().optional();
+export const model3D_URLValidation = z.string().optional();
+
+export const heroMediaSchema = z
+  .object({
+    displayType: displayTypeValidation,
+    videoSource: videoSourceValidation,
+    imageUrl: imagePathValidation,
+    videoUrl: videoUrlValidation,
+    model3D_Url: model3D_URLValidation,
+  })
+  .superRefine(({ displayType, imageUrl, videoUrl, model3D_Url }, ctx) => {
+    switch (displayType) {
+      case "Image":
+        if (!imageUrl) {
+          ctx.addIssue({
+            code: "custom",
+            message: "Image Source Not Provided",
+            path: ["imageUrl"],
+          });
+        }
+      case "Parallax":
+        if (!imageUrl) {
+          ctx.addIssue({
+            code: "custom",
+            message: "Image Source Not Provided",
+            path: ["imageUrl"],
+          });
+        }
+      case "Video":
+        if (!videoUrl) {
+          ctx.addIssue({
+            code: "custom",
+            message: "Video Source Not Provided",
+            path: ["videoUrl"],
+          });
+        }
+      case "3D Model":
+        if (!model3D_Url) {
+          ctx.addIssue({
+            code: "custom",
+            message: "3D Model Source Not Provided",
+            path: ["model3D_Url"],
+          });
+        }
+    }
+  });
+
+export type heroMediaSchemaType = z.infer<typeof heroMediaSchema>;
+export type HeroMediaFormType = UseFormReturn<heroMediaSchemaType>;
+
+export type DisplayTypes = z.infer<typeof displayTypes>;
+export type VideoSource = z.infer<typeof videoSource>;

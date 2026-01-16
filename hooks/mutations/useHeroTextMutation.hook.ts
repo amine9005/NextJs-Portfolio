@@ -10,9 +10,9 @@ interface props {
   leftColor: string;
 }
 
-export const useHeroMutation = () => {
+export const useHeroTextMutation = () => {
   const queryClient = useQueryClient();
-  const useHeroMutationFn = async ({
+  const useHeroTextMutationFn = async ({
     fullName,
     title,
     description,
@@ -30,7 +30,7 @@ export const useHeroMutation = () => {
   };
 
   return useMutation({
-    mutationFn: useHeroMutationFn,
+    mutationFn: useHeroTextMutationFn,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["hero"] });
     },

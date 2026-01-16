@@ -2,12 +2,12 @@
 import { H2 } from "@/components/ui/atoms/heading/heading2";
 import { P } from "@/components/ui/atoms/text/Text";
 import { BlurFade } from "@/components/ui/Effects/blur-fade";
-import { useHeroQuery } from "@/hooks/queries/useHeroQuery.hook";
+import { useHeroTextQuery } from "@/hooks/queries/useHeroTextQuery.hook";
 import { CSSProperties } from "react";
 import Skeleton from "react-loading-skeleton";
 
 const HeroText = () => {
-  const { data: heroData, isLoading } = useHeroQuery();
+  const { data: heroData, isLoading } = useHeroTextQuery();
 
   if (isLoading) {
     return (

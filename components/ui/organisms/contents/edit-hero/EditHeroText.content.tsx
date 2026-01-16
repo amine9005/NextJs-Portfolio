@@ -3,13 +3,13 @@ import { FieldGroup } from "@/components/ui/atoms/field/field";
 import InputField from "@/components/ui/molecules/input-field/InputField.molecule";
 import { Controller } from "react-hook-form";
 import { FormEvent } from "react";
-import { HeroFormType } from "@/validations/hero.zod";
+import { HeroTextFormType } from "@/validations/hero.zod";
 import TextareaField from "@/components/ui/molecules/textarea-field/TextareaField.molecule";
 import ColorPickerMolecule from "@/components/ui/molecules/color-picker/ColorPicker.molecule";
 import ColorfulLabelAtom from "@/components/ui/atoms/colorful-label/ColorfulLabel.atom";
 
 interface Props {
-  form: HeroFormType;
+  form: HeroTextFormType;
   handle_submit: (formEvent: FormEvent) => void;
   formName: string;
 }

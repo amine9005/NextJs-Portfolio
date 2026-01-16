@@ -58,7 +58,6 @@ const EditLogoFormContent = ({ form, formName, handle_submit }: Props) => {
                 fieldState={fieldState}
                 name={"imagePath"}
                 form={form}
-                index={1}
                 text="Change Logo"
                 limit={1}
               />

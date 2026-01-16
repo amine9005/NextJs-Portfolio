@@ -3,14 +3,14 @@
 import { useCallback, useState } from "react";
 import { SubmitHandler } from "react-hook-form";
 import toast from "react-hot-toast";
-import { useHeroMutation } from "@/hooks/mutations/useHeroMutation.hook";
-import { HeroSchemaType } from "@/validations/hero.zod";
+import { useHeroTextMutation } from "@/hooks/mutations/useHeroTextMutation.hook";
+import { heroTextSchemaType } from "@/validations/hero.zod";
 
-export function useHeroSubmit() {
+export function useHeroTextSubmit() {
   const [loading, setLoading] = useState(false);
-  const { mutateAsync: updateLogo } = useHeroMutation();
+  const { mutateAsync: updateLogo } = useHeroTextMutation();
 
-  const onSubmit: SubmitHandler<HeroSchemaType> = useCallback(
+  const onSubmit: SubmitHandler<heroTextSchemaType> = useCallback(
     async (data) => {
       let success = false;
       setLoading(true);
@@ -30,7 +30,7 @@ export function useHeroSubmit() {
         });
 
         success = true;
-        toast.success("Logo Updated Successfully");
+        toast.success("Hero Text Updated Successfully");
       } catch (error) {
         toast.error("Something went wrong. Please try again.");
         console.log(JSON.stringify(error));

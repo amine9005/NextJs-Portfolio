@@ -1,12 +1,12 @@
 import { useForm, UseFormReturn } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
-import { useHeroQuery } from "@/hooks/queries/useHeroQuery.hook";
-import { heroSchema, HeroSchemaType } from "@/validations/hero.zod";
+import { useHeroTextQuery } from "@/hooks/queries/useHeroTextQuery.hook";
+import { heroTextSchema, heroTextSchemaType } from "@/validations/hero.zod";
 
-export const useHeroForm = () => {
-  const form = useForm<HeroSchemaType>({
-    resolver: zodResolver(heroSchema),
+export const useHeroTextForm = () => {
+  const form = useForm<heroTextSchemaType>({
+    resolver: zodResolver(heroTextSchema),
     defaultValues: {
       fullName: "",
       title: "",
@@ -19,8 +19,10 @@ export const useHeroForm = () => {
   return form;
 };
 
-export const useHeroFormData = (form: UseFormReturn<HeroSchemaType>) => {
-  const { data: heroData, isLoading } = useHeroQuery();
+export const useHeroTextFormData = (
+  form: UseFormReturn<heroTextSchemaType>,
+) => {
+  const { data: heroData, isLoading } = useHeroTextQuery();
 
   useEffect(() => {
     form.setValue(

@@ -1,5 +1,5 @@
 import mongoose, { HydratedDocument, InferSchemaType } from "mongoose";
-const heroSchema = new mongoose.Schema(
+const heroTextSchema = new mongoose.Schema(
   {
     fullName: { type: String, required: true },
     title: { type: String, required: true },
@@ -10,8 +10,9 @@ const heroSchema = new mongoose.Schema(
   { timestamps: true },
 );
 
-const HeroModel = mongoose.models.hero || mongoose.model("hero", heroSchema);
+const HeroTextModel =
+  mongoose.models.heroText || mongoose.model("heroText", heroTextSchema);
 
-export default HeroModel;
-export type Hero = InferSchemaType<typeof heroSchema>;
-export type HeroDocument = HydratedDocument<Hero>;
+export default HeroTextModel;
+export type HeroText = InferSchemaType<typeof heroTextSchema>;
+export type HeroTextDocument = HydratedDocument<HeroText>;
