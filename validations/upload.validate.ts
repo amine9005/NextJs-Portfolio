@@ -50,3 +50,10 @@ export function validateFile(file: File | null) {
   }
   return file;
 }
+
+export type UploadRoutes =
+  | "LOGO"
+  | "3D MODEL"
+  | "PROJECT IMAGE"
+  | "HERO IMAGE"
+  | "GENERAL";

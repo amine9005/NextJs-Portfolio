@@ -61,11 +61,11 @@ export function useSignInSubmit(form: SignInFormType) {
         redirect("/verify-email");
       }
       if (success) {
-        const url = localStorage.getItem("stripe_payment_link");
-        if (url) {
-          localStorage.removeItem("stripe_payment_link");
-          redirect(url);
-        }
+        // const url = localStorage.getItem("stripe_payment_link");
+        // if (url) {
+        //   localStorage.removeItem("stripe_payment_link");
+        //   redirect(url);
+        // }
         redirect("/dashboard");
       }
       setLoading(false);

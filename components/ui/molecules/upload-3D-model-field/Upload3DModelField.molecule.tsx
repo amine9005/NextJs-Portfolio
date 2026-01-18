@@ -1,5 +1,5 @@
 "use client";
-import { useImageUploadSubmit } from "@/hooks/submit/useImageUploadSubmit.hook";
+import { useUploadSubmit } from "@/hooks/submit/useUploadSubmit.hook";
 import { validateFiles } from "@/validations/upload.validate";
 import { Loader2Icon, UploadIcon } from "lucide-react";
 import { FieldValues, UseFormReturn } from "react-hook-form";
@@ -40,10 +40,10 @@ const Upload3DModelField = ({
   limit,
   fieldState,
 }: Props) => {
-  const { uploadImage, isPending } = useImageUploadSubmit();
+  const { uploadFile, isPending } = useUploadSubmit();
 
   const setAndUpload = async (files: FileList | null) => {
-    const path = await uploadImage(files, "YES");
+    const path = await uploadFile(files, "3D MODEL");
     // console.log("path ", path);
     form.setValue(name, path);
     form.trigger();

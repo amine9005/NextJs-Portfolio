@@ -1,5 +1,4 @@
 "use client";
-import { useImageUploadSubmit } from "@/hooks/submit/useImageUploadSubmit.hook";
 import { useTmpLogoStore } from "@/store/admin/logo.store";
 import { validateFiles } from "@/validations/upload.validate";
 import { Loader2Icon, UploadIcon } from "lucide-react";
@@ -9,6 +8,7 @@ import {
   FieldError,
   FieldLabel,
 } from "@/components/ui/atoms/field/field";
+import { useUploadSubmit } from "@/hooks/submit/useUploadSubmit.hook";
 
 // interface Item {
 //   name: string;
@@ -34,18 +34,18 @@ interface Props {
   };
 }
 
-const UploadImageFieldInstant = ({
+const UploadFileFieldInstant = ({
   form,
   name,
   text = "Chose File",
   limit,
   fieldState,
 }: Props) => {
-  const { uploadImage, isPending } = useImageUploadSubmit();
+  const { uploadFile, isPending } = useUploadSubmit();
   const setLogoPath = useTmpLogoStore((state) => state.setImagePath);
 
   const setAndUpload = async (files: FileList | null) => {
-    const path = await uploadImage(files, "YES");
+    const path = await uploadFile(files, "LOGO");
     // console.log("path ", path);
     form.setValue(name, path);
     setLogoPath(path);
@@ -82,4 +82,4 @@ const UploadImageFieldInstant = ({
   );
 };
 
-export default UploadImageFieldInstant;
+export default UploadFileFieldInstant;

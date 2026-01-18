@@ -5,7 +5,7 @@ import { Controller } from "react-hook-form";
 import { FormEvent } from "react";
 import { ContactMeFormType } from "@/validations/ContactMe.zod";
 import TextareaField from "@/components/ui/molecules/textarea-field/TextareaField.molecule";
-import UploadImageMolecule from "../../molecules/upload-image/UploadImage.molecule";
+import UploadFileMolecule from "@/components/ui/molecules/upload-image/UploadImage.molecule";
 
 interface Props {
   form: ContactMeFormType;
@@ -122,7 +122,7 @@ const ContactMeContent = ({
           )}
         />
         <div className="flex flex-wrap justify-between items-center gap-3 mt-2">
-          <UploadImageMolecule
+          <UploadFileMolecule
             filePath={filePath}
             setFilePath={setFilePath}
             index={1}

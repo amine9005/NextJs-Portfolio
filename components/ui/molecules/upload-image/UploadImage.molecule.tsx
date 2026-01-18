@@ -10,7 +10,7 @@ interface Props {
   limit?: number;
 }
 
-const UploadImageMolecule = ({
+const UploadFileMolecule = ({
   index,
   filePath,
   setFilePath,
@@ -42,4 +42,4 @@ const UploadImageMolecule = ({
   );
 };
 
-export default UploadImageMolecule;
+export default UploadFileMolecule;

@@ -10,7 +10,9 @@ import {
 } from "@/validations/hero.zod";
 import SelectField from "@/components/ui/molecules/select-field/SelectField.molecule";
 import { motion } from "framer-motion";
-import UploadImageFieldInstant from "@/components/ui/molecules/upload-image-instant/UploadImageInstant.molecule";
+import UploadFileFieldInstant from "@/components/ui/molecules/upload-image-instant/UploadImageInstant.molecule";
+import Upload3DModelField from "@/components/ui/molecules/upload-3D-model-field/Upload3DModelField.molecule";
+
 interface Props {
   form: HeroMediaFormType;
   handle_submit: (formEvent: FormEvent) => void;
@@ -78,7 +80,7 @@ const EditHeroMediaContent = ({ form, formName, handle_submit }: Props) => {
               name="imageUrl"
               control={form?.control}
               render={({ field, fieldState }) => (
-                <UploadImageFieldInstant
+                <UploadFileFieldInstant
                   field={field}
                   fieldState={fieldState}
                   text="Chose An Image"
@@ -104,13 +106,39 @@ const EditHeroMediaContent = ({ form, formName, handle_submit }: Props) => {
               name="imageUrl"
               control={form?.control}
               render={({ field, fieldState }) => (
-                <UploadImageFieldInstant
+                <UploadFileFieldInstant
                   field={field}
                   fieldState={fieldState}
                   text="Chose An Image"
                   limit={1}
                   form={form}
                   name="imageUrl"
+                />
+              )}
+            />{" "}
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{
+              opacity: form.watch("displayType") === "3D Model" ? 1 : 0,
+            }}
+            transition={{ duration: 0.3 }}
+            className={`sticky top-0 w-full  ${
+              form.watch("displayType") === "3D Model" ? "block" : "hidden"
+            }
+            `}
+          >
+            <Controller
+              name="model3D_Url"
+              control={form?.control}
+              render={({ field, fieldState }) => (
+                <Upload3DModelField
+                  field={field}
+                  fieldState={fieldState}
+                  text="Chose a GLB File To Upload"
+                  limit={1}
+                  form={form}
+                  name="model3D_Url"
                 />
               )}
             />{" "}

@@ -6,7 +6,7 @@ import { FormEvent } from "react";
 import FormsCheckBoxMolecule from "@/components/ui/molecules/forms-checkbox/FormsCheckBox.molecule";
 import { LogoFormType } from "@/validations/logo.zod";
 import ColorPickerMolecule from "@/components/ui/molecules/color-picker/ColorPicker.molecule";
-import UploadImageInstantMolecule from "@/components/ui/molecules/upload-image-instant/UploadImageInstant.molecule";
+import uploadFileInstantMolecule from "@/components/ui/molecules/upload-image-instant/uploadFileInstant.molecule";
 
 interface Props {
   form: LogoFormType;
@@ -53,7 +53,7 @@ const EditLogoFormContent = ({ form, formName, handle_submit }: Props) => {
             name="imagePath"
             control={form?.control}
             render={({ field, fieldState }) => (
-              <UploadImageInstantMolecule
+              <uploadFileInstantMolecule
                 field={field}
                 fieldState={fieldState}
                 name={"imagePath"}
