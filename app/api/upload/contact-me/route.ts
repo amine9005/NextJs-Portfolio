@@ -7,5 +7,5 @@ if (!fs.existsSync(DIR_PATH)) {
   fs.mkdirSync(DIR_PATH, { recursive: true });
 }
 export async function POST(req: NextRequest) {
-  await uploadFile(req, DIR_PATH);
+  return await uploadFile(req, DIR_PATH);
 }

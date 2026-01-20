@@ -1,6 +1,6 @@
 "use client";
 import { useTmpLogoStore } from "@/store/admin/logo.store";
-import { validateFiles } from "@/validations/upload.validate";
+import { validateImages } from "@/validations/upload.validate";
 import { Loader2Icon, UploadIcon } from "lucide-react";
 import { FieldValues, UseFormReturn } from "react-hook-form";
 import {
@@ -10,13 +10,6 @@ import {
 } from "@/components/ui/atoms/field/field";
 import { useUploadSubmit } from "@/hooks/submit/useUploadSubmit.hook";
 
-// interface Item {
-//   name: string;
-//   labelTitle?: React.ReactNode;
-//   type?: string;
-//   placeholder?: string;
-//   autoComplete: string;
-// }
 interface Props {
   name: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -25,6 +18,7 @@ interface Props {
   // item?: Item;
   limit?: number;
   field: FieldValues;
+  imageRoute?: "LOGO" | "PROJECT IMAGE" | "HERO IMAGE";
   fieldState: {
     invalid: boolean;
     isTouched: boolean;
@@ -34,18 +28,19 @@ interface Props {
   };
 }
 
-const UploadFileFieldInstant = ({
+const UploadImageFieldInstant = ({
   form,
   name,
   text = "Chose File",
   limit,
+  imageRoute = "LOGO",
   fieldState,
 }: Props) => {
   const { uploadFile, isPending } = useUploadSubmit();
   const setLogoPath = useTmpLogoStore((state) => state.setImagePath);
 
   const setAndUpload = async (files: FileList | null) => {
-    const path = await uploadFile(files, "LOGO");
+    const path = await uploadFile(files, imageRoute);
     // console.log("path ", path);
     form.setValue(name, path);
     setLogoPath(path);
@@ -60,7 +55,7 @@ const UploadFileFieldInstant = ({
         <input
           type="file"
           multiple
-          onChange={(e) => setAndUpload(validateFiles(e.target.files, limit))}
+          onChange={(e) => setAndUpload(validateImages(e.target.files, limit))}
           id={`image-${name}`}
           hidden
           disabled={isPending}
@@ -82,4 +77,4 @@ const UploadFileFieldInstant = ({
   );
 };
 
-export default UploadFileFieldInstant;
+export default UploadImageFieldInstant;

@@ -2,15 +2,19 @@
 import { memo } from "react";
 import FormLayout from "@/components/ui/layouts/Form.layout";
 
-import { useHeroTextSubmit } from "@/hooks/submit/useHeroTextSubmit.hook";
 import EditHeroMediaCard from "@/components/ui/organisms/cards/edit-hero/EditHeroMedia.card";
-import { useHeroMediaForm } from "@/hooks/forms/useHeroMediaFrom.hook";
+import {
+  useHeroMediaForm,
+  useHeroMediaFormData,
+} from "@/hooks/forms/useHeroMediaFrom.hook";
+import { useHeroMediaSubmit } from "@/hooks/submit/useHeroMediaSubmit.hook";
 
 const EditLogoAction = () => {
   const form = useHeroMediaForm();
+  useHeroMediaFormData(form);
 
   const { handleSubmit } = form;
-  const { onSubmit, loading } = useHeroTextSubmit();
+  const { onSubmit, loading } = useHeroMediaSubmit();
 
   const card = { title: "Edit Your Hero Media", description: "" };
   const formName = "Hero-Form";
@@ -23,7 +27,7 @@ const EditLogoAction = () => {
         form={form}
         card={card}
         formName={formName}
-        handle_submit={() => {}}
+        handle_submit={handleSubmit(onSubmit)}
       />
     </FormLayout>
   );

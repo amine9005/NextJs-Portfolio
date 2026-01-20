@@ -1,34 +1,34 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getClient } from "@/db/mongoose";
-import HeroTextModel from "@/db/models/HeroText.model";
+import HeroMediaModel from "@/db/models/HeroMedia.model";
 await getClient();
 
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { fullName, description, title, leftColor, rightColor } = body;
-    const doc = (await HeroTextModel.find())[0];
-    // console.log("fullName ", fullName, "description: ", description);
+    const { displayType, videoSource, videoUrl, imageUrl, model3D_Url } = body;
+    const doc = (await HeroMediaModel.find())[0];
+    // console.log("displayType ", displayType, "videoSource: ", videoSource);
 
     if (!doc) {
-      HeroTextModel.create({
-        fullName,
-        description,
-        title,
-        leftColor,
-        rightColor,
+      HeroMediaModel.create({
+        displayType,
+        videoSource,
+        videoUrl,
+        imageUrl,
+        model3D_Url,
       });
     } else {
-      doc.fullName = fullName;
-      doc.description = description;
-      doc.title = title;
-      doc.leftColor = leftColor;
-      doc.rightColor = rightColor;
+      doc.displayType = displayType;
+      doc.videoSource = videoSource;
+      doc.videoUrl = videoUrl;
+      doc.imageUrl = imageUrl;
+      doc.model3D_Url = model3D_Url;
       await doc.save();
     }
 
     return NextResponse.json(
-      { message: "Logo Updated successfully" },
+      { message: "Hero Media Updated successfully" },
       {
         status: 200,
       },
@@ -44,7 +44,7 @@ export async function POST(req: NextRequest) {
 
 export async function GET() {
   try {
-    const hero = await HeroTextModel.find().limit(1);
+    const hero = await HeroMediaModel.find().limit(1);
     if (!hero || hero.length === 0) {
       return NextResponse.json(
         { message: "Hero data not found" },

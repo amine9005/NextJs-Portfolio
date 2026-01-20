@@ -1,5 +1,5 @@
 "use client";
-import { validateFiles } from "@/validations/upload.validate";
+import { validateImages } from "@/validations/upload.validate";
 import { UploadIcon } from "lucide-react";
 
 interface Props {
@@ -26,7 +26,7 @@ const UploadFileMolecule = ({
       <input
         type="file"
         multiple
-        onChange={(e) => setFilePath(validateFiles(e.target.files, limit))}
+        onChange={(e) => setFilePath(validateImages(e.target.files, limit))}
         id={`image${index}`}
         hidden
       />

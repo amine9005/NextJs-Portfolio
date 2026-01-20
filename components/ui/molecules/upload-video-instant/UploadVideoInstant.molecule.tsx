@@ -1,6 +1,5 @@
 "use client";
-import { useUploadSubmit } from "@/hooks/submit/useUploadSubmit.hook";
-import { validate3DModelFiles } from "@/validations/upload.validate";
+import { validateVideoFiles } from "@/validations/upload.validate";
 import { Loader2Icon, UploadIcon } from "lucide-react";
 import { FieldValues, UseFormReturn } from "react-hook-form";
 import {
@@ -8,14 +7,8 @@ import {
   FieldError,
   FieldLabel,
 } from "@/components/ui/atoms/field/field";
+import { useUploadSubmit } from "@/hooks/submit/useUploadSubmit.hook";
 
-// interface Item {
-//   name: string;
-//   labelTitle?: React.ReactNode;
-//   type?: string;
-//   placeholder?: string;
-//   autoComplete: string;
-// }
 interface Props {
   name: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -23,6 +16,7 @@ interface Props {
   text?: string;
   // item?: Item;
   limit?: number;
+  videoRoute?: "PROJECT VIDEO" | "HERO VIDEO";
   field: FieldValues;
   fieldState: {
     invalid: boolean;
@@ -33,17 +27,18 @@ interface Props {
   };
 }
 
-const Upload3DModelField = ({
+const UploadVideoFieldInstant = ({
   form,
   name,
-  text = "Upload 3D Model",
+  text = "Chose File",
   limit,
+  videoRoute = "PROJECT VIDEO",
   fieldState,
 }: Props) => {
   const { uploadFile, isPending } = useUploadSubmit();
 
   const setAndUpload = async (files: FileList | null) => {
-    const path = await uploadFile(files, "3D MODEL");
+    const path = await uploadFile(files, videoRoute);
     // console.log("path ", path);
     form.setValue(name, path);
     form.trigger();
@@ -58,7 +53,7 @@ const Upload3DModelField = ({
           type="file"
           multiple
           onChange={(e) =>
-            setAndUpload(validate3DModelFiles(e.target.files, limit))
+            setAndUpload(validateVideoFiles(e.target.files, limit))
           }
           id={`image-${name}`}
           hidden
@@ -81,4 +76,4 @@ const Upload3DModelField = ({
   );
 };
 
-export default Upload3DModelField;
+export default UploadVideoFieldInstant;

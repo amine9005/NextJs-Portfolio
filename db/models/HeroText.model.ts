@@ -11,7 +11,7 @@ const heroTextSchema = new mongoose.Schema(
 );
 
 const HeroTextModel =
-  mongoose.models.heroText || mongoose.model("heroText", heroTextSchema);
+  mongoose.models.heroText || mongoose.model("hero_text", heroTextSchema);
 
 export default HeroTextModel;
 export type HeroText = InferSchemaType<typeof heroTextSchema>;

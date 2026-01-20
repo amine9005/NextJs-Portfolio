@@ -27,6 +27,15 @@ export const useUpload = () => {
       case "3D MODEL":
         url = "/api/upload/3d-model";
         break;
+      case "HERO VIDEO":
+        url = "/api/upload/video/hero";
+        break;
+      case "PROJECT VIDEO":
+        url = "/api/upload/video/project";
+        break;
+      case "CONTACT":
+        url = "/api/upload/contact-me";
+        break;
       default:
         url = "/api/upload/";
     }

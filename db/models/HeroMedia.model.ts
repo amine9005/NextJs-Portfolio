@@ -13,7 +13,7 @@ const heroMediaSchema = new mongoose.Schema(
 );
 
 const HeroMediaModel =
-  mongoose.models.heroMedia || mongoose.model("heroMedia", heroMediaSchema);
+  mongoose.models.heroMedia || mongoose.model("hero_media", heroMediaSchema);
 
 export default HeroMediaModel;
 export type HeroMedia = InferSchemaType<typeof heroMediaSchema>;

@@ -19,7 +19,7 @@ export const useHeroTextMutation = () => {
     rightColor,
     leftColor,
   }: props) => {
-    const response = await axiosInstance.post("/api/admin/hero", {
+    const response = await axiosInstance.post("/api/admin/hero/text", {
       fullName,
       title,
       description,
@@ -32,7 +32,7 @@ export const useHeroTextMutation = () => {
   return useMutation({
     mutationFn: useHeroTextMutationFn,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["hero"] });
+      queryClient.invalidateQueries({ queryKey: ["hero-text"] });
     },
   });
 };

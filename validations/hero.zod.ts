@@ -35,7 +35,13 @@ export type heroTextSchemaType = z.infer<typeof heroTextSchema>;
 export type HeroTextFormType = UseFormReturn<heroTextSchemaType>;
 
 export const displayTypes = ["Image", "Parallax", "Video", "3D Model"];
-export const videoSource = ["Youtube", "Google Drive", "Other"];
+export const videoSource = [
+  "Other",
+  "YouTube",
+  "Google Drive",
+  "Upload",
+  "Mux",
+];
 
 export const displayTypeValidation = z.enum(displayTypes);
 export const videoSourceValidation = z.enum(videoSource);
@@ -62,6 +68,7 @@ export const heroMediaSchema = z
             path: ["imageUrl"],
           });
         }
+        break;
       case "Parallax":
         if (!imageUrl) {
           ctx.addIssue({
@@ -70,6 +77,7 @@ export const heroMediaSchema = z
             path: ["imageUrl"],
           });
         }
+        break;
       case "Video":
         if (!videoUrl) {
           ctx.addIssue({
@@ -78,6 +86,7 @@ export const heroMediaSchema = z
             path: ["videoUrl"],
           });
         }
+        break;
       case "3D Model":
         if (!model3D_Url) {
           ctx.addIssue({
@@ -86,6 +95,7 @@ export const heroMediaSchema = z
             path: ["model3D_Url"],
           });
         }
+        break;
     }
   });
 

@@ -12,6 +12,7 @@ import SelectField from "@/components/ui/molecules/select-field/SelectField.mole
 import { motion } from "framer-motion";
 import UploadFileFieldInstant from "@/components/ui/molecules/upload-image-instant/UploadImageInstant.molecule";
 import Upload3DModelField from "@/components/ui/molecules/upload-3D-model-field/Upload3DModelField.molecule";
+import UploadVideoFieldInstant from "@/components/ui/molecules/upload-video-instant/UploadVideoInstant.molecule";
 
 interface Props {
   form: HeroMediaFormType;
@@ -24,14 +25,6 @@ const videoInputValues = {
   labelTitle: "Video Source",
   type: "text",
   placeholder: "Video Url",
-  autoComplete: "off",
-};
-
-const parallaxInputValues = {
-  name: "parallax",
-  labelTitle: "Parallax",
-  type: "text",
-  placeholder: "Parallax Image Source",
   autoComplete: "off",
 };
 
@@ -87,6 +80,7 @@ const EditHeroMediaContent = ({ form, formName, handle_submit }: Props) => {
                   limit={1}
                   form={form}
                   name="imageUrl"
+                  imageRoute={"HERO IMAGE"}
                 />
               )}
             />{" "}
@@ -113,6 +107,7 @@ const EditHeroMediaContent = ({ form, formName, handle_submit }: Props) => {
                   limit={1}
                   form={form}
                   name="imageUrl"
+                  imageRoute={"HERO IMAGE"}
                 />
               )}
             />{" "}
@@ -165,17 +160,56 @@ const EditHeroMediaContent = ({ form, formName, handle_submit }: Props) => {
                 />
               )}
             />
-            <Controller
-              name="videoUrl"
-              control={form?.control}
-              render={({ field, fieldState }) => (
-                <InputField
-                  field={field}
-                  fieldState={fieldState}
-                  item={videoInputValues}
-                />
-              )}
-            />{" "}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{
+                opacity: form.watch("videoSource") != "Upload" ? 1 : 0,
+              }}
+              transition={{ duration: 0.3 }}
+              className={`sticky top-0 w-full space-y-4  ${
+                form.watch("videoSource") != "Upload" ? "block" : "hidden"
+              }
+            `}
+            >
+              <Controller
+                name="videoUrl"
+                control={form?.control}
+                render={({ field, fieldState }) => (
+                  <InputField
+                    field={field}
+                    fieldState={fieldState}
+                    item={videoInputValues}
+                  />
+                )}
+              />{" "}
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{
+                opacity: form.watch("videoSource") === "Upload" ? 1 : 0,
+              }}
+              transition={{ duration: 0.3 }}
+              className={`sticky top-0 w-full space-y-4  ${
+                form.watch("videoSource") === "Upload" ? "block" : "hidden"
+              }
+            `}
+            >
+              <Controller
+                name="videoUrl"
+                control={form?.control}
+                render={({ field, fieldState }) => (
+                  <UploadVideoFieldInstant
+                    field={field}
+                    fieldState={fieldState}
+                    text="Upload Video"
+                    limit={1}
+                    form={form}
+                    name="videoUrl"
+                    videoRoute="HERO VIDEO"
+                  />
+                )}
+              />{" "}
+            </motion.div>
           </motion.div>
         </div>
       </FieldGroup>

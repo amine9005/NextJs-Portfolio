@@ -6,8 +6,8 @@ import { Html, useProgress } from "@react-three/drei";
 import { LoaderPinwheelIcon } from "lucide-react";
 import { P } from "../../atoms/text/Text";
 
-function Model({ scale }: { scale: number }) {
-  const { scene } = useGLTF("/models/computer-optimized-transformed.glb");
+function Model({ scale, modelName }: { scale: number; modelName: string }) {
+  const { scene } = useGLTF("/models/" + modelName);
   return <primitive object={scene} scale={scale} />;
 }
 function Loader(): ReactNode {
@@ -23,14 +23,14 @@ function Loader(): ReactNode {
   );
 }
 
-const Hero3DModelMolecule = () => {
+const Hero3DModelMolecule = ({ modelName }: { modelName: string }) => {
   return (
     <Canvas camera={{ fov: 45 }} className="cursor-pointer w-full ">
       {/* <Loader /> */}
       <Suspense fallback={<Loader />}>
         <OrbitControls></OrbitControls>
         <Stage environment={"sunset"}>
-          <Model scale={0.1} />
+          <Model scale={0.1} modelName={modelName} />
         </Stage>
       </Suspense>
     </Canvas>

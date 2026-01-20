@@ -2,15 +2,15 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
 // Custom hook to fetch logo using React Query
-export const useHeroTextQuery = () => {
+export const useHeroMediaQuery = () => {
   // Define the API endpoint for fetching the logo
-  const fetchHeroText = async () => {
-    const response = await axios.get("/api/admin/hero/text");
+  const getHeroMedia = async () => {
+    const response = await axios.get("/api/admin/hero/media");
     return response.data.hero;
   };
   return useQuery({
-    queryFn: fetchHeroText,
-    queryKey: ["hero-text"],
+    queryFn: getHeroMedia,
+    queryKey: ["hero-media"],
     staleTime: Infinity,
   });
 };

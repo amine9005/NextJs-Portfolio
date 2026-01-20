@@ -2,6 +2,7 @@ import { useForm, UseFormReturn } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
 import { heroMediaSchema, heroMediaSchemaType } from "@/validations/hero.zod";
+import { useHeroMediaQuery } from "@/hooks/queries/useHeroMediaQuery.hook";
 
 export const useHeroMediaForm = () => {
   const form = useForm<heroMediaSchemaType>({
@@ -18,36 +19,40 @@ export const useHeroMediaForm = () => {
   return form;
 };
 
-// export const useHeroTextFormData = (
-//   form: UseFormReturn<heroMediaSchemaType>,
-// ) => {
-//   const { data: heroData, isLoading } = useHeroQuery();
+export const useHeroMediaFormData = (
+  form: UseFormReturn<heroMediaSchemaType>,
+) => {
+  const { data: heroData, isLoading } = useHeroMediaQuery();
 
-//   useEffect(() => {
-//     form.setValue(
-//       "leftColor",
-//       heroData?.leftColor ? heroData.leftColor : form.getValues("leftColor"),
-//     );
-//     form.setValue(
-//       "rightColor",
-//       heroData?.rightColor ? heroData.rightColor : form.getValues("rightColor"),
-//     );
+  useEffect(() => {
+    form.setValue(
+      "displayType",
+      heroData?.displayType
+        ? heroData.displayType
+        : form.getValues("displayType"),
+    );
+    form.setValue(
+      "videoSource",
+      heroData?.videoSource
+        ? heroData.videoSource
+        : form.getValues("videoSource"),
+    );
 
-//     form.setValue(
-//       "fullName",
-//       heroData?.fullName ? heroData.fullName : form.getValues("fullName"),
-//     );
-//     form.setValue(
-//       "title",
-//       heroData?.title ? heroData.title : form.getValues("title"),
-//     );
-//     form.setValue(
-//       "description",
-//       heroData?.description
-//         ? heroData.description
-//         : form.getValues("description"),
-//     );
+    form.setValue(
+      "videoUrl",
+      heroData?.videoUrl ? heroData.videoUrl : form.getValues("videoUrl"),
+    );
+    form.setValue(
+      "imageUrl",
+      heroData?.imageUrl ? heroData.imageUrl : form.getValues("imageUrl"),
+    );
+    form.setValue(
+      "model3D_Url",
+      heroData?.model3D_Url
+        ? heroData.model3D_Url
+        : form.getValues("model3D_Url"),
+    );
 
-//     // eslint-disable-next-line react-hooks/exhaustive-deps
-//   }, [isLoading]);
-// };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLoading]);
+};

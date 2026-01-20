@@ -8,7 +8,7 @@ import { heroTextSchemaType } from "@/validations/hero.zod";
 
 export function useHeroTextSubmit() {
   const [loading, setLoading] = useState(false);
-  const { mutateAsync: updateLogo } = useHeroTextMutation();
+  const { mutateAsync: updateHeroText } = useHeroTextMutation();
 
   const onSubmit: SubmitHandler<heroTextSchemaType> = useCallback(
     async (data) => {
@@ -21,7 +21,7 @@ export function useHeroTextSubmit() {
         const description = data.description;
         const title = data.title;
 
-        await updateLogo({
+        await updateHeroText({
           fullName,
           description,
           title,
@@ -39,7 +39,7 @@ export function useHeroTextSubmit() {
       return success;
     },
 
-    [updateLogo],
+    [updateHeroText],
   );
 
   return { loading, onSubmit };

@@ -2,7 +2,7 @@ import fs from "fs";
 import { NextRequest } from "next/server";
 import path from "path";
 import { uploadFile } from "@/helpers/uploadFile.helper";
-const DIR_PATH = path.resolve(`./public/projects/images`);
+const DIR_PATH = path.resolve(`./public/projects/videos`);
 if (!fs.existsSync(DIR_PATH)) {
   fs.mkdirSync(DIR_PATH, { recursive: true });
 }

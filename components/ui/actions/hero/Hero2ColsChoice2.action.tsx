@@ -9,7 +9,7 @@ const Hero2ColsAction = () => {
       right_span={5}
       left_span={5}
       left_children={<HeroText />}
-      right_children={<HeroVideoMolecule />}
+      // right_children={<HeroVideoMolecule />}
     />
   );
 };
