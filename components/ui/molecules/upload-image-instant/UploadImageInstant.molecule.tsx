@@ -15,7 +15,6 @@ interface Props {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   form: UseFormReturn<any>;
   text?: string;
-  // item?: Item;
   limit?: number;
   field: FieldValues;
   imageRoute?: "LOGO" | "PROJECT IMAGE" | "HERO IMAGE";
@@ -44,32 +43,37 @@ const UploadImageFieldInstant = ({
     // console.log("path ", path);
     form.setValue(name, path);
     setLogoPath(path);
-    form.trigger();
+    console.log("values ", form.getValues("projectImages"));
+    // form.trigger();
   };
   return (
-    <Field className="w-full" data-invalid={fieldState.invalid}>
+    <Field className="mt-2 max-w-4/5" data-invalid={fieldState.invalid}>
       <FieldLabel
-        className="flex w-full flex-wrap overflow-x-hidden justify-start items-center gap-2 hover:cursor-pointer"
+        className="flex flex-wrap justify-start"
         htmlFor={`image-${name}`}
       >
-        <input
-          type="file"
-          multiple
-          onChange={(e) => setAndUpload(validateImages(e.target.files, limit))}
-          id={`image-${name}`}
-          hidden
-          disabled={isPending}
-        />
-        {isPending ? (
-          <div className="flex items-center justify-center h-10 w-16 p-2 hover:cursor-pointer border border-white rounded-lg">
-            <Loader2Icon className=" animate-spin" />
-          </div>
-        ) : (
-          <UploadIcon className="h-10 w-16 p-2 hover:cursor-pointer border border-white rounded-lg" />
-        )}
-        <span className="max-w-full">
-          {form.getValues(name) ? form.getValues(name) : text}
-        </span>
+        <div className="flex flex-wrap overflow-x-hidden justify-start items-center gap-2 hover:cursor-pointer">
+          <input
+            type="file"
+            multiple
+            onChange={(e) =>
+              setAndUpload(validateImages(e.target.files, limit))
+            }
+            id={`image-${name}`}
+            hidden
+            disabled={isPending}
+          />
+          {isPending ? (
+            <div className="flex items-center justify-center h-10 w-16 p-2 hover:cursor-pointer border border-white rounded-lg">
+              <Loader2Icon className=" animate-spin" />
+            </div>
+          ) : (
+            <UploadIcon className="h-10 w-16 p-2 hover:cursor-pointer border border-white rounded-lg" />
+          )}
+          <span className="max-w-full">
+            {form.getValues(name) ? form.getValues(name) : text}
+          </span>
+        </div>
       </FieldLabel>
 
       {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
