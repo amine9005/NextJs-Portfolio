@@ -1,18 +1,18 @@
 "use client";
 import { memo } from "react";
 import FormLayout from "@/components/ui/layouts/Form.layout";
-import { useLogoSubmit } from "@/hooks/submit/useLogoSubmit.hook";
 import AddProjectCard from "@/components/ui/organisms/cards/project/AddProject.card";
 import { useAddProjectForm } from "@/hooks/forms/useAddProjectForm.hook";
+import { useAddProjectSubmit } from "@/hooks/submit/useAddProjectSubmit.hook";
 
 const AddProjectAction = () => {
   const form = useAddProjectForm();
 
   const { handleSubmit } = form;
-  const { onSubmit, loading } = useLogoSubmit();
+  const { onSubmit, loading } = useAddProjectSubmit();
 
   const card = { title: "Add New Project", description: "" };
-  const formName = "TitleAndLogo-Form";
+  const formName = "addProject-Form";
 
   return (
     <FormLayout>
@@ -22,7 +22,7 @@ const AddProjectAction = () => {
         form={form}
         card={card}
         formName={formName}
-        handle_submit={() => {}}
+        handle_submit={handleSubmit(onSubmit)}
       />
     </FormLayout>
   );

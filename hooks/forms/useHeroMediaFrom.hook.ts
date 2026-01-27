@@ -12,6 +12,7 @@ export const useHeroMediaForm = () => {
       videoSource: "Other",
       imageUrl: "",
       videoUrl: "",
+      videoFileName: "",
       model3D_Url: "",
     },
   });
@@ -41,6 +42,12 @@ export const useHeroMediaFormData = (
     form.setValue(
       "videoUrl",
       heroData?.videoUrl ? heroData.videoUrl : form.getValues("videoUrl"),
+    );
+    form.setValue(
+      "videoFileName",
+      heroData?.videoFileName
+        ? heroData.videoFileName
+        : form.getValues("videoFileName"),
     );
     form.setValue(
       "imageUrl",

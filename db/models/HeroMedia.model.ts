@@ -7,6 +7,7 @@ const heroMediaSchema = new mongoose.Schema(
     videoSource: { type: String, enum: videoSource, required: true },
     imageUrl: { type: String, required: false },
     videoUrl: { type: String, required: false },
+    videoFileName: { type: String, required: false },
     model3D_Url: { type: String, required: false },
   },
   { timestamps: true },

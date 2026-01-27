@@ -1,20 +1,40 @@
 import { Button } from "@/components/ui/atoms/button/button";
 import { PlusIcon, Trash2Icon } from "lucide-react";
 import { Controller, useFieldArray, UseFormReturn } from "react-hook-form";
-import UploadImageFieldInstant from "@/components/ui/molecules/upload-image-instant/UploadImageInstant.molecule";
+import UploadBase from "@/components/ui/molecules/upload-base/UploadBase.molecule";
+import { useUploadSubmit } from "@/hooks/submit/useUploadSubmit.hook";
+import {
+  UploadRoutes,
+  validate3DModelFiles,
+} from "@/validations/upload.validate";
 
-const UploadMultipleImagesMolecule = ({
-  form,
-  name,
-}: {
+interface Props {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   form: UseFormReturn<any>;
   name: string;
-}) => {
+  dirPath?: string;
+  uploadRoute: UploadRoutes;
+}
+
+const UploadModelArray = ({ form, name, uploadRoute }: Props) => {
+  const { uploadFile, isPending } = useUploadSubmit();
+
   const { fields, append, remove, update } = useFieldArray({
     control: form?.control,
     name: name,
   });
+
+  const setAndUpload = async (files: FileList | null, index: number) => {
+    const path = await uploadFile(files, uploadRoute);
+    update(index, path);
+  };
+
+  const textFn = (index: number) => {
+    return form.getValues(name)[index] &&
+      typeof form.getValues(name)[index] !== typeof {}
+      ? (form.getValues(name)[index] as string)
+      : "Upload New 3D Model (GLB File Only)";
+  };
 
   return (
     <div className="flex flex-col justify-center items-center w-full">
@@ -25,15 +45,16 @@ const UploadMultipleImagesMolecule = ({
               <Controller
                 name={name}
                 control={form?.control}
-                render={({ field, fieldState }) => (
-                  <UploadImageFieldInstant
-                    field={field}
-                    fieldState={fieldState}
-                    form={form}
+                render={({ fieldState }) => (
+                  <UploadBase
                     name={item.id}
-                    imageRoute="PROJECT IMAGE"
-                    text="Upload New Image"
+                    isPending={isPending}
+                    validation={validate3DModelFiles}
+                    setAndUpload={(file) => setAndUpload(file, index)}
+                    fieldState={fieldState}
                     limit={1}
+                    index={index}
+                    text={textFn(index)}
                   />
                 )}
               />
@@ -47,16 +68,6 @@ const UploadMultipleImagesMolecule = ({
                 <Trash2Icon className="size-6" />
               </Button>
             </div>
-
-            {/* <input {...form.register(`test.${index}.firstName`)} />
-            <Controller
-              render={({ field }) => <input {...field} />}
-              name={`test.${index}.lastName`}
-              control={form.control}
-            />
-            <button type="button" onClick={() => remove(index)}>
-              Delete
-            </button> */}
           </li>
         ))}
       </ul>
@@ -64,12 +75,12 @@ const UploadMultipleImagesMolecule = ({
         type="button"
         variant={"outline"}
         className="mt-4 p-2"
-        onClick={() => append({ path: "" })}
+        onClick={() => append({})}
       >
-        Add New image <PlusIcon className="size-6 rounded-full" />
+        Add New Model <PlusIcon className="size-6 rounded-full" />
       </Button>
     </div>
   );
 };
 
-export default UploadMultipleImagesMolecule;
+export default UploadModelArray;

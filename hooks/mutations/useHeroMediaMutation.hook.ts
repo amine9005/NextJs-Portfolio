@@ -8,6 +8,7 @@ interface props {
   imageUrl: string | undefined;
   videoUrl: string | undefined;
   model3D_Url: string | undefined;
+  videoFileName: string | undefined;
 }
 
 export const useHeroMediaMutation = () => {
@@ -18,6 +19,7 @@ export const useHeroMediaMutation = () => {
     imageUrl,
     videoUrl,
     model3D_Url,
+    videoFileName,
   }: props) => {
     const response = await axiosInstance.post("/api/admin/hero/media", {
       displayType,
@@ -25,6 +27,7 @@ export const useHeroMediaMutation = () => {
       imageUrl,
       videoUrl,
       model3D_Url,
+      videoFileName,
     });
     return response;
   };

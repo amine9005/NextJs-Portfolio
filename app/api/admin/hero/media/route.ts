@@ -6,7 +6,14 @@ await getClient();
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { displayType, videoSource, videoUrl, imageUrl, model3D_Url } = body;
+    const {
+      displayType,
+      videoSource,
+      videoUrl,
+      imageUrl,
+      model3D_Url,
+      videoFileName,
+    } = body;
     const doc = (await HeroMediaModel.find())[0];
     // console.log("displayType ", displayType, "videoSource: ", videoSource);
 
@@ -17,6 +24,7 @@ export async function POST(req: NextRequest) {
         videoUrl,
         imageUrl,
         model3D_Url,
+        videoFileName,
       });
     } else {
       doc.displayType = displayType;
@@ -24,6 +32,7 @@ export async function POST(req: NextRequest) {
       doc.videoUrl = videoUrl;
       doc.imageUrl = imageUrl;
       doc.model3D_Url = model3D_Url;
+      doc.videoFileName = videoFileName;
       await doc.save();
     }
 

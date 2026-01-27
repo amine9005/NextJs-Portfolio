@@ -1,13 +1,9 @@
 "use client";
 import { validateVideoFiles } from "@/validations/upload.validate";
-import { Loader2Icon, UploadIcon } from "lucide-react";
 import { FieldValues, UseFormReturn } from "react-hook-form";
-import {
-  Field,
-  FieldError,
-  FieldLabel,
-} from "@/components/ui/atoms/field/field";
 import { useUploadSubmit } from "@/hooks/submit/useUploadSubmit.hook";
+import { ReactNode } from "react";
+import UploadBase from "@/components/ui/molecules/upload-base/UploadBase.molecule";
 
 interface Props {
   name: string;
@@ -18,6 +14,8 @@ interface Props {
   limit?: number;
   videoRoute?: "PROJECT VIDEO" | "HERO VIDEO";
   field: FieldValues;
+  inLineIcon?: ReactNode;
+
   fieldState: {
     invalid: boolean;
     isTouched: boolean;
@@ -32,6 +30,7 @@ const UploadVideoFieldInstant = ({
   name,
   text = "Chose File",
   limit,
+  inLineIcon,
   videoRoute = "PROJECT VIDEO",
   fieldState,
 }: Props) => {
@@ -43,36 +42,22 @@ const UploadVideoFieldInstant = ({
     form.setValue(name, path);
     form.trigger();
   };
-  return (
-    <Field className="w-full" data-invalid={fieldState.invalid}>
-      <FieldLabel
-        className="flex w-full flex-wrap overflow-x-hidden justify-start items-center gap-2 hover:cursor-pointer"
-        htmlFor={`image-${name}`}
-      >
-        <input
-          type="file"
-          multiple
-          onChange={(e) =>
-            setAndUpload(validateVideoFiles(e.target.files, limit))
-          }
-          id={`image-${name}`}
-          hidden
-          disabled={isPending}
-        />
-        {isPending ? (
-          <div className="flex items-center justify-center h-10 w-16 p-2 hover:cursor-pointer border border-white rounded-lg">
-            <Loader2Icon className=" animate-spin" />
-          </div>
-        ) : (
-          <UploadIcon className="h-10 w-16 p-2 hover:cursor-pointer border border-white rounded-lg" />
-        )}
-        <span className="max-w-full">
-          {form.getValues(name) ? form.getValues(name) : text}
-        </span>
-      </FieldLabel>
 
-      {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
-    </Field>
+  const textFn = () => {
+    return form.getValues(name) ? (form.getValues(name) as string) : text;
+  };
+  return (
+    <UploadBase
+      accept="video/*"
+      name={name}
+      isPending={isPending}
+      validation={validateVideoFiles}
+      setAndUpload={setAndUpload}
+      fieldState={fieldState}
+      limit={limit}
+      text={textFn()}
+      inLineIcon={inLineIcon}
+    />
   );
 };
 

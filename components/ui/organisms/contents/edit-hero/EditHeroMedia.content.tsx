@@ -13,6 +13,7 @@ import { motion } from "framer-motion";
 import UploadFileFieldInstant from "@/components/ui/molecules/upload-image-instant/UploadImageInstant.molecule";
 import Upload3DModelField from "@/components/ui/molecules/upload-3D-model-field/Upload3DModelField.molecule";
 import UploadVideoFieldInstant from "@/components/ui/molecules/upload-video-instant/UploadVideoInstant.molecule";
+import { PATHS } from "@/lib/patths";
 
 interface Props {
   form: HeroMediaFormType;
@@ -78,6 +79,7 @@ const EditHeroMediaContent = ({ form, formName, handle_submit }: Props) => {
                   fieldState={fieldState}
                   text="Chose An Image"
                   limit={1}
+                  imageUrl={PATHS.HERO_IMAGES}
                   form={form}
                   name="imageUrl"
                   imageRoute={"HERO IMAGE"}
@@ -105,6 +107,7 @@ const EditHeroMediaContent = ({ form, formName, handle_submit }: Props) => {
                   fieldState={fieldState}
                   text="Chose An Image"
                   limit={1}
+                  imageUrl={PATHS.HERO_IMAGES}
                   form={form}
                   name="imageUrl"
                   imageRoute={"HERO IMAGE"}
@@ -195,7 +198,7 @@ const EditHeroMediaContent = ({ form, formName, handle_submit }: Props) => {
             `}
             >
               <Controller
-                name="videoUrl"
+                name="videoFileName"
                 control={form?.control}
                 render={({ field, fieldState }) => (
                   <UploadVideoFieldInstant
@@ -204,7 +207,7 @@ const EditHeroMediaContent = ({ form, formName, handle_submit }: Props) => {
                     text="Upload Video"
                     limit={1}
                     form={form}
-                    name="videoUrl"
+                    name="videoFileName"
                     videoRoute="HERO VIDEO"
                   />
                 )}

@@ -18,6 +18,7 @@ export function useHeroMediaSubmit() {
         const displayType = data.displayType;
         const videoSource = data.videoSource;
         const videoUrl = data.videoUrl;
+        const videoFileName = data.videoFileName;
         const imageUrl = data.imageUrl;
         const model3D_Url = data.model3D_Url;
 
@@ -27,6 +28,7 @@ export function useHeroMediaSubmit() {
           model3D_Url,
           videoSource,
           videoUrl,
+          videoFileName,
         });
 
         success = true;

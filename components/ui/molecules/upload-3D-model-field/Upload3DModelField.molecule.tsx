@@ -1,13 +1,11 @@
 "use client";
 import { useUploadSubmit } from "@/hooks/submit/useUploadSubmit.hook";
-import { validate3DModelFiles } from "@/validations/upload.validate";
-import { Loader2Icon, UploadIcon } from "lucide-react";
+
 import { FieldValues, UseFormReturn } from "react-hook-form";
-import {
-  Field,
-  FieldError,
-  FieldLabel,
-} from "@/components/ui/atoms/field/field";
+
+import UploadBase from "../upload-base/UploadBase.molecule";
+import { validate3DModelFiles } from "@/validations/upload.validate";
+import { ReactNode } from "react";
 
 // interface Item {
 //   name: string;
@@ -24,6 +22,7 @@ interface Props {
   // item?: Item;
   limit?: number;
   field: FieldValues;
+  inLineIcon?: ReactNode;
   fieldState: {
     invalid: boolean;
     isTouched: boolean;
@@ -38,6 +37,7 @@ const Upload3DModelField = ({
   name,
   text = "Upload 3D Model",
   limit,
+  inLineIcon,
   fieldState,
 }: Props) => {
   const { uploadFile, isPending } = useUploadSubmit();
@@ -48,36 +48,21 @@ const Upload3DModelField = ({
     form.setValue(name, path);
     form.trigger();
   };
-  return (
-    <Field className="w-full" data-invalid={fieldState.invalid}>
-      <FieldLabel
-        className="flex w-full flex-wrap overflow-x-hidden justify-start items-center gap-2 hover:cursor-pointer"
-        htmlFor={`image-${name}`}
-      >
-        <input
-          type="file"
-          multiple
-          onChange={(e) =>
-            setAndUpload(validate3DModelFiles(e.target.files, limit))
-          }
-          id={`image-${name}`}
-          hidden
-          disabled={isPending}
-        />
-        {isPending ? (
-          <div className="flex items-center justify-center h-10 w-16 p-2 hover:cursor-pointer border border-white rounded-lg">
-            <Loader2Icon className=" animate-spin" />
-          </div>
-        ) : (
-          <UploadIcon className="h-10 w-16 p-2 hover:cursor-pointer border border-white rounded-lg" />
-        )}
-        <span className="max-w-full">
-          {form.getValues(name) ? form.getValues(name) : text}
-        </span>
-      </FieldLabel>
 
-      {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
-    </Field>
+  const textFn = () => {
+    return form.getValues(name) ? (form.getValues(name) as string) : text;
+  };
+  return (
+    <UploadBase
+      name={name}
+      isPending={isPending}
+      validation={validate3DModelFiles}
+      setAndUpload={setAndUpload}
+      fieldState={fieldState}
+      limit={limit}
+      text={textFn()}
+      inLineIcon={inLineIcon}
+    />
   );
 };
 

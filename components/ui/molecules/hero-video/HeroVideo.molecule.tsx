@@ -4,10 +4,11 @@ import Player from "next-video/player";
 
 interface Props {
   videoUrl: string;
+  videoFileName: string;
   videoSource: "Other" | "YouTube" | "Google Drive" | "Upload" | "Mux";
 }
 
-const HeroVideoMolecule = ({ videoSource, videoUrl }: Props) => {
+const HeroVideoMolecule = ({ videoSource, videoUrl, videoFileName }: Props) => {
   console.log("Video Source: ", videoSource.toString() === "YouTube");
 
   if (videoSource === "Google Drive") {
@@ -49,7 +50,7 @@ const HeroVideoMolecule = ({ videoSource, videoUrl }: Props) => {
           loop={true}
           src={
             // "https://stream.mux.com/Uj3xQat00Dsg8023Y01IKzYBlTnnp567ad5ZLQ2c00hZlOs.m3u8"
-            "/hero/videos/" + videoUrl
+            "/hero/videos/" + videoFileName
           }
         ></video>
       </BlurFade>

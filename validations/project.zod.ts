@@ -1,5 +1,6 @@
 import { UseFormReturn } from "react-hook-form";
 import { z } from "zod";
+import { videoSource } from "@/validations/hero.zod";
 
 export const titleValidation = z
   .string()
@@ -15,30 +16,25 @@ export const descriptionValidation = z
 
 export const projectImagesValidation = z
   .array(
-    z.object({
-      path: z
-        .string({ message: "Image Path Is Required" })
-        .min(1, { message: "Image Path Is Required" }),
-    }),
+    z
+      .string({ message: "Image Is Required" })
+      .min(1, { message: "Image Is Required" }),
   )
   .optional();
 
 export const projectModelsValidation = z
   .array(
-    z.object({
-      path: z
-        .string({ message: "Model File Path Is Required" })
-        .min(1, { message: "Model File Path Is Required" }),
-    }),
+    z
+      .string({ message: "Model Is Required" })
+      .min(1, { message: "Model Is Required" }),
   )
   .optional();
 
 export const projectVideosValidation = z
   .array(
     z.object({
-      path: z
-        .string({ message: "Video File Path Is Required" })
-        .min(1, { message: "Video File Path Is Required" }),
+      videoSource: z.enum(videoSource),
+      videoFileName: z.string().min(1, { message: "Video Is Required" }),
     }),
   )
   .optional();
@@ -56,7 +52,7 @@ export const projectSchema = z
       ctx.addIssue({
         code: "custom",
         message: "No Project Media Was Provided",
-        path: ["projectImages", "projectModels", "projectVideos"],
+        path: ["projectImages"],
       });
     }
   });

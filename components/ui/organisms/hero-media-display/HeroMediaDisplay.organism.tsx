@@ -17,15 +17,27 @@ const HeroMediaDisplayOrganism = () => {
     );
   }
 
-  const { displayType, videoSource, imageUrl, videoUrl, model3D_Url } =
-    heroData;
+  const {
+    displayType,
+    videoSource,
+    imageUrl,
+    videoUrl,
+    model3D_Url,
+    videoFileName,
+  } = heroData;
 
   if (displayType === "Image") {
     return <HeroImage imageUrl={imageUrl} />;
   } else if (displayType === "Parallax") {
     return <HeroParallax imageUrl={imageUrl} />;
   } else if (displayType === "Video") {
-    return <HeroVideoMolecule videoSource={videoSource} videoUrl={videoUrl} />;
+    return (
+      <HeroVideoMolecule
+        videoSource={videoSource}
+        videoUrl={videoUrl}
+        videoFileName={videoFileName}
+      />
+    );
   } else if (displayType === "3D Model") {
     return <Hero3DModelMolecule modelName={model3D_Url} />;
   }
