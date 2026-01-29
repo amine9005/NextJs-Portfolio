@@ -1,12 +1,13 @@
 "use client";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axiosInstance from "@/lib/axios";
+import { Video } from "@/types/project.types";
 
 interface props {
   title: string;
   description: string;
   projectImages: string[] | undefined;
-  projectVideos: string[] | undefined;
+  projectVideos: Video[] | undefined;
   projectModels: string[] | undefined;
 }
 

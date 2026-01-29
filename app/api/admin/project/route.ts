@@ -7,7 +7,7 @@ export async function GET() {
   try {
     // console.log("title ", title, "description: ", description);
 
-    const projects = await ProjectModel.find();
+    const projects = await ProjectModel.find().populate("videos");
 
     return NextResponse.json(
       { message: "Projects Retrieved Successfully", projects: projects },

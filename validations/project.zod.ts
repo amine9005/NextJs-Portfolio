@@ -32,10 +32,33 @@ export const projectModelsValidation = z
 
 export const projectVideosValidation = z
   .array(
-    z.object({
-      videoSource: z.enum(videoSource),
-      videoFileName: z.string().min(1, { message: "Video Is Required" }),
-    }),
+    z
+      .object(
+        {
+          source: z.enum(videoSource),
+          fileName: z
+            .string({ message: "A Video File Is Required" })
+            .optional(),
+          url: z.string({ message: "A Video Url Is Required" }).optional(),
+        },
+        { message: "A Video Is Required" },
+      )
+      .superRefine(({ source, fileName, url }, ctx) => {
+        if (source === "Upload" && !fileName) {
+          ctx.addIssue({
+            code: "custom",
+            message: "A Video File Is Required",
+            path: ["fileName", "projectVideos"],
+          });
+        }
+        if (source != "Upload" && !url) {
+          ctx.addIssue({
+            code: "custom",
+            message: "A Video Url Is Required",
+            path: ["url"],
+          });
+        }
+      }),
   )
   .optional();
 

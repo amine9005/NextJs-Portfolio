@@ -1,11 +1,9 @@
 import { motion } from "framer-motion";
 import { Controller, UseFormReturn } from "react-hook-form";
 import SelectField from "@/components/ui/molecules/select-field/SelectField.molecule";
-
 import UploadVideoFieldInstant from "@/components/ui/molecules/upload-video-instant/UploadVideoInstant.molecule";
 import { videoSource } from "@/validations/hero.zod";
 import InputField from "@/components/ui/molecules/input-field/InputField.molecule";
-import { VideoFormType } from "@/validations/video.zod";
 
 const videoInputValues = {
   name: "videoUrl",
@@ -16,22 +14,30 @@ const videoInputValues = {
 };
 
 interface Props {
-  form: UseFormReturn<VideoFormType>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  form: UseFormReturn<any>;
   uploadRoute: "HERO VIDEO" | "PROJECT VIDEO";
+  index: number;
+  name: string;
 }
 
-const VideoUploadDisplayContent = ({ form, uploadRoute }: Props) => {
+const VideoUploadDisplayContent = ({
+  form,
+  uploadRoute,
+  index,
+  name,
+}: Props) => {
   const videoSourceInputValues = {
-    name: "videoSource",
+    name: `${name}.${index}.source`,
     labelTitle: "Video Source",
     options: videoSource,
-    placeholder: form.watch("videoSource"),
+    placeholder: form.watch(`${name}.${index}.source`),
     form: form,
   };
   return (
     <div className="w-full space-y-3">
       <Controller
-        name="videoSource"
+        name={`${name}.${index}.source`}
         control={form.control}
         render={({ field, fieldState }) => (
           <SelectField
@@ -44,16 +50,16 @@ const VideoUploadDisplayContent = ({ form, uploadRoute }: Props) => {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{
-          opacity: form.watch("videoSource") != "Upload" ? 1 : 0,
+          opacity: form.watch(`${name}.${index}.source`) != "Upload" ? 1 : 0,
         }}
         transition={{ duration: 0.3 }}
         className={`sticky top-0 w-full space-y-4  ${
-          form.watch("videoSource") != "Upload" ? "block" : "hidden"
+          form.watch(`${name}.${index}.source`) != "Upload" ? "block" : "hidden"
         }
             `}
       >
         <Controller
-          name="videoUrl"
+          name={`${name}.${index}.url`}
           control={form?.control}
           render={({ field, fieldState }) => (
             <InputField
@@ -67,16 +73,18 @@ const VideoUploadDisplayContent = ({ form, uploadRoute }: Props) => {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{
-          opacity: form.watch("videoSource") === "Upload" ? 1 : 0,
+          opacity: form.watch(`${name}.${index}.source`) === "Upload" ? 1 : 0,
         }}
         transition={{ duration: 0.3 }}
         className={`sticky top-0 w-full space-y-4  ${
-          form.watch("videoSource") === "Upload" ? "block" : "hidden"
+          form.watch(`${name}.${index}.source`) === "Upload"
+            ? "block"
+            : "hidden"
         }
             `}
       >
         <Controller
-          name="videoFileName"
+          name={`${name}.${index}.fileName`}
           control={form?.control}
           render={({ field, fieldState }) => (
             <UploadVideoFieldInstant
@@ -85,7 +93,7 @@ const VideoUploadDisplayContent = ({ form, uploadRoute }: Props) => {
               text="Upload Video"
               limit={1}
               form={form}
-              name="videoFileName"
+              name={`${name}.${index}.fileName`}
               videoRoute={uploadRoute}
             />
           )}

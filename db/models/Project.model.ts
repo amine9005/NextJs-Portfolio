@@ -5,7 +5,7 @@ const projectSchema = new mongoose.Schema(
     description: { type: String, required: true },
     images: [{ type: String, required: false }],
     models: [{ type: String, required: false }],
-    videos: [{ type: String, required: false }],
+    videos: [{ type: mongoose.Schema.ObjectId, ref: "video" }],
   },
   { timestamps: true },
 );

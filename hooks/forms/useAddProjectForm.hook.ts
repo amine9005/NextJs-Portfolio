@@ -14,7 +14,6 @@ export const useAddProjectForm = () => {
     defaultValues: {
       title: "",
       description: "",
-      videoSource: "YouTube",
       projectImages: [],
       projectModels: [],
       projectVideos: [],
