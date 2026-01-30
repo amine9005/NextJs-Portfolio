@@ -9,7 +9,11 @@ interface MenuButtonProps {
 
 const MenuButtonMolecule = ({ isOpen, setIsOpen }: MenuButtonProps) => {
   return (
-    <Button className="md:hidden" onClick={() => setIsOpen(!isOpen)}>
+    <Button
+      name="Navigation Button"
+      className="md:hidden"
+      onClick={() => setIsOpen(!isOpen)}
+    >
       {isOpen ? <XIcon className="size-6" /> : <MenuIcon className="size-6" />}
     </Button>
   );

@@ -5,6 +5,7 @@ import { SubmitHandler } from "react-hook-form";
 import toast from "react-hot-toast";
 import { useAddProjectMutation } from "@/hooks/mutations/useAddProjectMutation.hook";
 import { projectSchemaType } from "@/validations/project.zod";
+import { Video } from "@/types/project.types";
 
 export function useAddProjectSubmit() {
   const [loading, setLoading] = useState(false);
@@ -19,9 +20,7 @@ export function useAddProjectSubmit() {
         const title = data.title;
         const projectImages = data.projectImages;
         const projectModels = data.projectModels;
-        const projectVideos = data.projectVideos;
-
-        // console.log("sending ", data);
+        const projectVideos = data.projectVideos as Video[];
 
         await updateAddProject({
           description,

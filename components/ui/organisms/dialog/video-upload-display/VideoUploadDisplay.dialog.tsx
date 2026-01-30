@@ -48,8 +48,8 @@ const VideoUploadDisplayDialog = ({
   fieldState,
 }: Props) => {
   // console.log("value: ", value);
-  console.log("Project Videos: ", form.getValues("projectVideos"));
-  console.log("fieldState: ", fieldState);
+  // console.log("Project Videos: ", form.getValues("projectVideos"));
+  // console.log("fieldState: ", fieldState);
 
   const isValid = () => {
     if (Array.isArray(fieldState.error)) {
