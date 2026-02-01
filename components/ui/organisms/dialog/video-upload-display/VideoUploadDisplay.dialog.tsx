@@ -47,10 +47,6 @@ const VideoUploadDisplayDialog = ({
   videoUrl,
   fieldState,
 }: Props) => {
-  // console.log("value: ", value);
-  // console.log("Project Videos: ", form.getValues("projectVideos"));
-  // console.log("fieldState: ", fieldState);
-
   const isValid = () => {
     if (Array.isArray(fieldState.error)) {
       if (fieldState.error[index]) {
@@ -91,6 +87,8 @@ const VideoUploadDisplayDialog = ({
               errors={[
                 Array.isArray(fieldState.error)
                   ? fieldState.error[index]
+                    ? { message: "A Video Source Is Required" }
+                    : undefined
                   : fieldState.error,
               ]}
             />

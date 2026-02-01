@@ -11,9 +11,9 @@ interface props {
   projectModels: string[] | undefined;
 }
 
-export const useAddProjectMutation = () => {
+export const useProjectMutation = () => {
   const queryClient = useQueryClient();
-  const useAddProjectMutationFn = async ({
+  const useProjectMutationFn = async ({
     projectImages,
     title,
     description,
@@ -31,7 +31,7 @@ export const useAddProjectMutation = () => {
   };
 
   return useMutation({
-    mutationFn: useAddProjectMutationFn,
+    mutationFn: useProjectMutationFn,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["projects"] });
     },

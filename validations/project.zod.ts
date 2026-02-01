@@ -62,6 +62,52 @@ export const projectVideosValidation = z
   )
   .optional();
 
+export const isFeaturedValidation = z.boolean();
+export const ThumbnailType = ["Image", "Video", "Model"];
+
+export const thumbnailValidation = z.object({
+  type: z.enum(ThumbnailType),
+  source: z.string(),
+  fileOrUrl: z.string(),
+});
+
+export const projectTextSchema = z.object({
+  title: titleValidation,
+  description: descriptionValidation,
+});
+
+export type projectTextSchemaType = z.infer<typeof projectTextSchema>;
+export type ProjectTextFormType = UseFormReturn<projectTextSchemaType>;
+
+export const projectImageSchema = z.object({
+  projectImages: projectImagesValidation,
+});
+
+export type projectImageSchemaType = z.infer<typeof projectImageSchema>;
+export type ProjectImageFormType = UseFormReturn<projectImageSchemaType>;
+
+export const projectVideoSchema = z.object({
+  projectVideos: projectVideosValidation,
+});
+
+export type projectVideoSchemaType = z.infer<typeof projectVideoSchema>;
+export type ProjectVideoFormType = UseFormReturn<projectVideoSchemaType>;
+
+export const projectModelSchema = z.object({
+  projectModels: projectModelsValidation,
+});
+
+export type projectModelSchemaType = z.infer<typeof projectModelSchema>;
+export type ProjectModelFormType = UseFormReturn<projectModelSchemaType>;
+
+export const projectSettingSchema = z.object({
+  isFeatured: isFeaturedValidation,
+  thumbnail: thumbnailValidation,
+});
+
+export type projectSettingSchemaType = z.infer<typeof projectSettingSchema>;
+export type ProjectSettingFormType = UseFormReturn<projectSettingSchemaType>;
+
 export const projectSchema = z
   .object({
     title: titleValidation,
@@ -69,6 +115,8 @@ export const projectSchema = z
     projectImages: projectImagesValidation,
     projectModels: projectModelsValidation,
     projectVideos: projectVideosValidation,
+    isFeatured: isFeaturedValidation,
+    thumbnail: thumbnailValidation,
   })
   .superRefine(({ projectImages, projectModels, projectVideos }, ctx) => {
     if (!projectImages && !projectModels && !projectVideos) {

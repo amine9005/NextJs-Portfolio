@@ -10,8 +10,9 @@ import {
 import { FormEvent } from "react";
 import { H2 } from "@/components/ui/atoms/heading/heading2";
 import LoadingSubmitButton from "@/components/ui/molecules/loading-submit-button/loadingSubmitButton.molecule";
-import { ProjectFormType } from "@/validations/project.zod";
-import AddProjectContent from "@/components/ui/organisms/contents/add-project/AddProject.content";
+import { ProjectImageFormType } from "@/validations/project.zod";
+import AddProjectImageContent from "@/components/ui/organisms/contents/add-project/AddProjectImages.content";
+import { Button } from "@/components/ui/atoms/button/button";
 
 interface Card {
   title?: React.ReactNode;
@@ -19,14 +20,14 @@ interface Card {
 }
 
 interface Props {
-  form: ProjectFormType;
+  form: ProjectImageFormType;
   card: Card;
   formName: string;
   loading: boolean;
   handle_submit: (formEvent: FormEvent) => void;
 }
 
-const AddProjectCard = ({
+const AddProjectImageCard = ({
   form,
   card,
   formName,
@@ -42,20 +43,19 @@ const AddProjectCard = ({
         <CardDescription>{card.description}</CardDescription>
       </CardHeader>
       <CardContent>
-        <AddProjectContent
-          form={form}
+        <AddProjectImageContent
           formName={formName}
+          form={form}
           handle_submit={handle_submit}
         />
       </CardContent>
       <CardFooter className="flex flex-col space-y-2">
-        <div className="flex justify-center items-center w-full">
-          <LoadingSubmitButton
-            width={"full"}
-            loading={loading}
-            formName={formName}
-          >
-            Add Project
+        <div className="flex justify-end items-center w-full gap-4">
+          <Button type="button" variant={"outline"}>
+            Previous Step
+          </Button>
+          <LoadingSubmitButton loading={loading} formName={formName}>
+            Next Step
           </LoadingSubmitButton>
         </div>
       </CardFooter>
@@ -63,4 +63,4 @@ const AddProjectCard = ({
   );
 };
 
-export default AddProjectCard;
+export default AddProjectImageCard;

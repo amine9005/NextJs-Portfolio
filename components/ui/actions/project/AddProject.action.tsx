@@ -1,28 +1,46 @@
 "use client";
 import { memo } from "react";
 import FormLayout from "@/components/ui/layouts/Form.layout";
-import AddProjectCard from "@/components/ui/organisms/cards/project/AddProject.card";
-import { useAddProjectForm } from "@/hooks/forms/useAddProjectForm.hook";
-import { useAddProjectSubmit } from "@/hooks/submit/useAddProjectSubmit.hook";
+import AddProjectTextCard from "@/components/ui/organisms/cards/project/form/AddProjectText.card";
+import {
+  useProjectImageForm,
+  useProjectTextForm,
+} from "@/hooks/forms/useProjectForm.hook";
+import {
+  useProjectImagesSubmit,
+  useProjectTextSubmit,
+} from "@/hooks/submit/useProjectSubmit.hook";
+import AddProjectImageCard from "../../organisms/cards/project/form/AddProjectImages.card";
 
 const AddProjectAction = () => {
-  const form = useAddProjectForm();
-
-  const { handleSubmit } = form;
-  const { onSubmit, loading } = useAddProjectSubmit();
-
   const card = { title: "Add New Project", description: "" };
-  const formName = "addProject-Form";
+
+  const formText = useProjectTextForm();
+  const formTextName = "addProjectText-Form";
+  const { handleSubmit: handleTextSubmit } = formText;
+  const { onSubmit: onTextSubmit } = useProjectTextSubmit();
+
+  const formImage = useProjectImageForm();
+  const formImageName = "addProjectImage-Form";
+  const { handleSubmit: handleImagesSubmit } = formImage;
+  const { onSubmit: onImagesSubmit } = useProjectImagesSubmit();
 
   return (
     <FormLayout>
       {" "}
-      <AddProjectCard
-        loading={loading}
-        form={form}
+      <AddProjectTextCard
+        loading={false}
+        form={formText}
         card={card}
-        formName={formName}
-        handle_submit={handleSubmit(onSubmit)}
+        formName={formTextName}
+        handle_submit={handleTextSubmit(onTextSubmit)}
+      />
+      <AddProjectImageCard
+        loading={false}
+        form={formImage}
+        card={card}
+        formName={formImageName}
+        handle_submit={handleImagesSubmit(onImagesSubmit)}
       />
     </FormLayout>
   );
