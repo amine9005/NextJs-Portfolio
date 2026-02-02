@@ -1,6 +1,6 @@
 "use client";
 // import { redirect } from "next/navigation";
-import { useCallback, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { SubmitHandler } from "react-hook-form";
 import toast from "react-hot-toast";
 import { useProjectMutation } from "@/hooks/mutations/useProjectMutation.hook";
@@ -13,6 +13,7 @@ import {
   projectVideoSchemaType,
 } from "@/validations/project.zod";
 import { Video } from "@/types/project.types";
+import { IStepperMethods } from "@/components/ui/atoms/stepper/Stepper.atom";
 
 let description = "";
 let title = "";
@@ -21,13 +22,16 @@ let projectModels: string[] | undefined = [];
 let projectVideos: Video[] | undefined = [];
 
 export function useProjectTextSubmit() {
+  const stepperRef = useRef<HTMLDivElement & IStepperMethods>(null);
   const onSubmit: SubmitHandler<projectTextSchemaType> = useCallback(
     async (data) => {
       description = data.description;
       title = data.title;
+
+      stepperRef.current?.nextStep();
     },
 
-    [],
+    [stepperRef],
   );
 
   return { onSubmit };

@@ -42,7 +42,7 @@ const Navbar1Organism = () => {
       bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60 min-h-15`}
     >
       <NavigationMenu className="flex overflow-hidden flex-col items-center justify-center">
-        <NavigationMenuList className="container w-screen px-8 min-h-14 flex justify-between ">
+        <NavigationMenuList className=" px-8 w-screen min-h-14 flex justify-between md:grid md:grid-cols-3 ">
           <NavigationMenuItem className="font-bold ">
             <Link
               rel="noreferrer noopener"
@@ -79,7 +79,6 @@ const Navbar1Organism = () => {
               </NavigationMenuItem>
             ))}
           </NavigationMenuList>
-          <div></div>
           <MenuButtonMolecule isOpen={isOpen} setIsOpen={setIsOpen} />
         </NavigationMenuList>
 
