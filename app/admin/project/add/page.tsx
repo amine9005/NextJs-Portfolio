@@ -7,11 +7,7 @@ import { authIsRequired } from "@/helpers/authHelper.helper";
 
 const LogoPage = () => {
   // await authIsRequired();
-  return (
-    <FormLayout>
-      <ProjectSteps />
-    </FormLayout>
-  );
+  return <ProjectSteps />;
 };
 
 export default LogoPage;

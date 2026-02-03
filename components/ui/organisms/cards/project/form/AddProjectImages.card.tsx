@@ -7,12 +7,13 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/atoms/card/card";
-import { FormEvent } from "react";
+import { FormEvent, RefObject } from "react";
 import { H2 } from "@/components/ui/atoms/heading/heading2";
 import LoadingSubmitButton from "@/components/ui/molecules/loading-submit-button/loadingSubmitButton.molecule";
 import { ProjectImageFormType } from "@/validations/project.zod";
 import AddProjectImageContent from "@/components/ui/organisms/contents/add-project/AddProjectImages.content";
 import { Button } from "@/components/ui/atoms/button/button";
+import { IStepperMethods } from "@/components/ui/atoms/stepper/Stepper.atom";
 
 interface Card {
   title?: React.ReactNode;
@@ -22,6 +23,7 @@ interface Card {
 interface Props {
   form: ProjectImageFormType;
   card: Card;
+  stepperRef: RefObject<(HTMLDivElement & IStepperMethods) | null>;
   formName: string;
   loading: boolean;
   handle_submit: (formEvent: FormEvent) => void;
@@ -33,6 +35,7 @@ const AddProjectImageCard = ({
   formName,
   handle_submit,
   loading,
+  stepperRef,
 }: Props) => {
   return (
     <Card className="w-full sm:max-w-md">
@@ -51,7 +54,11 @@ const AddProjectImageCard = ({
       </CardContent>
       <CardFooter className="flex flex-col space-y-2">
         <div className="flex justify-end items-center w-full gap-4">
-          <Button type="button" variant={"outline"}>
+          <Button
+            type="button"
+            variant={"outline"}
+            onClick={() => stepperRef.current?.prevStep()}
+          >
             Previous Step
           </Button>
           <LoadingSubmitButton loading={loading} formName={formName}>

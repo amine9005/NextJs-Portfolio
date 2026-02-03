@@ -1,11 +1,14 @@
+"use client";
 import { cn } from "@/lib/utils";
 import { Check } from "lucide-react";
 import React, {
   createContext,
+  CSSProperties,
   useCallback,
   useContext,
   useMemo,
   useState,
+  RefObject,
 } from "react";
 
 type InteractiveStepperState = "active" | "completed" | "inactive";
@@ -46,6 +49,7 @@ export interface IStepperItemProps {
   disabled?: boolean;
   className?: string;
   "data-step-index"?: number;
+  style?: CSSProperties;
 }
 
 export interface IStepperIndicatorProps {
@@ -251,6 +255,8 @@ export const InteractiveStepperRoot = React.forwardRef<
       totalSteps,
     }));
 
+    // const style_x = { transform: `translateX(-${(currentStep - 1) * 100}%)` };
+
     const stepperItems: React.ReactElement[] = [];
     const stepperContent: React.ReactElement[] = [];
 
@@ -264,6 +270,7 @@ export const InteractiveStepperRoot = React.forwardRef<
               ...(child.props as IStepperItemProps),
               "data-step-index": index + 1,
               key: index,
+              // style: style_x,
             }),
           );
         }
@@ -274,7 +281,7 @@ export const InteractiveStepperRoot = React.forwardRef<
       <div
         className={
           orientation === "horizontal"
-            ? "flex items-start"
+            ? "flex items-start my-4 p-1 gap-4 overflow-x-scroll [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
             : "flex flex-col items-start"
         }
       >
@@ -288,6 +295,16 @@ export const InteractiveStepperRoot = React.forwardRef<
         (content as React.ReactElement<IStepperContentProps>).props.step ===
           currentStep,
     );
+
+    // if (activeContent) {
+    // console.log("active jsx ", activeContent.props);
+    // activeContent.props..
+    // type({
+    //   behavior: "smooth",
+    //   block: "center",
+    //   inline: "center",
+    // });
+    // }
 
     return (
       <InteractiveStepperContext.Provider value={contextValue}>
