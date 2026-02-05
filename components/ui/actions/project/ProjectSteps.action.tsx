@@ -1,5 +1,4 @@
 "use client";
-
 import {
   InteractiveStepper,
   InteractiveStepperContent,
@@ -12,10 +11,9 @@ import {
   IStepperMethods,
 } from "@/components/ui/atoms/stepper/Stepper.atom";
 import { useRef } from "react";
-import { Button } from "../../atoms/button/button";
+import { Button } from "@/components/ui/atoms/button/button";
 import AddProjectImagesAction from "./forms/AddProjectImages.action";
 import AddProjectTextAction from "./forms/AddProjectText.action";
-import FormLayout from "../../layouts/Form.layout";
 
 interface CardProps {
   title: string;
@@ -54,6 +52,41 @@ const ProjectSteps = () => {
     },
   ];
 
+  const nextStep = () => {
+    if (itemRefs.current) {
+      const currentStep = stepperRef.current?.currentStep || 1;
+      const totalSteps = stepperRef.current?.totalSteps || 1;
+      let index = currentStep + 1;
+      if (currentStep + 1 > totalSteps) {
+        index = totalSteps;
+      }
+      stepperRef.current?.goToStep(index);
+      if (itemRefs.current) {
+        itemRefs.current[index]?.scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+          inline: "center",
+        });
+      }
+    }
+  };
+
+  const previousStep = () => {
+    const currentStep = stepperRef.current?.currentStep || 1;
+    let index = currentStep - 1 || 1;
+    if (index === 0) {
+      index = 1;
+    }
+    stepperRef.current?.goToStep(index);
+    if (itemRefs.current) {
+      itemRefs.current[index]?.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+        inline: "center",
+      });
+    }
+  };
+
   const itemRefs = useRef<HTMLDivElement[] | null>([]);
 
   return (
@@ -77,6 +110,9 @@ const ProjectSteps = () => {
                   <InteractiveStepperTitle>
                     {value.title}
                   </InteractiveStepperTitle>
+                  <InteractiveStepperDescription>
+                    {value.description}
+                  </InteractiveStepperDescription>
                 </div>
               </InteractiveStepperTrigger>
               <InteractiveStepperSeparator />
@@ -87,11 +123,14 @@ const ProjectSteps = () => {
             step={1}
             className="flex justify-center items-center"
           >
-            <AddProjectTextAction stepperRef={stepperRef} />
+            <AddProjectTextAction nextStep={nextStep} />
           </InteractiveStepperContent>
 
           <InteractiveStepperContent step={2}>
-            <AddProjectImagesAction stepperRef={stepperRef} />
+            <AddProjectImagesAction
+              previousStep={previousStep}
+              nextStep={nextStep}
+            />
           </InteractiveStepperContent>
 
           <InteractiveStepperContent step={3}>
@@ -117,47 +156,11 @@ const ProjectSteps = () => {
         </InteractiveStepper>
 
         <div className="mt-4 flex justify-between gap-2">
-          <Button
-            variant={"outline"}
-            onClick={() => {
-              const index = stepperRef.current!.currentStep - 1;
-              stepperRef.current?.goToStep(index);
-              if (itemRefs.current) {
-                itemRefs.current[index]?.scrollIntoView({
-                  behavior: "smooth",
-                  block: "center",
-                  inline: "center",
-                });
-              }
-            }}
-          >
+          <Button variant={"outline"} onClick={() => previousStep()}>
             Previous
           </Button>
 
-          <Button
-            onClick={() => {
-              if (itemRefs.current) {
-                const currentStep = stepperRef.current?.currentStep || 1;
-                const totalSteps = stepperRef.current?.totalSteps || 1;
-                let index = currentStep + 1;
-                if (currentStep + 1 > totalSteps) {
-                  index = totalSteps;
-                }
-                // console.log("index ",
-                // index);
-                stepperRef.current?.goToStep(index);
-                if (itemRefs.current) {
-                  itemRefs.current[index]?.scrollIntoView({
-                    behavior: "smooth",
-                    block: "center",
-                    inline: "center",
-                  });
-                }
-              }
-            }}
-          >
-            Next
-          </Button>
+          <Button onClick={() => nextStep()}>Next</Button>
         </div>
       </div>
     </div>

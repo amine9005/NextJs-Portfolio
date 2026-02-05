@@ -1,4 +1,4 @@
-import { useForm } from "react-hook-form";
+import { useForm, UseFormReturn } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 // import { useLogoQuery } from "@/hooks/queries/useLogoQuery.hook";
 // import { useEffect } from "react";
@@ -17,6 +17,8 @@ import {
   projectVideoSchema,
   projectVideoSchemaType,
 } from "@/validations/project.zod";
+import { useAddProjectStore } from "@/store/admin/addProject.store";
+import { useEffect } from "react";
 
 export const useProjectForm = () => {
   const form = useForm<projectSchemaType>({
@@ -47,6 +49,22 @@ export const useProjectTextForm = () => {
   return form;
 };
 
+export const useProjectTextFormData = (
+  form: UseFormReturn<projectTextSchemaType>,
+) => {
+  // const { data: logoData, isLoading } = useLogoQuery();
+  const title = useAddProjectStore((state) => state.title);
+  const description = useAddProjectStore((state) => state.description);
+
+  useEffect(() => {
+    form.setValue("title", title ? title : form.getValues("title"));
+    form.setValue(
+      "description",
+      description ? description : form.getValues("description"),
+    );
+  });
+};
+
 export const useProjectImageForm = () => {
   const form = useForm<projectImageSchemaType>({
     resolver: zodResolver(projectImageSchema),
@@ -56,6 +74,20 @@ export const useProjectImageForm = () => {
   });
 
   return form;
+};
+
+export const useProjectImageFormData = (
+  form: UseFormReturn<projectImageSchemaType>,
+) => {
+  // const { data: logoData, isLoading } = useLogoQuery();
+  const projectImages = useAddProjectStore((state) => state.projectImages);
+
+  useEffect(() => {
+    form.setValue(
+      "projectImages",
+      projectImages ? projectImages : form.getValues("projectImages"),
+    );
+  });
 };
 
 export const useProjectVideoForm = () => {

@@ -1,24 +1,24 @@
 "use client";
-import { memo, RefObject } from "react";
+import { memo } from "react";
 import { useProjectImageForm } from "@/hooks/forms/useProjectForm.hook";
 import { useProjectImagesSubmit } from "@/hooks/submit/useProjectSubmit.hook";
 import AddProjectImageCard from "@/components/ui/organisms/cards/project/form/AddProjectImages.card";
-import { IStepperMethods } from "@/components/ui/atoms/stepper/Stepper.atom";
 interface Props {
-  stepperRef: RefObject<(HTMLDivElement & IStepperMethods) | null>;
+  nextStep: () => void;
+  previousStep: () => void;
 }
-const AddProjectImagesAction = ({ stepperRef }: Props) => {
+const AddProjectImagesAction = ({ nextStep, previousStep }: Props) => {
   const card = { title: "Add New Project", description: "" };
 
   const form = useProjectImageForm();
   const formName = "addProjectImage-Form";
   const { handleSubmit: handleImagesSubmit } = form;
-  const { onSubmit: onImagesSubmit } = useProjectImagesSubmit(stepperRef);
+  const { onSubmit: onImagesSubmit } = useProjectImagesSubmit(nextStep);
 
   return (
     <AddProjectImageCard
       loading={false}
-      stepperRef={stepperRef}
+      previousStep={previousStep}
       form={form}
       card={card}
       formName={formName}

@@ -7,13 +7,12 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/atoms/card/card";
-import { FormEvent, RefObject } from "react";
+import { FormEvent } from "react";
 import { H2 } from "@/components/ui/atoms/heading/heading2";
 import LoadingSubmitButton from "@/components/ui/molecules/loading-submit-button/loadingSubmitButton.molecule";
 import { ProjectImageFormType } from "@/validations/project.zod";
 import AddProjectImageContent from "@/components/ui/organisms/contents/add-project/AddProjectImages.content";
 import { Button } from "@/components/ui/atoms/button/button";
-import { IStepperMethods } from "@/components/ui/atoms/stepper/Stepper.atom";
 
 interface Card {
   title?: React.ReactNode;
@@ -23,7 +22,7 @@ interface Card {
 interface Props {
   form: ProjectImageFormType;
   card: Card;
-  stepperRef: RefObject<(HTMLDivElement & IStepperMethods) | null>;
+  previousStep: () => void;
   formName: string;
   loading: boolean;
   handle_submit: (formEvent: FormEvent) => void;
@@ -35,7 +34,7 @@ const AddProjectImageCard = ({
   formName,
   handle_submit,
   loading,
-  stepperRef,
+  previousStep,
 }: Props) => {
   return (
     <Card className="w-full sm:max-w-md">
@@ -57,7 +56,7 @@ const AddProjectImageCard = ({
           <Button
             type="button"
             variant={"outline"}
-            onClick={() => stepperRef.current?.prevStep()}
+            onClick={() => previousStep()}
           >
             Previous Step
           </Button>

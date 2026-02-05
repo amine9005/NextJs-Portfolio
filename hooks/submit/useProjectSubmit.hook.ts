@@ -1,6 +1,6 @@
 "use client";
 // import { redirect } from "next/navigation";
-import { RefObject, useCallback, useState } from "react";
+import { useCallback, useState } from "react";
 import { SubmitHandler } from "react-hook-form";
 import toast from "react-hot-toast";
 import { useProjectMutation } from "@/hooks/mutations/useProjectMutation.hook";
@@ -13,52 +13,51 @@ import {
   projectVideoSchemaType,
 } from "@/validations/project.zod";
 import { Video } from "@/types/project.types";
-import { IStepperMethods } from "@/components/ui/atoms/stepper/Stepper.atom";
+import { useAddProjectStore } from "@/store/admin/addProject.store";
 
-let description = "";
-let title = "";
-let projectImages: string[] | undefined = [];
 let projectModels: string[] | undefined = [];
-let projectVideos: Video[] | undefined = [];
 
-export function useProjectTextSubmit(
-  stepperRef: RefObject<(HTMLDivElement & IStepperMethods) | null>,
-) {
+export function useProjectTextSubmit(nextStep: () => void) {
+  const setTitle = useAddProjectStore((state) => state.setTitle);
+  const setDescription = useAddProjectStore((state) => state.setDescription);
+
   const onSubmit: SubmitHandler<projectTextSchemaType> = useCallback(
     async (data) => {
-      description = data.description;
-      title = data.title;
-      if (stepperRef) stepperRef.current?.nextStep();
+      setTitle(data.title);
+      setDescription(data.description);
+      nextStep();
     },
 
-    [stepperRef],
+    [nextStep, setTitle, setDescription],
   );
 
   return { onSubmit };
 }
 
-export function useProjectImagesSubmit(
-  stepperRef: RefObject<(HTMLDivElement & IStepperMethods) | null>,
-) {
+export function useProjectImagesSubmit(nextStep: () => void) {
+  const setImages = useAddProjectStore((state) => state.setImages);
   const onSubmit: SubmitHandler<projectImageSchemaType> = useCallback(
     async (data) => {
-      projectImages = data.projectImages;
-      if (stepperRef) stepperRef.current?.nextStep();
+      setImages(data.projectImages);
+      nextStep();
     },
 
-    [stepperRef],
+    [nextStep, setImages],
   );
 
   return { onSubmit };
 }
 
 export function useProjectVideosSubmit() {
+  const setProjectVideos = useAddProjectStore(
+    (state) => state.setProjectVideos,
+  );
   const onSubmit: SubmitHandler<projectVideoSchemaType> = useCallback(
     async (data) => {
-      projectVideos = data.projectVideos as Video[];
+      setProjectVideos(data.projectVideos as Video[]);
     },
 
-    [],
+    [setProjectVideos],
   );
 
   return { onSubmit };
@@ -79,6 +78,12 @@ export function useProjectModelsSubmit() {
 export function useProjectSettingAndSubmit() {
   const [loading, setLoading] = useState(false);
   const { mutateAsync: updateAddProject } = useProjectMutation();
+  const title = useAddProjectStore((state) => state.title) as string;
+  const description = useAddProjectStore(
+    (state) => state.description,
+  ) as string;
+  const projectImages = useAddProjectStore((state) => state.projectImages);
+  const projectVideos = useAddProjectStore((state) => state.projectVideos);
 
   const onSubmit: SubmitHandler<projectSettingSchemaType> = useCallback(
     async (data) => {
@@ -106,7 +111,7 @@ export function useProjectSettingAndSubmit() {
       return success;
     },
 
-    [updateAddProject],
+    [updateAddProject, title, description, projectImages, projectVideos],
   );
 
   return { loading, onSubmit };

@@ -8,7 +8,6 @@ import React, {
   useContext,
   useMemo,
   useState,
-  RefObject,
 } from "react";
 
 type InteractiveStepperState = "active" | "completed" | "inactive";
