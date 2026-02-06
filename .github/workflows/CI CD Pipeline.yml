@@ -33,6 +33,9 @@ jobs:
       - name: Run Prettier
         run: yarn format:check
 
+      - name: Run Build
+        run: yarn build
+
       - name: Archive Production Artifact NextJs
         uses: actions/upload-artifact@v5
         with:
