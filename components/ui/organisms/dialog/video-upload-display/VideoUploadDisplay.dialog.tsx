@@ -66,7 +66,7 @@ const VideoUploadDisplayDialog = ({
         <Field className="mt-2 max-w-4/5" data-invalid={isValid()}>
           <FieldLabel
             className="flex flex-wrap justify-start"
-            htmlFor={`image-${name}`}
+            htmlFor={`video-${name}`}
           >
             {videoUrl || videoFileName ? (
               <div className="flex justify-center items-center">

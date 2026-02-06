@@ -25,6 +25,7 @@ interface Props {
   formName: string;
   loading: boolean;
   handle_submit: (formEvent: FormEvent) => void;
+  previousStep: () => void;
 }
 
 const AddProjectModelCard = ({
@@ -33,6 +34,7 @@ const AddProjectModelCard = ({
   formName,
   handle_submit,
   loading,
+  previousStep,
 }: Props) => {
   return (
     <Card className="w-full sm:max-w-md">
@@ -51,7 +53,11 @@ const AddProjectModelCard = ({
       </CardContent>
       <CardFooter className="flex flex-col space-y-2">
         <div className="flex justify-end items-center w-full gap-4">
-          <Button type="button" variant={"outline"}>
+          <Button
+            type="button"
+            onClick={() => previousStep()}
+            variant={"outline"}
+          >
             Previous Step
           </Button>
           <LoadingSubmitButton loading={loading} formName={formName}>

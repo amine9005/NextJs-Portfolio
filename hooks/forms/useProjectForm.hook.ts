@@ -18,7 +18,6 @@ import {
   projectVideoSchemaType,
 } from "@/validations/project.zod";
 import { useAddProjectStore } from "@/store/admin/addProject.store";
-import { useEffect } from "react";
 
 export const useProjectForm = () => {
   const form = useForm<projectSchemaType>({
@@ -38,74 +37,52 @@ export const useProjectForm = () => {
 };
 
 export const useProjectTextForm = () => {
+  const title = useAddProjectStore((state) => state.title);
+  const description = useAddProjectStore((state) => state.description);
   const form = useForm<projectTextSchemaType>({
     resolver: zodResolver(projectTextSchema),
     defaultValues: {
-      title: "",
-      description: "",
+      title: title ? title : "",
+      description: description ? description : "",
     },
   });
 
   return form;
 };
 
-export const useProjectTextFormData = (
-  form: UseFormReturn<projectTextSchemaType>,
-) => {
-  // const { data: logoData, isLoading } = useLogoQuery();
-  const title = useAddProjectStore((state) => state.title);
-  const description = useAddProjectStore((state) => state.description);
+export const useProjectImagesForm = () => {
+  const projectImages = useAddProjectStore((state) => state.projectImages);
 
-  useEffect(() => {
-    form.setValue("title", title ? title : form.getValues("title"));
-    form.setValue(
-      "description",
-      description ? description : form.getValues("description"),
-    );
-  });
-};
-
-export const useProjectImageForm = () => {
   const form = useForm<projectImageSchemaType>({
     resolver: zodResolver(projectImageSchema),
     defaultValues: {
-      projectImages: [],
+      projectImages: projectImages ? projectImages : [],
     },
   });
 
   return form;
 };
 
-export const useProjectImageFormData = (
-  form: UseFormReturn<projectImageSchemaType>,
-) => {
-  // const { data: logoData, isLoading } = useLogoQuery();
-  const projectImages = useAddProjectStore((state) => state.projectImages);
+export const useProjectVideosForm = () => {
+  const projectVideos = useAddProjectStore((state) => state.projectVideos);
 
-  useEffect(() => {
-    form.setValue(
-      "projectImages",
-      projectImages ? projectImages : form.getValues("projectImages"),
-    );
-  });
-};
-
-export const useProjectVideoForm = () => {
   const form = useForm<projectVideoSchemaType>({
     resolver: zodResolver(projectVideoSchema),
     defaultValues: {
-      projectVideos: [],
+      projectVideos: projectVideos ? projectVideos : [],
     },
   });
 
   return form;
 };
 
-export const useProjectModelForm = () => {
+export const useProjectModelsForm = () => {
+  const projectModels = useAddProjectStore((state) => state.projectModels);
+
   const form = useForm<projectModelSchemaType>({
     resolver: zodResolver(projectModelSchema),
     defaultValues: {
-      projectModels: [],
+      projectModels: projectModels ? projectModels : [],
     },
   });
 

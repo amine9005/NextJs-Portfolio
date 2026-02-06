@@ -10,6 +10,8 @@ type addProjectState = {
   setImages: (value: string[] | undefined) => void;
   projectVideos: Video[] | undefined;
   setProjectVideos: (value: Video[] | undefined) => void;
+  projectModels: string[] | undefined;
+  setProjectModels: (value: string[] | undefined) => void;
 };
 
 export const useAddProjectStore = create<addProjectState>((set) => ({
@@ -17,8 +19,10 @@ export const useAddProjectStore = create<addProjectState>((set) => ({
   description: null,
   projectImages: undefined,
   projectVideos: undefined,
+  projectModels: undefined,
   setTitle: (value) => set({ title: value }),
   setDescription: (value) => set({ description: value }),
   setImages: (value) => set({ projectImages: value }),
   setProjectVideos: (value) => set({ projectVideos: value }),
+  setProjectModels: (value) => set({ projectModels: value }),
 }));

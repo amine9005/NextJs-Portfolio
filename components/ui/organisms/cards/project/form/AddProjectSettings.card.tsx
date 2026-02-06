@@ -12,7 +12,7 @@ import { H2 } from "@/components/ui/atoms/heading/heading2";
 import LoadingSubmitButton from "@/components/ui/molecules/loading-submit-button/loadingSubmitButton.molecule";
 import { ProjectSettingFormType } from "@/validations/project.zod";
 import { Button } from "@/components/ui/atoms/button/button";
-import AddProjectSettingsContent from "../../../contents/add-project/AddProjectSettings.content";
+import AddProjectSettingsContent from "@/components/ui/organisms/contents/add-project/AddProjectSettings.content";
 
 interface Card {
   title?: React.ReactNode;

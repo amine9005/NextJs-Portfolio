@@ -14,6 +14,8 @@ import { useRef } from "react";
 import { Button } from "@/components/ui/atoms/button/button";
 import AddProjectImagesAction from "./forms/AddProjectImages.action";
 import AddProjectTextAction from "./forms/AddProjectText.action";
+import AddProjectVideosAction from "./forms/AddProjectVideos.action";
+import AddProjectModelsAction from "./forms/AddProjectModels.action";
 
 interface CardProps {
   title: string;
@@ -126,24 +128,33 @@ const ProjectSteps = () => {
             <AddProjectTextAction nextStep={nextStep} />
           </InteractiveStepperContent>
 
-          <InteractiveStepperContent step={2}>
+          <InteractiveStepperContent
+            step={2}
+            className="flex justify-center items-center"
+          >
             <AddProjectImagesAction
-              previousStep={previousStep}
               nextStep={nextStep}
+              previousStep={previousStep}
             />
           </InteractiveStepperContent>
 
-          <InteractiveStepperContent step={3}>
-            <Card
-              title={"Skipped"}
-              description={"This should not be seen because it is disabled"}
+          <InteractiveStepperContent
+            step={3}
+            className="flex justify-center items-center"
+          >
+            <AddProjectVideosAction
+              nextStep={nextStep}
+              previousStep={previousStep}
             />
           </InteractiveStepperContent>
 
-          <InteractiveStepperContent step={4}>
-            <Card
-              title={"Order Shipped"}
-              description={"Shipped to your location"}
+          <InteractiveStepperContent
+            step={4}
+            className="flex justify-center items-center"
+          >
+            <AddProjectModelsAction
+              nextStep={nextStep}
+              previousStep={previousStep}
             />
           </InteractiveStepperContent>
 

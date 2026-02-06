@@ -1,6 +1,5 @@
 "use client";
-import { memo } from "react";
-import { useProjectImageForm } from "@/hooks/forms/useProjectForm.hook";
+import { useProjectImagesForm } from "@/hooks/forms/useProjectForm.hook";
 import { useProjectImagesSubmit } from "@/hooks/submit/useProjectSubmit.hook";
 import AddProjectImageCard from "@/components/ui/organisms/cards/project/form/AddProjectImages.card";
 interface Props {
@@ -10,10 +9,10 @@ interface Props {
 const AddProjectImagesAction = ({ nextStep, previousStep }: Props) => {
   const card = { title: "Add New Project", description: "" };
 
-  const form = useProjectImageForm();
+  const form = useProjectImagesForm();
   const formName = "addProjectImage-Form";
-  const { handleSubmit: handleImagesSubmit } = form;
-  const { onSubmit: onImagesSubmit } = useProjectImagesSubmit(nextStep);
+  const { handleSubmit } = form;
+  const { onSubmit } = useProjectImagesSubmit(nextStep);
 
   return (
     <AddProjectImageCard
@@ -22,9 +21,9 @@ const AddProjectImagesAction = ({ nextStep, previousStep }: Props) => {
       form={form}
       card={card}
       formName={formName}
-      handle_submit={handleImagesSubmit(onImagesSubmit)}
+      handle_submit={handleSubmit(onSubmit)}
     />
   );
 };
 
-export default memo(AddProjectImagesAction);
+export default AddProjectImagesAction;

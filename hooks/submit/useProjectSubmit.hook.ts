@@ -15,8 +15,6 @@ import {
 import { Video } from "@/types/project.types";
 import { useAddProjectStore } from "@/store/admin/addProject.store";
 
-let projectModels: string[] | undefined = [];
-
 export function useProjectTextSubmit(nextStep: () => void) {
   const setTitle = useAddProjectStore((state) => state.setTitle);
   const setDescription = useAddProjectStore((state) => state.setDescription);
@@ -48,28 +46,33 @@ export function useProjectImagesSubmit(nextStep: () => void) {
   return { onSubmit };
 }
 
-export function useProjectVideosSubmit() {
+export function useProjectVideosSubmit(nextStep: () => void) {
   const setProjectVideos = useAddProjectStore(
     (state) => state.setProjectVideos,
   );
   const onSubmit: SubmitHandler<projectVideoSchemaType> = useCallback(
     async (data) => {
       setProjectVideos(data.projectVideos as Video[]);
+      nextStep();
     },
 
-    [setProjectVideos],
+    [setProjectVideos, nextStep],
   );
 
   return { onSubmit };
 }
 
-export function useProjectModelsSubmit() {
+export function useProjectModelsSubmit(nextStep: () => void) {
+  const setProjectModels = useAddProjectStore(
+    (state) => state.setProjectModels,
+  );
   const onSubmit: SubmitHandler<projectModelSchemaType> = useCallback(
     async (data) => {
-      projectModels = data.projectModels;
+      setProjectModels(data.projectModels);
+      nextStep();
     },
 
-    [],
+    [setProjectModels, nextStep],
   );
 
   return { onSubmit };
@@ -84,6 +87,7 @@ export function useProjectSettingAndSubmit() {
   ) as string;
   const projectImages = useAddProjectStore((state) => state.projectImages);
   const projectVideos = useAddProjectStore((state) => state.projectVideos);
+  const projectModels = useAddProjectStore((state) => state.projectModels);
 
   const onSubmit: SubmitHandler<projectSettingSchemaType> = useCallback(
     async (data) => {
@@ -111,7 +115,14 @@ export function useProjectSettingAndSubmit() {
       return success;
     },
 
-    [updateAddProject, title, description, projectImages, projectVideos],
+    [
+      updateAddProject,
+      title,
+      description,
+      projectImages,
+      projectVideos,
+      projectModels,
+    ],
   );
 
   return { loading, onSubmit };

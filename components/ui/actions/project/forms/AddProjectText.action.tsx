@@ -1,8 +1,5 @@
 "use client";
-import {
-  useProjectTextForm,
-  useProjectTextFormData,
-} from "@/hooks/forms/useProjectForm.hook";
+import { useProjectTextForm } from "@/hooks/forms/useProjectForm.hook";
 import { useProjectTextSubmit } from "@/hooks/submit/useProjectSubmit.hook";
 import AddProjectTextCard from "@/components/ui/organisms/cards/project/form/AddProjectText.card";
 
@@ -14,7 +11,6 @@ const AddProjectTextAction = ({ nextStep }: Props) => {
   const card = { title: "Add Project Details", description: "" };
 
   const form = useProjectTextForm();
-  useProjectTextFormData(form);
   const formName = "addProjectText-Form";
   const { handleSubmit } = form;
   const { onSubmit } = useProjectTextSubmit(nextStep);
