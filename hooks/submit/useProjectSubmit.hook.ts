@@ -78,7 +78,7 @@ export function useProjectModelsSubmit(nextStep: () => void) {
   return { onSubmit };
 }
 
-export function useProjectSettingAndSubmit() {
+export function useProjectSettingAndSubmit(nextStep: () => void) {
   const [loading, setLoading] = useState(false);
   const { mutateAsync: updateAddProject } = useProjectMutation();
   const title = useAddProjectStore((state) => state.title) as string;

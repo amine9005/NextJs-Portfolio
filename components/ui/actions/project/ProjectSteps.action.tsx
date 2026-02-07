@@ -16,6 +16,7 @@ import AddProjectImagesAction from "./forms/AddProjectImages.action";
 import AddProjectTextAction from "./forms/AddProjectText.action";
 import AddProjectVideosAction from "./forms/AddProjectVideos.action";
 import AddProjectModelsAction from "./forms/AddProjectModels.action";
+import AddProjectSettingsAction from "./forms/AddProjectSetting.action";
 
 interface CardProps {
   title: string;
@@ -159,10 +160,7 @@ const ProjectSteps = () => {
           </InteractiveStepperContent>
 
           <InteractiveStepperContent step={5}>
-            <Card
-              title={"Order Delivered"}
-              description={"Delivered to your location"}
-            />
+            <AddProjectSettingsAction nextStep={nextStep} />
           </InteractiveStepperContent>
         </InteractiveStepper>
 
