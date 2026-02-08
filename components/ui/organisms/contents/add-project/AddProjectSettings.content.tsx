@@ -50,7 +50,7 @@ const AddProjectSettingsContent = ({
       <FieldGroup>
         <div className="flex flex-col justify-center items-start">
           <P size={"sm"}>Project Settings</P>
-          <div className="flex flex-col justify-center items-start">
+          <div className="flex flex-col justify-center items-start w-full mt-5 space-y-3">
             <Controller
               name="thumbnail.type"
               control={form?.control}

@@ -94,7 +94,7 @@ export const useProjectSettingForm = () => {
     resolver: zodResolver(projectSettingSchema),
     defaultValues: {
       isFeatured: false,
-      thumbnail: {},
+      thumbnail: { type: "Image", source: "Upload", fileOrUrl: "" },
     },
   });
 

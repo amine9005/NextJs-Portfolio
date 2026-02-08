@@ -159,7 +159,10 @@ const ProjectSteps = () => {
             />
           </InteractiveStepperContent>
 
-          <InteractiveStepperContent step={5}>
+          <InteractiveStepperContent
+            step={5}
+            className="flex justify-center items-center"
+          >
             <AddProjectSettingsAction nextStep={nextStep} />
           </InteractiveStepperContent>
         </InteractiveStepper>
