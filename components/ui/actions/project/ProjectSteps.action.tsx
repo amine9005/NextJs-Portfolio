@@ -18,18 +18,6 @@ import AddProjectVideosAction from "./forms/AddProjectVideos.action";
 import AddProjectModelsAction from "./forms/AddProjectModels.action";
 import AddProjectSettingsAction from "./forms/AddProjectSetting.action";
 
-interface CardProps {
-  title: string;
-  description: string;
-}
-
-const Card: React.FC<CardProps> = ({ title, description }) => (
-  <div className="w-full rounded-lg border border-gray-700 bg-gray-900 p-4">
-    <span className="font-semibold text-gray-300">{title}</span>
-    <p className="text-sm text-gray-400">{description}</p>
-  </div>
-);
-
 const ProjectSteps = () => {
   const stepperRef = useRef<HTMLDivElement & IStepperMethods>(null);
   const addProjectSteps = [
@@ -163,7 +151,10 @@ const ProjectSteps = () => {
             step={5}
             className="flex justify-center items-center"
           >
-            <AddProjectSettingsAction nextStep={nextStep} />
+            <AddProjectSettingsAction
+              nextStep={nextStep}
+              previousStep={previousStep}
+            />
           </InteractiveStepperContent>
         </InteractiveStepper>
 

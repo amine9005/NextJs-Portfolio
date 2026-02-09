@@ -67,8 +67,10 @@ export const ThumbnailType = ["Image", "Video", "Model"];
 
 export const thumbnailValidation = z.object({
   type: z.enum(ThumbnailType),
-  source: z.string(),
-  fileOrUrl: z.string(),
+  source: z.string({ message: "A Thumbnail Source Is Required" }),
+  fileOrUrl: z
+    .string({ message: "A Thumbnail Source Is Required" })
+    .min(1, { message: "A Thumbnail Source Is Required" }),
 });
 
 export const projectTextSchema = z.object({

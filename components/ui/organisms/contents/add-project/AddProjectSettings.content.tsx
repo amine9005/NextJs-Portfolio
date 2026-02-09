@@ -9,6 +9,7 @@ import {
 import { Controller } from "react-hook-form";
 import SelectField from "@/components/ui/molecules/select-field/SelectField.molecule";
 import DynamicSelectField from "@/components/ui/molecules/dynamic-select-field/DynamicSelectField.molecule";
+import { useAddProjectStore } from "@/store/admin/addProject.store";
 
 interface Props {
   form: ProjectSettingFormType;
@@ -21,7 +22,12 @@ const AddProjectSettingsContent = ({
   formName,
   handle_submit,
 }: Props) => {
-  const [thumbnailOptions, setThumbnailOptions] = useState<string[]>(["empty"]);
+  const projectImages = useAddProjectStore((state) => state.projectImages);
+  const projectModels = useAddProjectStore((state) => state.projectModels);
+  const projectVideos = useAddProjectStore((state) => state.projectVideos);
+  const [thumbnailOptions, setThumbnailOptions] = useState<string[]>(
+    projectImages ? projectImages : [],
+  );
 
   const thumbnailTypeInputValues = {
     name: `thumbnail.type`,
@@ -31,17 +37,42 @@ const AddProjectSettingsContent = ({
     form: form,
   };
 
-  const updateThumbnailOptions = (value: string) => {
-    console.log("updating thumbnail ", value);
+  const updateValues = (value: string) => {
+    console.log("project videos: ", projectVideos);
+    if (value === "Image") {
+      setThumbnailOptions(projectImages ? projectImages : []);
+      form.setValue("thumbnail.source", "Upload");
+    } else if (value === "Video") {
+      const videoOptions = projectVideos?.map((value) => {
+        return value.fileName
+          ? (((value.source as string) + " | " + value.fileName) as string)
+          : (((value.source as string) + " | " + value.url) as string);
+      });
+      // console.log("videoOptions: ", videoOptions);
 
-    return [];
+      setThumbnailOptions(videoOptions ? videoOptions : []);
+    } else if (value === "Model") {
+      form.setValue("thumbnail.source", "Upload");
+      setThumbnailOptions(projectModels ? projectModels : []);
+    }
+  };
+
+  const updateFileOrUrl = (value: string) => {
+    if (!value) {
+      return;
+    }
+
+    const values = value.split(" | ");
+    form.setValue("thumbnail.source", values[0]);
+    // console.log("source ", values[0]);
+    form.setValue("thumbnail.fileOrUrl", values[1]);
+    // console.log("url ", values[1]);
   };
 
   const fileOrUrlInputValues = {
     name: `thumbnail.fileOrUrl`,
     labelTitle: "Thumbnail File Or Url",
     options: [],
-
     placeholder: form.watch(`thumbnail.fileOrUrl`),
     form: form,
   };
@@ -59,7 +90,10 @@ const AddProjectSettingsContent = ({
                   field={field}
                   fieldState={fieldState}
                   item={thumbnailTypeInputValues}
-                  onSelectChange={(e) => updateThumbnailOptions(e)}
+                  onSelectChange={(e) => {
+                    updateValues(e);
+                    form.setValue("thumbnail.type", e);
+                  }}
                 />
               )}
             />
@@ -72,6 +106,9 @@ const AddProjectSettingsContent = ({
                   fieldState={fieldState}
                   item={fileOrUrlInputValues}
                   values={thumbnailOptions}
+                  onSelectChange={(e) => {
+                    updateFileOrUrl(e);
+                  }}
                 />
               )}
             />

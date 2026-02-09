@@ -97,6 +97,8 @@ export function useProjectSettingAndSubmit(nextStep: () => void) {
         const isFeatured = data.isFeatured;
         const thumbnail = data.thumbnail;
 
+        console.log("thumbnail: ", thumbnail);
+
         await updateAddProject({
           description,
           title,

@@ -5,9 +5,10 @@ import AddProjectSettingsCard from "@/components/ui/organisms/cards/project/form
 
 interface Props {
   nextStep: () => void;
+  previousStep: () => void;
 }
 
-const AddProjectSettingsAction = ({ nextStep }: Props) => {
+const AddProjectSettingsAction = ({ nextStep, previousStep }: Props) => {
   const card = { title: "Set Project Settings", description: "" };
 
   const form = useProjectSettingForm();
@@ -20,6 +21,7 @@ const AddProjectSettingsAction = ({ nextStep }: Props) => {
       loading={false}
       form={form}
       card={card}
+      previousStep={previousStep}
       formName={formName}
       handle_submit={handleSubmit(onSubmit)}
     />

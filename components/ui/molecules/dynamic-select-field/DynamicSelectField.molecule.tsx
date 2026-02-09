@@ -26,6 +26,7 @@ interface Props {
   item: Item;
   field: FieldValues;
   values: string[];
+  onSelectChange?: (value: string) => void;
   fieldState: {
     invalid: boolean;
     isTouched: boolean;
@@ -34,13 +35,19 @@ interface Props {
     error?: { message?: string | undefined } | undefined;
   };
 }
-const DynamicSelectField = ({ item, field, fieldState, values }: Props) => {
+const DynamicSelectField = ({
+  item,
+  fieldState,
+  values,
+  onSelectChange,
+}: Props) => {
   return (
     <Field data-invalid={fieldState.invalid}>
       <FieldLabel htmlFor={`form-${item.name}`}>{item.labelTitle}</FieldLabel>
       <Select
-        {...field}
-        onValueChange={(e) => item.form.setValue(item.name, e)}
+        onValueChange={(e) =>
+          onSelectChange ? onSelectChange(e) : item.form.setValue(item.name, e)
+        }
         aria-invalid={fieldState.invalid}
       >
         <SelectTrigger className="w-45">

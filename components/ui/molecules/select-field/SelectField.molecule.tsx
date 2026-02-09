@@ -26,7 +26,6 @@ interface Props {
   item: Item;
   field: FieldValues;
   onSelectChange?: (value: string) => void;
-
   fieldState: {
     invalid: boolean;
     isTouched: boolean;
