@@ -18,8 +18,8 @@ const FormsCheckBox = ({ values, className, checkFor }: Props) => {
   return (
     <div className={`flex items-center gap-2 ${className}`}>
       <Checkbox
-        checked={values.form.getValues(checkFor)}
-        id="remember"
+        checked={values.form.watch(checkFor)}
+        id={checkFor}
         onClick={() => {
           values.form.setValue(checkFor, !values.form.getValues(checkFor));
         }}

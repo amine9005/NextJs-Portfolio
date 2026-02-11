@@ -16,9 +16,7 @@ const AddProjectVideoContent = ({ form, formName, handle_submit }: Props) => {
     <form id={formName} onSubmit={handle_submit}>
       <FieldGroup>
         <div className="flex flex-col justify-center items-start">
-          <P size={"sm"} className="mb-3">
-            Project Videos
-          </P>
+          <P className="mb-3">Project Videos</P>
           <UploadVideoArray name="projectVideos" form={form} />
         </div>
       </FieldGroup>

@@ -16,7 +16,7 @@ const AddProjectModelContent = ({ form, formName, handle_submit }: Props) => {
     <form id={formName} onSubmit={handle_submit}>
       <FieldGroup>
         <div className="flex flex-col justify-center items-start">
-          <P size={"sm"}>Project Models</P>
+          <P>Project Models</P>
           <UploadModelArray
             uploadRoute="3D MODEL"
             form={form}

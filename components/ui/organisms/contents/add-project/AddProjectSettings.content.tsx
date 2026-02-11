@@ -10,6 +10,7 @@ import { Controller } from "react-hook-form";
 import SelectField from "@/components/ui/molecules/select-field/SelectField.molecule";
 import DynamicSelectField from "@/components/ui/molecules/dynamic-select-field/DynamicSelectField.molecule";
 import { useAddProjectStore } from "@/store/admin/addProject.store";
+import FormsCheckBox from "@/components/ui/molecules/forms-checkbox/FormsCheckBox.molecule";
 
 interface Props {
   form: ProjectSettingFormType;
@@ -76,12 +77,23 @@ const AddProjectSettingsContent = ({
     placeholder: form.watch(`thumbnail.fileOrUrl`),
     form: form,
   };
+
+  const isFeaturedValues = {
+    labelTitle: "Featured",
+    form: form,
+  };
+
   return (
     <form id={formName} onSubmit={handle_submit}>
       <FieldGroup>
         <div className="flex flex-col justify-center items-start">
-          <P size={"sm"}>Project Settings</P>
-          <div className="flex flex-col justify-center items-start mt-5 space-y-3">
+          <P>Project Settings</P>
+          <FormsCheckBox
+            checkFor="isFeatured"
+            values={isFeaturedValues}
+            className="mt-4"
+          />
+          <div className="flex flex-col justify-center items-start w-full mt-5 space-y-3">
             <Controller
               name="thumbnail.type"
               control={form?.control}
