@@ -90,11 +90,16 @@ export const useProjectModelsForm = () => {
 };
 
 export const useProjectSettingForm = () => {
+  const isFeatured = useAddProjectStore((state) => state.isFeatured);
+  const thumbnail = useAddProjectStore((state) => state.thumbnail);
+
   const form = useForm<projectSettingSchemaType>({
     resolver: zodResolver(projectSettingSchema),
     defaultValues: {
-      isFeatured: false,
-      thumbnail: { type: "Image", source: "Upload", fileOrUrl: "" },
+      isFeatured: isFeatured ? isFeatured : false,
+      thumbnail: thumbnail
+        ? thumbnail
+        : { type: "Image", source: "Upload", fileOrUrl: "" },
     },
   });
 

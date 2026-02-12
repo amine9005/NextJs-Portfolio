@@ -7,7 +7,7 @@ interface Props {
   previousStep: () => void;
 }
 const AddProjectModelsAction = ({ nextStep, previousStep }: Props) => {
-  const card = { title: "Add New Project", description: "" };
+  const card = { title: "Add Project Models", description: "" };
 
   const form = useProjectModelsForm();
   const formName = "addProjectModel-Form";

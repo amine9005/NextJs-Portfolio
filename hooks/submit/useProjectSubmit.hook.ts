@@ -7,7 +7,7 @@ import { useProjectMutation } from "@/hooks/mutations/useProjectMutation.hook";
 import {
   projectImageSchemaType,
   projectModelSchemaType,
-  projectSchemaType,
+  // projectSchemaType,
   projectSettingSchemaType,
   projectTextSchemaType,
   projectVideoSchemaType,
@@ -78,7 +78,7 @@ export function useProjectModelsSubmit(nextStep: () => void) {
   return { onSubmit };
 }
 
-export function useProjectSettingAndSubmit(nextStep: () => void) {
+export function useProjectSettingAndSubmit() {
   const [loading, setLoading] = useState(false);
   const { mutateAsync: updateAddProject } = useProjectMutation();
   const title = useAddProjectStore((state) => state.title) as string;
@@ -88,6 +88,8 @@ export function useProjectSettingAndSubmit(nextStep: () => void) {
   const projectImages = useAddProjectStore((state) => state.projectImages);
   const projectVideos = useAddProjectStore((state) => state.projectVideos);
   const projectModels = useAddProjectStore((state) => state.projectModels);
+  const setIsFeatured = useAddProjectStore((state) => state.setIsFeatured);
+  const setThumbnail = useAddProjectStore((state) => state.setThumbnail);
 
   const onSubmit: SubmitHandler<projectSettingSchemaType> = useCallback(
     async (data) => {
@@ -96,8 +98,10 @@ export function useProjectSettingAndSubmit(nextStep: () => void) {
       try {
         const isFeatured = data.isFeatured;
         const thumbnail = data.thumbnail;
+        setIsFeatured(isFeatured);
+        setThumbnail(thumbnail.type, thumbnail.source, thumbnail.fileOrUrl);
 
-        console.log("thumbnail: ", thumbnail);
+        // console.log("thumbnail: ", thumbnail);
 
         await updateAddProject({
           description,
@@ -105,6 +109,8 @@ export function useProjectSettingAndSubmit(nextStep: () => void) {
           projectImages,
           projectModels,
           projectVideos,
+          isFeatured,
+          thumbnail,
         });
 
         success = true;
@@ -124,47 +130,49 @@ export function useProjectSettingAndSubmit(nextStep: () => void) {
       projectImages,
       projectVideos,
       projectModels,
+      setThumbnail,
+      setIsFeatured,
     ],
   );
 
   return { loading, onSubmit };
 }
 
-export function useProjectSubmit() {
-  const [loading, setLoading] = useState(false);
-  const { mutateAsync: updateAddProject } = useProjectMutation();
+// export function useProjectSubmit() {
+//   const [loading, setLoading] = useState(false);
+//   const { mutateAsync: updateAddProject } = useProjectMutation();
 
-  const onSubmit: SubmitHandler<projectSchemaType> = useCallback(
-    async (data) => {
-      let success = false;
-      setLoading(true);
-      try {
-        const description = data.description;
-        const title = data.title;
-        const projectImages = data.projectImages;
-        const projectModels = data.projectModels;
-        const projectVideos = data.projectVideos as Video[];
+//   const onSubmit: SubmitHandler<projectSchemaType> = useCallback(
+//     async (data) => {
+//       let success = false;
+//       setLoading(true);
+//       try {
+//         const description = data.description;
+//         const title = data.title;
+//         const projectImages = data.projectImages;
+//         const projectModels = data.projectModels;
+//         const projectVideos = data.projectVideos as Video[];
 
-        await updateAddProject({
-          description,
-          title,
-          projectImages,
-          projectModels,
-          projectVideos,
-        });
+//         await updateAddProject({
+//           description,
+//           title,
+//           projectImages,
+//           projectModels,
+//           projectVideos,
+//         });
 
-        success = true;
-        toast.success("Project Created Successfully");
-      } catch (error) {
-        toast.error("Something went wrong. Please try again.");
-        console.log(JSON.stringify(error));
-      }
-      setLoading(false);
-      return success;
-    },
+//         success = true;
+//         toast.success("Project Created Successfully");
+//       } catch (error) {
+//         toast.error("Something went wrong. Please try again.");
+//         console.log(JSON.stringify(error));
+//       }
+//       setLoading(false);
+//       return success;
+//     },
 
-    [updateAddProject],
-  );
+//     [updateAddProject],
+//   );
 
-  return { loading, onSubmit };
-}
+//   return { loading, onSubmit };
+// }

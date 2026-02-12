@@ -12,6 +12,14 @@ type addProjectState = {
   setProjectVideos: (value: Video[] | undefined) => void;
   projectModels: string[] | undefined;
   setProjectModels: (value: string[] | undefined) => void;
+  isFeatured: boolean;
+  setIsFeatured: (value: boolean) => void;
+  thumbnail: {
+    type: string;
+    source: string;
+    fileOrUrl: string;
+  };
+  setThumbnail: (type: string, source: string, fileOrUrl: string) => void;
 };
 
 export const useAddProjectStore = create<addProjectState>((set) => ({
@@ -20,9 +28,14 @@ export const useAddProjectStore = create<addProjectState>((set) => ({
   projectImages: undefined,
   projectVideos: undefined,
   projectModels: undefined,
+  isFeatured: false,
+  thumbnail: { type: "Image", source: "Upload", fileOrUrl: "" },
   setTitle: (value) => set({ title: value }),
   setDescription: (value) => set({ description: value }),
   setImages: (value) => set({ projectImages: value }),
   setProjectVideos: (value) => set({ projectVideos: value }),
   setProjectModels: (value) => set({ projectModels: value }),
+  setIsFeatured: (value) => set({ isFeatured: value }),
+  setThumbnail: (type, source, fileOrUrl) =>
+    set({ thumbnail: { type, source, fileOrUrl } }),
 }));

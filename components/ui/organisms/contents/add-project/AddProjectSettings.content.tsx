@@ -1,7 +1,6 @@
 "use client";
 import { FieldGroup } from "@/components/ui/atoms/field/field";
 import { FormEvent, useState } from "react";
-import { P } from "@/components/ui/atoms/text/Text";
 import {
   ProjectSettingFormType,
   ThumbnailType,
@@ -63,11 +62,19 @@ const AddProjectSettingsContent = ({
       return;
     }
 
-    const values = value.split(" | ");
-    form.setValue("thumbnail.source", values[0]);
-    // console.log("source ", values[0]);
-    form.setValue("thumbnail.fileOrUrl", values[1]);
-    // console.log("url ", values[1]);
+    if (form.getValues("thumbnail.type") === "Video") {
+      const values = value.split(" | ");
+      form.setValue("thumbnail.source", values[0]);
+      // console.log("source ", values[0]);
+      form.setValue("thumbnail.fileOrUrl", values[1]);
+      // console.log("url ", values[1]);
+    } else {
+      form.setValue("thumbnail.source", "Upload");
+      // console.log("source ", values[0]);
+      form.setValue("thumbnail.fileOrUrl", value);
+    }
+
+    form.trigger();
   };
 
   const fileOrUrlInputValues = {
@@ -79,7 +86,7 @@ const AddProjectSettingsContent = ({
   };
 
   const isFeaturedValues = {
-    labelTitle: "Featured",
+    labelTitle: "Feature This Project",
     form: form,
   };
 
@@ -87,8 +94,8 @@ const AddProjectSettingsContent = ({
     <form id={formName} onSubmit={handle_submit}>
       <FieldGroup>
         <div className="flex flex-col justify-center items-start">
-          <P>Project Settings</P>
           <FormsCheckBox
+            checkClassName="size-5"
             checkFor="isFeatured"
             values={isFeaturedValues}
             className="mt-4"

@@ -11,7 +11,6 @@ import {
   IStepperMethods,
 } from "@/components/ui/atoms/stepper/Stepper.atom";
 import { useRef } from "react";
-import { Button } from "@/components/ui/atoms/button/button";
 import AddProjectImagesAction from "./forms/AddProjectImages.action";
 import AddProjectTextAction from "./forms/AddProjectText.action";
 import AddProjectVideosAction from "./forms/AddProjectVideos.action";
@@ -22,7 +21,7 @@ const ProjectSteps = () => {
   const stepperRef = useRef<HTMLDivElement & IStepperMethods>(null);
   const addProjectSteps = [
     {
-      title: "Project Text",
+      title: "Project Details",
       description: "",
     },
     {
@@ -81,7 +80,7 @@ const ProjectSteps = () => {
   const itemRefs = useRef<HTMLDivElement[] | null>([]);
 
   return (
-    <div className="flex justify-center">
+    <div className="flex justify-center mt-4">
       <div className="w-11/12 max-w-4xl">
         <InteractiveStepper ref={stepperRef}>
           {addProjectSteps.map((value, index) => (
@@ -112,14 +111,14 @@ const ProjectSteps = () => {
 
           <InteractiveStepperContent
             step={1}
-            className="flex justify-center items-center"
+            className="flex justify-center items-center mt-10"
           >
             <AddProjectTextAction nextStep={nextStep} />
           </InteractiveStepperContent>
 
           <InteractiveStepperContent
             step={2}
-            className="flex justify-center items-center"
+            className="flex justify-center items-center mt-10"
           >
             <AddProjectImagesAction
               nextStep={nextStep}
@@ -129,7 +128,7 @@ const ProjectSteps = () => {
 
           <InteractiveStepperContent
             step={3}
-            className="flex justify-center items-center"
+            className="flex justify-center items-center mt-10"
           >
             <AddProjectVideosAction
               nextStep={nextStep}
@@ -139,7 +138,7 @@ const ProjectSteps = () => {
 
           <InteractiveStepperContent
             step={4}
-            className="flex justify-center items-center"
+            className="flex justify-center items-center mt-10"
           >
             <AddProjectModelsAction
               nextStep={nextStep}
@@ -149,22 +148,19 @@ const ProjectSteps = () => {
 
           <InteractiveStepperContent
             step={5}
-            className="flex justify-center items-center"
+            className="flex justify-center items-center mt-10"
           >
-            <AddProjectSettingsAction
-              nextStep={nextStep}
-              previousStep={previousStep}
-            />
+            <AddProjectSettingsAction previousStep={previousStep} />
           </InteractiveStepperContent>
         </InteractiveStepper>
 
-        <div className="mt-4 flex justify-between gap-2">
+        {/* <div className="mt-4 flex justify-between gap-2">
           <Button variant={"outline"} onClick={() => previousStep()}>
             Previous
           </Button>
 
           <Button onClick={() => nextStep()}>Next</Button>
-        </div>
+        </div> */}
       </div>
     </div>
   );

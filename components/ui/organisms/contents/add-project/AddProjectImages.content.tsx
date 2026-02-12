@@ -1,7 +1,6 @@
 "use client";
 import { FieldGroup } from "@/components/ui/atoms/field/field";
 import { FormEvent } from "react";
-import { P } from "@/components/ui/atoms/text/Text";
 import UploadImageArray from "@/components/ui/organisms/upload/upload-image-array/UploadImageArray.organism";
 import { ProjectImageFormType } from "@/validations/project.zod";
 
@@ -16,7 +15,6 @@ const AddProjectImageContent = ({ form, formName, handle_submit }: Props) => {
     <form id={formName} onSubmit={handle_submit}>
       <FieldGroup>
         <div className="flex flex-col justify-center items-start">
-          <P>Project Images</P>
           <UploadImageArray
             dirPath="/projects/images/"
             imageRoute="PROJECT IMAGE"

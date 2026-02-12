@@ -13,8 +13,15 @@ export async function POST(req: NextRequest) {
     dbSession.startTransaction();
 
     const body = await req.json();
-    const { title, description, projectImages, projectModels, projectVideos } =
-      body;
+    const {
+      title,
+      description,
+      projectImages,
+      projectModels,
+      projectVideos,
+      isFeatured,
+      thumbnail,
+    } = body;
     // console.log("title ", title, "description: ", description);
     console.log("videos ", projectVideos);
     const videos: string[] =
@@ -37,17 +44,6 @@ export async function POST(req: NextRequest) {
           )
         : [];
 
-    // const videoDoc = await Promise.all(
-    //   projectVideos.map(async (q: QuestionDocument) => {
-    //     const question = await QuestionModel.create({
-    //       session: session._id,
-    //       question: q.question,
-    //       answer: q.answer,
-    //     });
-    //     return question._id;
-    //   })
-    // )
-
     const project = await ProjectModel.create(
       [
         {
@@ -56,6 +52,8 @@ export async function POST(req: NextRequest) {
           images: projectImages,
           models: projectModels,
           videos: videos,
+          isFeatured: isFeatured,
+          thumbnail: thumbnail,
         },
       ],
       { session: dbSession },

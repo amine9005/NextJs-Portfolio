@@ -12,12 +12,19 @@ interface Props {
   values: Values;
   className?: string;
   checkFor: string;
+  checkClassName?: string;
 }
 
-const FormsCheckBox = ({ values, className, checkFor }: Props) => {
+const FormsCheckBox = ({
+  values,
+  className,
+  checkFor,
+  checkClassName,
+}: Props) => {
   return (
     <div className={`flex items-center gap-2 ${className}`}>
       <Checkbox
+        className={checkClassName}
         checked={values.form.watch(checkFor)}
         id={checkFor}
         onClick={() => {

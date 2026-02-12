@@ -61,7 +61,7 @@ const AddProjectSettingCard = ({
             Previous Step
           </Button>
           <LoadingSubmitButton loading={loading} formName={formName}>
-            Next Step
+            Finish
           </LoadingSubmitButton>
         </div>
       </CardFooter>

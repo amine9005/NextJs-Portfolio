@@ -4,17 +4,16 @@ import { useProjectSettingAndSubmit } from "@/hooks/submit/useProjectSubmit.hook
 import AddProjectSettingsCard from "@/components/ui/organisms/cards/project/form/AddProjectSettings.card";
 
 interface Props {
-  nextStep: () => void;
   previousStep: () => void;
 }
 
-const AddProjectSettingsAction = ({ nextStep, previousStep }: Props) => {
+const AddProjectSettingsAction = ({ previousStep }: Props) => {
   const card = { title: "Set Project Settings", description: "" };
 
   const form = useProjectSettingForm();
   const formName = "addProjectSetting-Form";
   const { handleSubmit } = form;
-  const { onSubmit } = useProjectSettingAndSubmit(nextStep);
+  const { onSubmit } = useProjectSettingAndSubmit();
 
   return (
     <AddProjectSettingsCard
