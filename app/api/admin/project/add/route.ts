@@ -4,6 +4,7 @@ import ProjectModel from "@/db/models/Project.model";
 import mongoose from "mongoose";
 import VideoModel from "@/db/models/Video.model";
 import { Video } from "@/types/project.types";
+import ThumbnailModel from "@/db/models/Thumbnail.model";
 
 await getClient();
 
@@ -23,7 +24,7 @@ export async function POST(req: NextRequest) {
       thumbnail,
     } = body;
     // console.log("title ", title, "description: ", description);
-    console.log("videos ", projectVideos);
+    // console.log("videos ", projectVideos);
     const videos: string[] =
       projectVideos.length > 0
         ? await Promise.all(
@@ -38,11 +39,26 @@ export async function POST(req: NextRequest) {
                 ],
                 { session: dbSession },
               );
-              console.log("videoX ", videoX);
+              // console.log("videoX ", videoX);
               return videoX[0]._id;
             }),
           )
         : [];
+
+    const thumbnailRef = (
+      await ThumbnailModel.create(
+        [
+          {
+            type: thumbnail.type,
+            source: thumbnail.source,
+            fileOrUrl: thumbnail.fileOrUrl,
+          },
+        ],
+        { session: dbSession },
+      )
+    )[0];
+
+    console.log("Thumbnail Created");
 
     const project = await ProjectModel.create(
       [
@@ -53,7 +69,7 @@ export async function POST(req: NextRequest) {
           models: projectModels,
           videos: videos,
           isFeatured: isFeatured,
-          thumbnail: thumbnail,
+          thumbnail: thumbnailRef,
         },
       ],
       { session: dbSession },
