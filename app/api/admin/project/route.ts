@@ -1,11 +1,13 @@
 import { NextResponse } from "next/server";
 import { getClient } from "@/db/mongoose";
 import ProjectModel from "@/db/models/Project.model";
+
 await getClient();
 
 export async function GET() {
   try {
     // console.log("title ", title, "description: ", description);
+    console.log("getting projects ");
 
     const projects = await ProjectModel.find()
       .populate("videos")

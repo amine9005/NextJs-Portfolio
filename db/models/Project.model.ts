@@ -1,4 +1,6 @@
 import mongoose, { HydratedDocument, InferSchemaType } from "mongoose";
+import VideoModel from "./Video.model";
+import ThumbnailModel from "./Thumbnail.model";
 const projectSchema = new mongoose.Schema(
   {
     title: { type: String, required: true },
@@ -6,8 +8,11 @@ const projectSchema = new mongoose.Schema(
     isFeatured: { type: Boolean, required: true },
     images: [{ type: String, required: false }],
     models: [{ type: String, required: false }],
-    videos: [{ type: mongoose.Schema.ObjectId, ref: "video" }],
-    thumbnail: { type: mongoose.Schema.ObjectId, ref: "thumbnail" },
+    videos: [{ type: mongoose.Schema.ObjectId, ref: VideoModel.modelName }],
+    thumbnail: {
+      type: mongoose.Schema.ObjectId,
+      ref: ThumbnailModel.modelName,
+    },
   },
   { timestamps: true },
 );
