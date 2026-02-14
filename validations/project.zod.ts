@@ -2,6 +2,8 @@ import { UseFormReturn } from "react-hook-form";
 import { z } from "zod";
 import { videoSource } from "@/validations/hero.zod";
 
+export const idValidation = z.string().min(1).optional();
+
 export const titleValidation = z
   .string()
   .min(3, { message: "Title must be at least 3 char longs" })
@@ -112,6 +114,7 @@ export type ProjectSettingFormType = UseFormReturn<projectSettingSchemaType>;
 
 export const projectSchema = z
   .object({
+    id: idValidation,
     title: titleValidation,
     description: descriptionValidation,
     projectImages: projectImagesValidation,

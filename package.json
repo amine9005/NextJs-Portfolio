@@ -38,6 +38,7 @@
     "@tabler/icons-react": "^3.36.1",
     "@tailwindcss/cli": "^4.1.18",
     "@tanstack/react-query": "^5.90.16",
+    "@tanstack/react-table": "^8.21.3",
     "@unlighthouse/cli": "^0.17.4",
     "axios": "^1.13.2",
     "better-auth": "^1.4.7",
