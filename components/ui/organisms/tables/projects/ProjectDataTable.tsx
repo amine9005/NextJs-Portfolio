@@ -130,7 +130,7 @@ export function DataTable<TData, TValue>({
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
                 <TableRow
-                  className="odd:bg-red-500/50"
+                  className="odd:bg-[#3f3f3f]/50"
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
                 >

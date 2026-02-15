@@ -52,7 +52,7 @@ export const columns: ColumnDef<projectSchemaType>[] = [
       const project = row.original;
       const checkFor = "featured " + project.id!;
       return (
-        <div className="flex bg-amber-500 justify-start items-center gap-4">
+        <div className="flex justify-start items-center gap-4">
           <Checkbox
             id={checkFor}
             checked={project.isFeatured}
@@ -73,7 +73,7 @@ export const columns: ColumnDef<projectSchemaType>[] = [
     id: "delete",
     header: "Delete",
     cell: () => (
-      <Trash2Icon className="size-5 hover:fill-red-600 cursor-pointer hover:scale-110" />
+      <Trash2Icon className="size-5 hover:text-red-600 cursor-pointer hover:scale-110" />
     ),
   },
 
@@ -81,7 +81,7 @@ export const columns: ColumnDef<projectSchemaType>[] = [
     id: "Edit",
     header: "Edit",
     cell: () => (
-      <PenBoxIcon className="size-5 text-red-600 cursor-pointer hover:scale-110" />
+      <PenBoxIcon className="size-5 cursor-pointer hover:scale-110" />
     ),
   },
 ];
