@@ -114,7 +114,7 @@ export type ProjectSettingFormType = UseFormReturn<projectSettingSchemaType>;
 
 export const projectSchema = z
   .object({
-    id: idValidation,
+    _id: idValidation,
     title: titleValidation,
     description: descriptionValidation,
     projectImages: projectImagesValidation,

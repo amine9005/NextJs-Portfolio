@@ -2,13 +2,19 @@
 import { useProjectTextForm } from "@/hooks/forms/useProjectForm.hook";
 import { useProjectTextSubmit } from "@/hooks/submit/useProjectSubmit.hook";
 import AddProjectTextCard from "@/components/ui/organisms/cards/project/form/AddProjectText.card";
+import { useParams } from "next/navigation";
 
 interface Props {
   nextStep: () => void;
 }
 
 const AddProjectTextAction = ({ nextStep }: Props) => {
-  const card = { title: "Add Project Details", description: "" };
+  const { id } = useParams();
+
+  const card = {
+    title: id ? "Edit Project Details" : "Add Project Details",
+    description: "",
+  };
 
   const form = useProjectTextForm();
   const formName = "addProjectText-Form";

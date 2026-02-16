@@ -2,9 +2,9 @@ import ProjectSteps from "@/components/ui/actions/project/ProjectSteps.action";
 
 import { authIsRequired } from "@/helpers/authHelper.helper";
 
-const AddProjectPage = async () => {
+const EditProjectPage = async () => {
   await authIsRequired();
   return <ProjectSteps />;
 };
 
-export default AddProjectPage;
+export default EditProjectPage;

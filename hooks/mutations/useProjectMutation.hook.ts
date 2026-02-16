@@ -17,6 +17,7 @@ interface props {
 export const useProjectMutation = () => {
   const queryClient = useQueryClient();
   const useProjectMutationFn = async ({
+    id,
     projectImages,
     title,
     description,
@@ -25,6 +26,21 @@ export const useProjectMutation = () => {
     isFeatured,
     thumbnail,
   }: props) => {
+    if (id) {
+      const response = await axiosInstance.put(
+        "/api/admin/project/update/" + id,
+        {
+          projectImages,
+          title,
+          description,
+          projectVideos,
+          projectModels,
+          isFeatured,
+          thumbnail,
+        },
+      );
+      return response;
+    }
     const response = await axiosInstance.post("/api/admin/project/add", {
       projectImages,
       title,
@@ -41,6 +57,38 @@ export const useProjectMutation = () => {
     mutationFn: useProjectMutationFn,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["projects"] });
+    },
+  });
+};
+
+export const useDeleteProjectMutation = () => {
+  const queryClient = useQueryClient();
+
+  const useProjectDeleteMutationFn = async ({ id }: { id: string }) => {
+    const response = await axiosInstance.delete(
+      "/api/admin/project/delete/" + id,
+    );
+    return response;
+  };
+  return useMutation({
+    mutationFn: useProjectDeleteMutationFn,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["projects"] });
+    },
+  });
+};
+
+export const useGetProjectByIdMutation = () => {
+  const queryClient = useQueryClient();
+
+  const useGetProjectByIdMutationFn = async ({ id }: { id: string }) => {
+    const response = await axiosInstance.get("/api/admin/project/" + id);
+    return response;
+  };
+  return useMutation({
+    mutationFn: useGetProjectByIdMutationFn,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["ProjectById"] });
     },
   });
 };

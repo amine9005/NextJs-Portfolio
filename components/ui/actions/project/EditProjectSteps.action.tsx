@@ -16,8 +16,11 @@ import AddProjectTextAction from "./forms/AddProjectText.action";
 import AddProjectVideosAction from "./forms/AddProjectVideos.action";
 import AddProjectModelsAction from "./forms/AddProjectModels.action";
 import AddProjectSettingsAction from "./forms/AddProjectSetting.action";
+import { useParams } from "next/navigation";
 
 const ProjectSteps = () => {
+  const { id } = useParams();
+
   const stepperRef = useRef<HTMLDivElement & IStepperMethods>(null);
   const addProjectSteps = [
     {
@@ -153,14 +156,6 @@ const ProjectSteps = () => {
             <AddProjectSettingsAction previousStep={previousStep} />
           </InteractiveStepperContent>
         </InteractiveStepper>
-
-        {/* <div className="mt-4 flex justify-between gap-2">
-          <Button variant={"outline"} onClick={() => previousStep()}>
-            Previous
-          </Button>
-
-          <Button onClick={() => nextStep()}>Next</Button>
-        </div> */}
       </div>
     </div>
   );

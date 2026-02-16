@@ -15,6 +15,7 @@ interface LoadingSubmitButtonProps {
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;
   variant?: VariantOptions;
+  className?: string;
   handle_click?: (formEvent: FormEvent) => void;
 }
 
@@ -24,6 +25,7 @@ const LoadingSubmitButton = ({
   children,
   width = "md",
   type = "submit",
+  className,
   leftIcon,
   rightIcon,
   variant,
@@ -31,6 +33,7 @@ const LoadingSubmitButton = ({
 }: LoadingSubmitButtonProps) => {
   return (
     <Button
+      className={className}
       disabled={loading}
       type={type}
       form={formName}
