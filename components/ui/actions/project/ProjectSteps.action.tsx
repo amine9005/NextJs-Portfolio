@@ -10,15 +10,22 @@ import {
   InteractiveStepperTrigger,
   IStepperMethods,
 } from "@/components/ui/molecules/stepper/Stepper.atom";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import AddProjectImagesAction from "./forms/AddProjectImages.action";
 import AddProjectTextAction from "./forms/AddProjectText.action";
 import AddProjectVideosAction from "./forms/AddProjectVideos.action";
 import AddProjectModelsAction from "./forms/AddProjectModels.action";
 import AddProjectSettingsAction from "./forms/AddProjectSetting.action";
+import { useSetProjectDataInStore } from "@/hooks/forms/useProjectForm.hook";
 
 const ProjectSteps = () => {
   const stepperRef = useRef<HTMLDivElement & IStepperMethods>(null);
+  const { resetData } = useSetProjectDataInStore();
+
+  useEffect(() => {
+    resetData();
+  });
+
   const addProjectSteps = [
     {
       title: "Project Details",

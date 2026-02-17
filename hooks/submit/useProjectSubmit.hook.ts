@@ -78,9 +78,9 @@ export function useProjectModelsSubmit(nextStep: () => void) {
   return { onSubmit };
 }
 
-export function useProjectSettingAndSubmit() {
+export function useProjectSettingAndSubmit(id?: string) {
   const [loading, setLoading] = useState(false);
-  const { mutateAsync: updateAddProject } = useProjectMutation();
+  const { mutateAsync: updateOrAddProject } = useProjectMutation();
   const title = useAddProjectStore((state) => state.title) as string;
   const description = useAddProjectStore(
     (state) => state.description,
@@ -91,6 +91,8 @@ export function useProjectSettingAndSubmit() {
   const setIsFeatured = useAddProjectStore((state) => state.setIsFeatured);
   const setThumbnail = useAddProjectStore((state) => state.setThumbnail);
 
+  // console.log("submitting videos ", projectVideos);
+
   const onSubmit: SubmitHandler<projectSettingSchemaType> = useCallback(
     async (data) => {
       let success = false;
@@ -99,11 +101,17 @@ export function useProjectSettingAndSubmit() {
         const isFeatured = data.isFeatured;
         const thumbnail = data.thumbnail;
         setIsFeatured(isFeatured);
-        setThumbnail(thumbnail.type, thumbnail.source, thumbnail.fileOrUrl);
+        setThumbnail(
+          thumbnail._id,
+          thumbnail.type as "Video" | "Image" | "Model",
+          thumbnail.source,
+          thumbnail.fileOrUrl,
+        );
 
         // console.log("thumbnail: ", thumbnail);
 
-        await updateAddProject({
+        await updateOrAddProject({
+          id,
           description,
           title,
           projectImages,
@@ -124,7 +132,8 @@ export function useProjectSettingAndSubmit() {
     },
 
     [
-      updateAddProject,
+      id,
+      updateOrAddProject,
       title,
       description,
       projectImages,

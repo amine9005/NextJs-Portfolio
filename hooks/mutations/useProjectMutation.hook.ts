@@ -27,6 +27,7 @@ export const useProjectMutation = () => {
     thumbnail,
   }: props) => {
     if (id) {
+      // console.log("sending videos ", projectVideos);
       const response = await axiosInstance.put(
         "/api/admin/project/update/" + id,
         {
@@ -78,15 +79,17 @@ export const useDeleteProjectMutation = () => {
   });
 };
 
-export const useGetProjectByIdMutation = () => {
+export const useUpdateProjectByIdMutation = () => {
   const queryClient = useQueryClient();
 
-  const useGetProjectByIdMutationFn = async ({ id }: { id: string }) => {
-    const response = await axiosInstance.get("/api/admin/project/" + id);
+  const useUpdateProjectByIdMutationFn = async ({ id }: { id: string }) => {
+    const response = await axiosInstance.post(
+      "/api/admin/project/update/" + id,
+    );
     return response;
   };
   return useMutation({
-    mutationFn: useGetProjectByIdMutationFn,
+    mutationFn: useUpdateProjectByIdMutationFn,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["ProjectById"] });
     },

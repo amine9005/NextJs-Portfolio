@@ -17,9 +17,14 @@ import AddProjectVideosAction from "./forms/AddProjectVideos.action";
 import AddProjectModelsAction from "./forms/AddProjectModels.action";
 import AddProjectSettingsAction from "./forms/AddProjectSetting.action";
 import { useParams } from "next/navigation";
+import { useGetProjectByIdQuery } from "@/hooks/queries/useProjectQuery.hook";
+import { useSetProjectDataInStore } from "@/hooks/forms/useProjectForm.hook";
 
-const ProjectSteps = () => {
+const EditProjectSteps = () => {
   const { id } = useParams();
+
+  const { data, isLoading } = useGetProjectByIdQuery(id as string);
+  const { setProjectDataInStore } = useSetProjectDataInStore();
 
   const stepperRef = useRef<HTMLDivElement & IStepperMethods>(null);
   const addProjectSteps = [
@@ -81,6 +86,16 @@ const ProjectSteps = () => {
   };
 
   const itemRefs = useRef<HTMLDivElement[] | null>([]);
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        Loading...
+      </div>
+    );
+  }
+
+  setProjectDataInStore(data);
 
   return (
     <div className="flex justify-center mt-4">
@@ -153,7 +168,10 @@ const ProjectSteps = () => {
             step={5}
             className="flex justify-center items-center mt-10"
           >
-            <AddProjectSettingsAction previousStep={previousStep} />
+            <AddProjectSettingsAction
+              previousStep={previousStep}
+              id={id as string}
+            />
           </InteractiveStepperContent>
         </InteractiveStepper>
       </div>
@@ -161,4 +179,4 @@ const ProjectSteps = () => {
   );
 };
 
-export default ProjectSteps;
+export default EditProjectSteps;

@@ -2,7 +2,7 @@ import { Checkbox } from "@/components/ui/atoms/checkbox/checkbox";
 import { Label } from "@/components/ui/atoms/label/label";
 import { useProjectMutation } from "@/hooks/mutations/useProjectMutation.hook";
 import { projectSchemaType } from "@/validations/project.zod";
-import { Video } from "@/types/project.types";
+import { ProjectType, Video } from "@/types/project.types";
 import { ReactNode, useState } from "react";
 interface Props {
   labelTitle: string | ReactNode;
@@ -10,7 +10,7 @@ interface Props {
   checkFor: string;
   checkClassName?: string;
   checked?: boolean;
-  project: projectSchemaType;
+  project: ProjectType;
 }
 
 const SetProjectAsFeaturedColumn = ({
@@ -26,11 +26,11 @@ const SetProjectAsFeaturedColumn = ({
 
   const handleFeatured = async () => {
     const id = project._id;
-    const projectImages = project.projectImages;
+    const projectImages = project.images;
     const title = project.title;
     const description = project.description;
-    const projectVideos = project.projectVideos as Video[];
-    const projectModels = project.projectModels;
+    const projectVideos = project.videos as Video[];
+    const projectModels = project.models;
     const isFeatured = !isChecked;
     const thumbnail = project.thumbnail;
     setIsChecked(isFeatured);

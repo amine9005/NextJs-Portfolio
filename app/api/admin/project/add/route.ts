@@ -58,7 +58,7 @@ export async function POST(req: NextRequest) {
       )
     )[0];
 
-    console.log("Thumbnail Created");
+    // console.log("Thumbnail Created");
 
     const project = await ProjectModel.create(
       [

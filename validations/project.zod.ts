@@ -37,6 +37,7 @@ export const projectVideosValidation = z
     z
       .object(
         {
+          _id: z.string().optional(),
           source: z.enum(videoSource),
           fileName: z
             .string({ message: "A Video File Is Required" })
@@ -68,6 +69,7 @@ export const isFeaturedValidation = z.boolean();
 export const ThumbnailType = ["Image", "Video", "Model"];
 
 export const thumbnailValidation = z.object({
+  _id: z.string().optional(),
   type: z.enum(ThumbnailType),
   source: z.string({ message: "A Thumbnail Source Is Required" }),
   fileOrUrl: z

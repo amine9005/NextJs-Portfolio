@@ -18,14 +18,14 @@ export const useProjectsQuery = () => {
   });
 };
 
-export const useGetProjectByIdQuery = () => {
+export const useGetProjectByIdQuery = (id: string) => {
   // Define the API endpoint for fetching the logo
   const fetchProject = async ({ id }: Props) => {
     const response = await axios.get("/api/admin/project/" + id);
     return response.data.project;
   };
   return useQuery({
-    queryFn: () => fetchProject,
+    queryFn: () => fetchProject({ id }),
     queryKey: ["projects"],
     staleTime: Infinity,
   });

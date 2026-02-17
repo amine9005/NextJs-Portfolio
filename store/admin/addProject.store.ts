@@ -1,4 +1,4 @@
-import { Video } from "@/types/project.types";
+import { Thumbnail, Video } from "@/types/project.types";
 import { create } from "zustand";
 
 type addProjectState = {
@@ -14,12 +14,13 @@ type addProjectState = {
   setProjectModels: (value: string[] | undefined) => void;
   isFeatured: boolean;
   setIsFeatured: (value: boolean) => void;
-  thumbnail: {
-    type: string;
-    source: string;
-    fileOrUrl: string;
-  };
-  setThumbnail: (type: string, source: string, fileOrUrl: string) => void;
+  thumbnail: Thumbnail;
+  setThumbnail: (
+    _id: string | undefined,
+    type: "Image" | "Video" | "Model",
+    source: string,
+    fileOrUrl: string | undefined,
+  ) => void;
 };
 
 export const useAddProjectStore = create<addProjectState>((set) => ({
@@ -36,6 +37,6 @@ export const useAddProjectStore = create<addProjectState>((set) => ({
   setProjectVideos: (value) => set({ projectVideos: value }),
   setProjectModels: (value) => set({ projectModels: value }),
   setIsFeatured: (value) => set({ isFeatured: value }),
-  setThumbnail: (type, source, fileOrUrl) =>
-    set({ thumbnail: { type, source, fileOrUrl } }),
+  setThumbnail: (_id, type, source, fileOrUrl) =>
+    set({ thumbnail: { _id, type, source, fileOrUrl } }),
 }));

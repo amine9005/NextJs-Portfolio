@@ -2,17 +2,17 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 
-import { projectSchemaType } from "@/validations/project.zod";
 import { PenBoxIcon } from "lucide-react";
 import Link from "next/link";
 import DeleteDialog from "@/components/ui/organisms/dialog/project/delete-dialog/DeleteDialog.dialog";
 import { P } from "@/components/ui/atoms/text/Text";
 import SetProjectAsFeaturedColumn from "./SetProjectAsFeatured.column";
+import { ProjectType } from "@/types/project.types";
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
 
-export const columns: ColumnDef<projectSchemaType>[] = [
+export const columns: ColumnDef<ProjectType>[] = [
   {
     accessorKey: "title",
     header: "Title",
