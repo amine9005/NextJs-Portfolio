@@ -112,6 +112,7 @@ const AddProjectSettingsContent = ({
                   onSelectChange={(e) => {
                     updateValues(e);
                     form.setValue("thumbnail.type", e);
+                    form.setValue("thumbnail.fileOrUrl", "");
                   }}
                 />
               )}
