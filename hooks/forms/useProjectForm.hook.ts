@@ -134,7 +134,7 @@ export const useSetProjectDataInStore = () => {
   };
 
   const setProjectDataInStore = (data: ProjectType) => {
-    if (!data) return;
+    if (!data._id) return;
 
     // console.log("data ", data);
     // console.log("project images was ", projectImages);

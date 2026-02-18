@@ -1,7 +1,9 @@
 import { Button } from "@/components/ui/atoms/button/button";
-import { PlusIcon, Trash2Icon } from "lucide-react";
+import { PlusIcon } from "lucide-react";
 import { Controller, useFieldArray, UseFormReturn } from "react-hook-form";
 import VideoUploadDisplayDialog from "@/components/ui/organisms/dialog/video-upload-display/VideoUploadDisplay.dialog";
+import { DeleteRoutes } from "@/helpers/utils.helper";
+import DeleteItemMolecule from "@/components/ui/molecules/delete-item/DeleteItem.molecule";
 const UploadVideoArray = ({
   form,
   name,
@@ -38,15 +40,12 @@ const UploadVideoArray = ({
                   />
                 )}
               />
-              <Button
-                width={"fit"}
-                type="button"
-                className="rounded-full p-2"
-                variant={"destructive_outline"}
-                onClick={() => remove(index)}
-              >
-                <Trash2Icon className="size-6" />
-              </Button>
+              <DeleteItemMolecule
+                deleteRoute={DeleteRoutes.DELETE_PROJECT_VIDEO}
+                index={index}
+                remove={remove}
+                id={form.getValues(`${name}.${index}._id`)}
+              />
             </div>
           </li>
         ))}

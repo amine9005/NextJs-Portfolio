@@ -8,3 +8,7 @@ export const apiPaths = {
     GET_PROFILE: `${BASE_URL}/user/profile`,
   },
 };
+
+export const DeleteRoutes = {
+  DELETE_PROJECT_VIDEO: "/api/admin/project/delete/video/",
+};
