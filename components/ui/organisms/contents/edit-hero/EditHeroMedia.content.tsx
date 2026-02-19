@@ -14,6 +14,7 @@ import UploadFileFieldInstant from "@/components/ui/molecules/upload-image-insta
 import Upload3DModelField from "@/components/ui/molecules/upload-3D-model-field/Upload3DModelField.molecule";
 import UploadVideoFieldInstant from "@/components/ui/molecules/upload-video-instant/UploadVideoInstant.molecule";
 import { PATHS } from "@/lib/patths";
+import { DeleteRoutes } from "@/helpers/utils.helper";
 
 interface Props {
   form: HeroMediaFormType;
@@ -80,6 +81,7 @@ const EditHeroMediaContent = ({ form, formName, handle_submit }: Props) => {
                   text="Chose An Image"
                   limit={1}
                   imageUrl={PATHS.HERO_IMAGES}
+                  deleteRoute={DeleteRoutes.DELETE_HERO_ROUTE}
                   form={form}
                   name="imageUrl"
                   imageRoute={"HERO IMAGE"}
@@ -108,6 +110,7 @@ const EditHeroMediaContent = ({ form, formName, handle_submit }: Props) => {
                   text="Chose An Image"
                   limit={1}
                   imageUrl={PATHS.HERO_IMAGES}
+                  deleteRoute={DeleteRoutes.DELETE_HERO_ROUTE}
                   form={form}
                   name="imageUrl"
                   imageRoute={"HERO IMAGE"}

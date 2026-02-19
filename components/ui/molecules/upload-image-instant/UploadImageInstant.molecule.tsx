@@ -6,6 +6,7 @@ import { useUploadSubmit } from "@/hooks/submit/useUploadSubmit.hook";
 import UploadBase from "@/components/ui/molecules/upload-base/UploadBase.molecule";
 import { ReactNode } from "react";
 import Image from "next/image";
+import { useDeleteMutation } from "@/hooks/mutations/useProjectMutation.hook";
 
 interface Props {
   name: string;
@@ -17,6 +18,7 @@ interface Props {
   inLineIcon?: ReactNode;
   field: FieldValues;
   imageRoute?: "LOGO" | "PROJECT IMAGE" | "HERO IMAGE";
+  deleteRoute: string;
   fieldState: {
     invalid: boolean;
     isTouched: boolean;
@@ -33,14 +35,19 @@ const UploadImageFieldInstant = ({
   text = "Chose An Image",
   limit,
   imageUrl = "",
-
+  deleteRoute,
   imageRoute = "LOGO",
   fieldState,
 }: Props) => {
   const { uploadFile, isPending } = useUploadSubmit();
+  const { mutateAsync: deleteImage } = useDeleteMutation();
   const setLogoPath = useTmpLogoStore((state) => state.setImagePath);
 
   const setAndUpload = async (files: FileList | null) => {
+    const preImage = form.getValues(name) as string;
+    if (preImage) {
+      await deleteImage({ deleteRoute: deleteRoute, name: preImage });
+    }
     const path = await uploadFile(files, imageRoute);
     form.setValue(name, path);
     setLogoPath(path);

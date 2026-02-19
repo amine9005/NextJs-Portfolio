@@ -7,6 +7,7 @@ import FormsCheckBoxMolecule from "@/components/ui/molecules/forms-checkbox/Form
 import { LogoFormType } from "@/validations/logo.zod";
 import ColorPickerMolecule from "@/components/ui/molecules/color-picker/ColorPicker.molecule";
 import UploadImageFieldInstant from "@/components/ui/molecules/upload-image-instant/UploadImageInstant.molecule";
+import { DeleteRoutes } from "@/helpers/utils.helper";
 
 interface Props {
   form: LogoFormType;
@@ -54,6 +55,7 @@ const EditLogoFormContent = ({ form, formName, handle_submit }: Props) => {
             control={form?.control}
             render={({ field, fieldState }) => (
               <UploadImageFieldInstant
+                deleteRoute={DeleteRoutes.DELETE_LOGO_ROUTE}
                 field={field}
                 fieldState={fieldState}
                 name={"imagePath"}

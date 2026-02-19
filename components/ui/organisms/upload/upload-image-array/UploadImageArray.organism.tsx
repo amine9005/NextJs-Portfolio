@@ -5,6 +5,8 @@ import UploadBase from "@/components/ui/molecules/upload-base/UploadBase.molecul
 import { useUploadSubmit } from "@/hooks/submit/useUploadSubmit.hook";
 import { UploadRoutes, validateImages } from "@/validations/upload.validate";
 import ImageThumbnailAtom from "@/components/ui/atoms/image-thumbnail/ImageThumbnail.atom";
+import { useDeleteMutation } from "@/hooks/mutations/useProjectMutation.hook";
+import { DeleteRoutes } from "@/helpers/utils.helper";
 
 interface Props {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -16,6 +18,7 @@ interface Props {
 
 const UploadImageArray = ({ form, name, imageRoute, dirPath = "" }: Props) => {
   const { uploadFile, isPending } = useUploadSubmit();
+  const { mutateAsync: deleteImage } = useDeleteMutation();
 
   const { fields, append, remove, update } = useFieldArray({
     control: form?.control,
@@ -23,6 +26,17 @@ const UploadImageArray = ({ form, name, imageRoute, dirPath = "" }: Props) => {
   });
 
   const setAndUpload = async (files: FileList | null, index: number) => {
+    if (
+      form.getValues(name)[index] &&
+      typeof form.getValues(name)[index] !== typeof {}
+    ) {
+      const preImage = form.getValues(name)[index] as string;
+      await deleteImage({
+        name: preImage,
+        deleteRoute: DeleteRoutes.DELETE_PROJECT_IMAGE,
+      });
+    }
+
     const path = await uploadFile(files, imageRoute);
     update(index, path);
   };
