@@ -32,13 +32,29 @@ const UploadImageArray = ({ form, name, imageRoute, dirPath = "" }: Props) => {
     ) {
       const preImage = form.getValues(name)[index] as string;
       await deleteImage({
-        name: preImage,
+        id: preImage,
         deleteRoute: DeleteRoutes.DELETE_PROJECT_IMAGE,
       });
     }
 
     const path = await uploadFile(files, imageRoute);
     update(index, path);
+  };
+
+  const removeAndDelete = async (index: number) => {
+    if (
+      form.getValues(name)[index] &&
+      typeof form.getValues(name)[index] !== typeof {}
+    ) {
+      const preImage = form.getValues(name)[index] as string;
+      await deleteImage({
+        id: preImage,
+        deleteRoute: DeleteRoutes.DELETE_PROJECT_IMAGE,
+      });
+      remove(index);
+    } else {
+      remove(index);
+    }
   };
 
   const textFn = (index: number) => {
@@ -84,7 +100,7 @@ const UploadImageArray = ({ form, name, imageRoute, dirPath = "" }: Props) => {
                 type="button"
                 className="rounded-full p-2"
                 variant={"destructive_outline"}
-                onClick={() => remove(index)}
+                onClick={() => removeAndDelete(index)}
               >
                 <Trash2Icon className="size-6" />
               </Button>

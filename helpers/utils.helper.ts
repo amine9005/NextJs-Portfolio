@@ -14,7 +14,7 @@ export const DeleteRoutes = {
   DELETE_PROJECT_IMAGE: "/api/admin/project/delete/image/",
   DELETE_PROJECT_MODEL: "/api/admin/project/delete/model/",
   DELETE_LOGO_ROUTE: "/api/admin/logo/delete/",
-  DELETE_HERO_ROUTE: "/api/admin/media/delete/",
+  DELETE_HERO_ROUTE: "/api/admin/hero/media/delete/",
 };
 
 export const UploadRoutes = {

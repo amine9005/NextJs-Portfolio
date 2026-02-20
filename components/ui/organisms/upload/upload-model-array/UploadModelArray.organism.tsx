@@ -7,6 +7,8 @@ import {
   UploadRoutes,
   validate3DModelFiles,
 } from "@/validations/upload.validate";
+import { DeleteRoutes } from "@/helpers/utils.helper";
+import { useDeleteMutation } from "@/hooks/mutations/useProjectMutation.hook";
 
 interface Props {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -18,6 +20,7 @@ interface Props {
 
 const UploadModelArray = ({ form, name, uploadRoute }: Props) => {
   const { uploadFile, isPending } = useUploadSubmit();
+  const { mutateAsync: deleteImage } = useDeleteMutation();
 
   const { fields, append, remove, update } = useFieldArray({
     control: form?.control,
@@ -25,8 +28,34 @@ const UploadModelArray = ({ form, name, uploadRoute }: Props) => {
   });
 
   const setAndUpload = async (files: FileList | null, index: number) => {
+    if (
+      form.getValues(name)[index] &&
+      typeof form.getValues(name)[index] !== typeof {}
+    ) {
+      const preImage = form.getValues(name)[index] as string;
+      await deleteImage({
+        id: preImage,
+        deleteRoute: DeleteRoutes.DELETE_PROJECT_MODEL,
+      });
+    }
     const path = await uploadFile(files, uploadRoute);
     update(index, path);
+  };
+
+  const removeAndDelete = async (index: number) => {
+    if (
+      form.getValues(name)[index] &&
+      typeof form.getValues(name)[index] !== typeof {}
+    ) {
+      const preImage = form.getValues(name)[index] as string;
+      await deleteImage({
+        id: preImage,
+        deleteRoute: DeleteRoutes.DELETE_PROJECT_MODEL,
+      });
+      remove(index);
+    } else {
+      remove(index);
+    }
   };
 
   const textFn = (index: number) => {
@@ -63,7 +92,7 @@ const UploadModelArray = ({ form, name, uploadRoute }: Props) => {
                 type="button"
                 className="rounded-full p-2"
                 variant={"destructive_outline"}
-                onClick={() => remove(index)}
+                onClick={() => removeAndDelete(index)}
               >
                 <Trash2Icon className="size-6" />
               </Button>

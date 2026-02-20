@@ -46,7 +46,11 @@ const UploadImageFieldInstant = ({
   const setAndUpload = async (files: FileList | null) => {
     const preImage = form.getValues(name) as string;
     if (preImage) {
-      await deleteImage({ deleteRoute: deleteRoute, name: preImage });
+      try {
+        await deleteImage({ deleteRoute: deleteRoute, id: preImage });
+      } catch (err) {
+        console.log(err);
+      }
     }
     const path = await uploadFile(files, imageRoute);
     form.setValue(name, path);
@@ -61,7 +65,11 @@ const UploadImageFieldInstant = ({
     if (form.getValues(name)) {
       return (
         <Image
-          src={(imageUrl + form.getValues(name)) as string}
+          src={
+            form.getValues(name)
+              ? ((imageUrl + form.getValues(name)) as string)
+              : ""
+          }
           alt="Project Image"
           width={64}
           height={40}

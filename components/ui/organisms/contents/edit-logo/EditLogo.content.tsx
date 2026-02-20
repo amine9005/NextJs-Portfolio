@@ -57,6 +57,7 @@ const EditLogoFormContent = ({ form, formName, handle_submit }: Props) => {
               <UploadImageFieldInstant
                 deleteRoute={DeleteRoutes.DELETE_LOGO_ROUTE}
                 field={field}
+                imageUrl="/logos/"
                 fieldState={fieldState}
                 name={"imagePath"}
                 form={form}

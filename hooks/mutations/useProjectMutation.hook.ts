@@ -99,12 +99,12 @@ export const useUpdateProjectByIdMutation = () => {
 export const useDeleteMutation = () => {
   const useDeleteMutationFn = async ({
     deleteRoute,
-    name,
+    id,
   }: {
-    name: string;
+    id: string;
     deleteRoute: string;
   }) => {
-    const response = await axiosInstance.delete(deleteRoute + name);
+    const response = await axiosInstance.delete(deleteRoute + id);
     return response;
   };
   return useMutation({
