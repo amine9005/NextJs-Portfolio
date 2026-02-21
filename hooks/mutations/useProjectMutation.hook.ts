@@ -11,7 +11,7 @@ interface props {
   projectVideos: Video[] | undefined;
   projectModels: string[] | undefined;
   isFeatured: boolean;
-  thumbnail: { type: string; source: string; fileOrUrl: string };
+  thumbnail: { type: string; source: string; fileOrUrl: string | undefined };
 }
 
 export const useProjectMutation = () => {

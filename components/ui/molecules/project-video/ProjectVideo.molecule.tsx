@@ -8,15 +8,19 @@ interface Props {
   videoSource: "Other" | "YouTube" | "Google Drive" | "Upload" | "Mux" | string;
 }
 
-const HeroVideoMolecule = ({ videoSource, videoUrl, videoFileName }: Props) => {
+const ProjectVideoMolecule = ({
+  videoSource,
+  videoUrl,
+  videoFileName,
+}: Props) => {
   console.log("Video Source: ", videoSource.toString() === "YouTube");
 
   if (videoSource === "Google Drive") {
     return (
       <iframe
-        className="rounded-lg bg-gray-300 object-cover w-auto sm:w-140 h-100"
-        width={720}
-        height={480}
+        className="rounded-lg bg-transparent h-full w-full"
+        width={"100%"}
+        height={"100%"}
         // src={`https://drive.google.com/file/d/1Wiq0rwCcI23Bmt2NcRd87hdppXafVAhN/preview`}
         src={videoUrl}
         title="Embedded Google Drive Video"
@@ -27,13 +31,14 @@ const HeroVideoMolecule = ({ videoSource, videoUrl, videoFileName }: Props) => {
     console.log("Youtube Video Source: ", videoUrl);
     return (
       <ReactPlayer
-        className="rounded-lg bg-gray-300 object-cover w-auto sm:w-140 h-100"
-        width={720}
-        height={480}
+        className="rounded-lg bg-transparent h-full w-full"
+        width={"100%"}
+        height={"100%"}
         src={videoUrl}
         title="Embedded Youtube Video"
-        playing={true}
-        loop={true}
+        controls={true}
+        autoPlay={false}
+        loop={false}
       />
     );
   }
@@ -42,15 +47,13 @@ const HeroVideoMolecule = ({ videoSource, videoUrl, videoFileName }: Props) => {
     return (
       <BlurFade onlyOnce={false} delay={0.6} inView>
         <video
-          className="rounded-lg bg-transparent w-full md:w-160 h-80 p-4"
-          preload="true"
-          controls={false}
-          muted
-          autoPlay={true}
-          loop={true}
+          className="rounded-lg bg-transparent h-full w-full"
+          controls={true}
+          autoPlay={false}
+          loop={false}
           src={
             // "https://stream.mux.com/Uj3xQat00Dsg8023Y01IKzYBlTnnp567ad5ZLQ2c00hZlOs.m3u8"
-            "/hero/videos/" + videoFileName
+            "/projects/videos/" + videoFileName
           }
         ></video>
       </BlurFade>
@@ -61,11 +64,10 @@ const HeroVideoMolecule = ({ videoSource, videoUrl, videoFileName }: Props) => {
     return (
       <BlurFade onlyOnce={false} delay={0.6} inView>
         <video
-          className="rounded-lg bg-transparent w-full md:w-160 h-80 p-4"
-          controls={false}
-          muted
-          autoPlay={true}
-          loop={true}
+          className="rounded-lg bg-transparent h-full w-full"
+          controls={true}
+          autoPlay={false}
+          loop={false}
           src={
             // "https://stream.mux.com/Uj3xQat00Dsg8023Y01IKzYBlTnnp567ad5ZLQ2c00hZlOs.m3u8"
             videoUrl
@@ -78,7 +80,7 @@ const HeroVideoMolecule = ({ videoSource, videoUrl, videoFileName }: Props) => {
   return (
     <BlurFade onlyOnce={false} delay={0.6} inView>
       <Player
-        className="rounded-lg bg-transparent w-full md:w-160 h-80 p-4"
+        className="rounded-lg bg-transparent h-full w-full"
         controls={false}
         muted
         autoPlay={true}
@@ -89,4 +91,4 @@ const HeroVideoMolecule = ({ videoSource, videoUrl, videoFileName }: Props) => {
   );
 };
 
-export default HeroVideoMolecule;
+export default ProjectVideoMolecule;

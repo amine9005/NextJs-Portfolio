@@ -19,12 +19,16 @@ import AddProjectSettingsAction from "./forms/AddProjectSetting.action";
 import { useParams } from "next/navigation";
 import { useGetProjectByIdQuery } from "@/hooks/queries/useProjectQuery.hook";
 import { useSetProjectDataInStore } from "@/hooks/forms/useProjectForm.hook";
+import { Loader2Icon } from "lucide-react";
+import { P } from "@/components/ui/atoms/text/Text";
 
 const EditProjectSteps = () => {
   const { id } = useParams();
 
-  const { data, isLoading } = useGetProjectByIdQuery(id as string);
+  const { data, isLoading, error } = useGetProjectByIdQuery(id as string);
   const { setProjectDataInStore } = useSetProjectDataInStore();
+
+  console.log("edit project data ", data);
 
   const stepperRef = useRef<HTMLDivElement & IStepperMethods>(null);
   const addProjectSteps = [
@@ -90,7 +94,20 @@ const EditProjectSteps = () => {
   if (isLoading) {
     return (
       <div className="flex justify-center items-center h-screen">
-        Loading...
+        <div className="flex flex-col justify-center items-center gap-4">
+          <Loader2Icon className="animate-spin size-10" />
+          <P>Loading...</P>
+        </div>
+      </div>
+    );
+  }
+
+  if (error || !data) {
+    return (
+      <div className="flex justify-center items-center h-screen p-16">
+        <P size={"xl"} variant={"error"}>
+          {"Failed To Load Project."}
+        </P>
       </div>
     );
   }

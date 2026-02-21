@@ -1,7 +1,6 @@
 import { Checkbox } from "@/components/ui/atoms/checkbox/checkbox";
 import { Label } from "@/components/ui/atoms/label/label";
 import { useProjectMutation } from "@/hooks/mutations/useProjectMutation.hook";
-import { projectSchemaType } from "@/validations/project.zod";
 import { ProjectType, Video } from "@/types/project.types";
 import { ReactNode, useState } from "react";
 interface Props {

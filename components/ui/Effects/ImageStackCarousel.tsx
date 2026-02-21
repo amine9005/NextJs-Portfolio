@@ -4,9 +4,6 @@ import { AnimatePresence, motion } from "motion/react";
 import { ReactNode, useEffect, useState } from "react";
 
 type Stack = {
-  quote: string;
-  name: string;
-  designation: string;
   node: ReactNode;
 };
 

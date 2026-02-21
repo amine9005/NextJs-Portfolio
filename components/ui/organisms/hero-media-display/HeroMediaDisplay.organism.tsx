@@ -39,7 +39,12 @@ const HeroMediaDisplayOrganism = () => {
       />
     );
   } else if (displayType === "3D Model") {
-    return <Hero3DModelMolecule modelName={model3D_Url} />;
+    return (
+      <Hero3DModelMolecule
+        modelName={model3D_Url}
+        className="bg-gray-100 rounded-lg"
+      />
+    );
   }
 
   return <div>Something went wrong no hero media provided</div>;

@@ -26,7 +26,6 @@ export const useGetProjectByIdQuery = (id: string) => {
   };
   return useQuery({
     queryFn: () => fetchProject({ id }),
-    queryKey: ["projects"],
-    staleTime: Infinity,
+    queryKey: [id],
   });
 };
