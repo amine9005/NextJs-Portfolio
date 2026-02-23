@@ -28,8 +28,9 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/atoms/dropdown-menu/dropdown-menu";
 import { Input } from "@/components/ui/atoms/input/input";
-import { Button } from "@/components/ui/atoms/button/button";
+import { Button, buttonVariants } from "@/components/ui/atoms/button/button";
 import { useState } from "react";
+import Link from "next/link";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -69,7 +70,7 @@ export function DataTable<TData, TValue>({
     <div className=" w-full rounded-md border px-8">
       <div>
         <div className="flex justify-between items-center">
-          <div className="flex items-center py-4">
+          <div className="flex items-center py-4 gap-4">
             <Input
               placeholder="Filter titles..."
               value={
@@ -80,33 +81,45 @@ export function DataTable<TData, TValue>({
               }
               className="max-w-sm"
             />
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline" className="ml-auto">
+                  Columns
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                {table
+                  .getAllColumns()
+                  .filter((column) => column.getCanHide())
+                  .map((column) => {
+                    return (
+                      <DropdownMenuCheckboxItem
+                        key={column.id}
+                        className="capitalize"
+                        checked={column.getIsVisible()}
+                        onCheckedChange={(value) =>
+                          column.toggleVisibility(!!value)
+                        }
+                      >
+                        {column.id}
+                      </DropdownMenuCheckboxItem>
+                    );
+                  })}
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="outline" className="ml-auto">
-                Columns
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              {table
-                .getAllColumns()
-                .filter((column) => column.getCanHide())
-                .map((column) => {
-                  return (
-                    <DropdownMenuCheckboxItem
-                      key={column.id}
-                      className="capitalize"
-                      checked={column.getIsVisible()}
-                      onCheckedChange={(value) =>
-                        column.toggleVisibility(!!value)
-                      }
-                    >
-                      {column.id}
-                    </DropdownMenuCheckboxItem>
-                  );
-                })}
-            </DropdownMenuContent>
-          </DropdownMenu>
+
+          <Link
+            href={"/admin/project/add"}
+            className={buttonVariants({
+              variant: "default",
+              size: "sm",
+              className: "py-4",
+            })}
+          >
+            {" "}
+            Add New Project{" "}
+          </Link>
         </div>
         <Table>
           <TableHeader>

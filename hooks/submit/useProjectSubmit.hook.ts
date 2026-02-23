@@ -122,7 +122,9 @@ export function useProjectSettingAndSubmit(id?: string) {
         });
 
         success = true;
-        toast.success("Project Created Successfully");
+        toast.success(
+          id ? "Project Updated Successfully" : "Project Created Successfully",
+        );
       } catch (error) {
         toast.error("Something went wrong. Please try again.");
         console.log(JSON.stringify(error));

@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/atoms/card/card";
 import { MagicCard } from "@/components/ui/Effects/magic-card";
 import ProjectCardContent from "./ProjectCardContent.organism";
+import { ProjectType } from "@/types/project.types";
 
 interface Card {
   title?: React.ReactNode;
@@ -18,9 +19,10 @@ interface Card {
 
 interface Props {
   card: Card;
+  project: ProjectType;
 }
 
-const ProjectCard = ({ card }: Props) => {
+const ProjectCard = ({ card, project }: Props) => {
   return (
     <Card className="w-full max-w-xl border-none p-0 shadow-none hover:scale-105 cursor-pointer  transition-transform duration-300">
       <MagicCard gradientSize={300} className="p-0">
@@ -31,7 +33,7 @@ const ProjectCard = ({ card }: Props) => {
           </CardDescription>
         </CardHeader>
         <CardContent className="p-4">
-          <ProjectCardContent />
+          <ProjectCardContent project={project} />
         </CardContent>
         <CardFooter className="border-border border-t p-4 [.border-t]:pt-4">
           <Button width={"full"}>Learn More</Button>

@@ -32,6 +32,7 @@ const ProjectsAction = () => {
           <BlurFade onlyOnce={false} key={idx} delay={0.3 + idx * 0.1} inView>
             <Link href={"project/" + project._id}>
               <ProjectCard
+                project={project}
                 card={{
                   title: project.title,
                   description: project.description,

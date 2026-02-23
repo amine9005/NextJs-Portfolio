@@ -1,23 +1,39 @@
 import { P } from "@/components/ui/atoms/text/Text";
+import Project3DModelMolecule from "@/components/ui/molecules/project-3d-model/Project3DModel.molecule";
+import ProjectVideoMolecule from "@/components/ui/molecules/project-video/ProjectVideo.molecule";
+import { ProjectType } from "@/types/project.types";
 import Image from "next/image";
 
-const ProjectCardContent = () => {
+interface Props {
+  project: ProjectType;
+}
+
+const ProjectCardContent = ({ project }: Props) => {
   return (
     <div className="flex flex-col items-center justify-center space-y-4">
-      <Image
-        className="relative w-full h-60 bg-gray-400 object-cover  rounded-lg"
-        src={"/project.png"}
-        alt="project image"
-        width={240}
-        height={240}
-      />
-      <P className="line-clamp-3">
-        Project description goes here. Lorem ipsum dolor sit amet consectetur
-        adipisicing elit. Similique obcaecati possimus animi distinctio,
-        eligendi, nulla optio quam beatae officia maiores voluptate veniam!
-        Reprehenderit nesciunt natus iusto ex laudantium perferendis
-        accusantium!
-      </P>
+      {project.thumbnail.type === "Image" && (
+        <Image
+          className="relative w-full h-50 bg-gray-400 object-cover  rounded-lg"
+          src={"/projects/images/" + project.thumbnail.fileOrUrl}
+          alt="project image"
+          width={240}
+          height={240}
+        />
+      )}
+
+      {project.thumbnail.type === "Video" && (
+        <ProjectVideoMolecule
+          videoUrl={project.thumbnail.fileOrUrl}
+          videoSource={project.thumbnail.source}
+          videoFileName={project.thumbnail.fileOrUrl}
+        />
+      )}
+
+      {project.thumbnail.type === "Model" && (
+        <Project3DModelMolecule modelName={project.thumbnail.fileOrUrl!} />
+      )}
+
+      <P className="line-clamp-3">{project.description}</P>
     </div>
   );
 };

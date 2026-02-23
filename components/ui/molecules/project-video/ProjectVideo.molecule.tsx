@@ -18,7 +18,7 @@ const ProjectVideoMolecule = ({
   if (videoSource === "Google Drive") {
     return (
       <iframe
-        className="rounded-lg bg-transparent h-full w-full"
+        className="rounded-lg bg-transparent min-h-50 w-full"
         width={"100%"}
         height={"100%"}
         // src={`https://drive.google.com/file/d/1Wiq0rwCcI23Bmt2NcRd87hdppXafVAhN/preview`}
@@ -31,7 +31,7 @@ const ProjectVideoMolecule = ({
     console.log("Youtube Video Source: ", videoUrl);
     return (
       <ReactPlayer
-        className="rounded-lg bg-transparent h-full w-full"
+        className="rounded-lg bg-transparent min-h-50 w-full"
         width={"100%"}
         height={"100%"}
         src={videoUrl}
@@ -47,7 +47,7 @@ const ProjectVideoMolecule = ({
     return (
       <BlurFade onlyOnce={false} delay={0.6} inView>
         <video
-          className="rounded-lg bg-transparent h-full w-full"
+          className="rounded-lg bg-transparent min-h-50 w-full"
           controls={true}
           autoPlay={false}
           loop={false}
@@ -64,7 +64,7 @@ const ProjectVideoMolecule = ({
     return (
       <BlurFade onlyOnce={false} delay={0.6} inView>
         <video
-          className="rounded-lg bg-transparent h-full w-full"
+          className="rounded-lg bg-transparent min-h-50 w-full"
           controls={true}
           autoPlay={false}
           loop={false}
@@ -80,7 +80,7 @@ const ProjectVideoMolecule = ({
   return (
     <BlurFade onlyOnce={false} delay={0.6} inView>
       <Player
-        className="rounded-lg bg-transparent h-full w-full"
+        className="rounded-lg bg-transparent min-h-50 w-full"
         controls={false}
         muted
         autoPlay={true}
