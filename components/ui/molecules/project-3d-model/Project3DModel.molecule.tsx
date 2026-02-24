@@ -5,12 +5,12 @@ import { ReactNode, Suspense } from "react";
 import { Html, useProgress } from "@react-three/drei";
 import { LoaderPinwheelIcon } from "lucide-react";
 import { useRef } from "react";
-
 import { Box } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 
 //type
 import type { Mesh } from "three";
+import { Badge } from "../../atoms/badge/badge";
 function Model({
   scale,
   modelName,
@@ -45,25 +45,6 @@ function Loader(): ReactNode {
   );
 }
 
-const ROTATION_SPEED = 0.005;
-
-function Cube() {
-  const boxRef = useRef<Mesh>(null);
-
-  useFrame(() => {
-    if (boxRef.current) {
-      boxRef.current.rotation.x += ROTATION_SPEED;
-      boxRef.current.rotation.y += ROTATION_SPEED;
-    }
-  });
-
-  return (
-    <Box ref={boxRef}>
-      <meshBasicMaterial color="orange" />
-    </Box>
-  );
-}
-
 const Project3DModelMolecule = ({
   modelName,
   preview = false,
@@ -73,25 +54,21 @@ const Project3DModelMolecule = ({
   preview?: boolean;
 }) => {
   return (
-    // <div style={{ height: "100vh", width: "100vw" }}>
-    //   <Canvas>
-    //     <OrbitControls />
-    //     <gridHelper />
-    //     <Cube />
-    //   </Canvas>
-    // </div>
-    <Canvas
-      camera={{ fov: 360 }}
-      className={"cursor-pointer min-h-50 w-full bg-gray-100 rounded-lg"}
-    >
-      {/* <Loader /> */}
-      <Suspense fallback={<Loader />}>
-        <OrbitControls></OrbitControls>
-        <Stage environment={"sunset"}>
-          <Model scale={0.1} modelName={modelName} />
-        </Stage>
-      </Suspense>
-    </Canvas>
+    <div className={"relative min-h-50 w-full h-full"}>
+      <Canvas
+        camera={{ fov: 90 }}
+        className="cursor-pointer min-h-50 w-fit h-fit bg-gray-100 rounded-lg "
+      >
+        {/* <Loader /> */}
+        <Suspense fallback={<Loader />}>
+          {preview ? "" : <OrbitControls />}
+          <Stage environment={"sunset"}>
+            <Model scale={0.2} modelName={modelName} />
+          </Stage>
+        </Suspense>
+      </Canvas>
+      <Badge className="absolute bottom-3 left-3 w-fit h-fit">3D Model</Badge>
+    </div>
   );
 };
 

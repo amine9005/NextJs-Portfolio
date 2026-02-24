@@ -63,7 +63,7 @@ const ProjectPageAction = () => {
 
   const projectModels = data.models.map((fileName: string) => {
     return {
-      node: <Project3DModelMolecule modelName={fileName} />,
+      node: <Project3DModelMolecule preview={false} modelName={fileName} />,
     };
   });
 

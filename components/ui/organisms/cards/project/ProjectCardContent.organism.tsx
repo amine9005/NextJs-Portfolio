@@ -30,7 +30,10 @@ const ProjectCardContent = ({ project }: Props) => {
       )}
 
       {project.thumbnail.type === "Model" && (
-        <Project3DModelMolecule modelName={project.thumbnail.fileOrUrl!} />
+        <Project3DModelMolecule
+          preview={true}
+          modelName={project.thumbnail.fileOrUrl!}
+        />
       )}
 
       <P className="line-clamp-3">{project.description}</P>
