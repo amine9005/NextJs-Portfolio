@@ -5,7 +5,6 @@ import { ReactNode, Suspense } from "react";
 import { Html, useProgress } from "@react-three/drei";
 import { LoaderPinwheelIcon } from "lucide-react";
 import { useRef } from "react";
-import { Box } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 
 //type
