@@ -1,4 +1,4 @@
-import ProjectsAction from "@/components/ui/actions/project/ProjectsSection.action";
+import AllProjects from "@/components/ui/actions/project/AllProjects.action";
 import { H2 } from "@/components/ui/atoms/heading/heading2";
 import { BlurFade } from "@/components/ui/Effects/blur-fade";
 import GeneralLayout from "@/components/ui/layouts/GeneralLayout.layout";
@@ -12,7 +12,7 @@ const ProjectsPage = () => {
             My Projects
           </H2>
         </BlurFade>
-        <ProjectsAction />
+        <AllProjects />
       </GeneralLayout>
     </div>
   );
