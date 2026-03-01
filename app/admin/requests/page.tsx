@@ -1,7 +1,7 @@
 import React from "react";
 
 const RequestsPage = () => {
-  return <div>RequestsPage</div>;
+  return <div></div>;
 };
 
 export default RequestsPage;
