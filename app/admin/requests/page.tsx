@@ -1,7 +1,9 @@
-import React from "react";
+import ProjectRequestsList from "@/components/ui/actions/project/requests/ProjectRequestsList.action";
+import { authIsRequired } from "@/helpers/authHelper.helper";
 
-const RequestsPage = () => {
-  return <div></div>;
+const RequestsPage = async () => {
+  await authIsRequired();
+  return <ProjectRequestsList />;
 };
 
 export default RequestsPage;
