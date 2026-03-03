@@ -27,7 +27,7 @@ export const columns: ColumnDef<ProjectRequest>[] = [
 
     cell: ({ row }) => (
       <Link
-        href={"/admin/request/" + row.original._id!}
+        href={"/admin/requests/" + row.original._id!}
         className="flex justify-start items-center gap-2 hover:text-primary"
       >
         <EyeIcon className="size-6" />

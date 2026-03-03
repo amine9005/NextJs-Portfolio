@@ -5,11 +5,11 @@ export const useGetProjectRequestByIdQuery = (id: string) => {
   // Define the API endpoint for fetching the logo
   const fetchRequests = async ({ id }: { id: string }) => {
     const response = await axios.get("/api/admin/project/requests/" + id);
-    return response.data.requests;
+    return response.data.request;
   };
   return useQuery({
     queryFn: () => fetchRequests({ id }),
-    queryKey: [id],
+    queryKey: [id as string],
   });
 };
 
