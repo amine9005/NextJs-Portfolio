@@ -1,8 +1,10 @@
 "use client";
+import { H2 } from "@/components/ui/atoms/heading/heading2";
 import { Label } from "@/components/ui/atoms/label/label";
 import { P } from "@/components/ui/atoms/text/Text";
 import { useGetProjectRequestByIdQuery } from "@/hooks/queries/useProjectRequestQuery.hook";
 import { Loader2Icon } from "lucide-react";
+import Link from "next/link";
 import { useParams } from "next/navigation";
 
 const ViewProjectRequestAction = () => {
@@ -42,7 +44,20 @@ const ViewProjectRequestAction = () => {
         <Label className="text-primary col-span-3">{data.fullName}</Label>
         <Label>Description:</Label>
         <Label className="text-primary col-span-3">{data.description}</Label>
-        <div className="col-span-4"></div>
+        <div className="col-span-4 space-y-4">
+          <H2 size={"lg"}>Files:</H2>
+          {data.fileUrls.map((url: string, index: number) => (
+            <Link
+              className="flex items-center gap-2 hover:text-primary"
+              target="_blank"
+              key={index}
+              href={"/api/stream/download/" + url}
+            >
+              {" "}
+              {url}
+            </Link>
+          ))}
+        </div>
       </div>
     </div>
   );
