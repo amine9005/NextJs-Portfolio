@@ -1,15 +1,11 @@
 import { useForm, UseFormReturn } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { logoSchema, LogoSchemaType } from "@/validations/logo.zod";
-import { useLogoQuery } from "@/hooks/queries/useLogoQuery.hook";
 import { useEffect } from "react";
-import { useTmpLogoStore } from "@/store/admin/logo.store";
-import { settingsSchema, settingsSchemaType } from "@/validations/settings.zod";
+import { settingsSchema, SettingsSchemaType } from "@/validations/settings.zod";
+import { useSettingsQuery } from "@/hooks/queries/useSettingsQuery.hook";
 
-export const useLogoForm = () => {
-  const tmpImagePath = useTmpLogoStore((state) => state.imagePath);
-
-  const form = useForm<settingsSchemaType>({
+export const useSettingsForm = () => {
+  const form = useForm<SettingsSchemaType>({
     resolver: zodResolver(settingsSchema),
     defaultValues: {
       copyright: "",
@@ -23,29 +19,41 @@ export const useLogoForm = () => {
   return form;
 };
 
-export const useLogoFormData = (form: UseFormReturn<LogoSchemaType>) => {
-  const { data: logoData, isLoading } = useLogoQuery();
+export const useSettingsFormData = (
+  form: UseFormReturn<SettingsSchemaType>,
+) => {
+  const { data: settingsData, isLoading } = useSettingsQuery();
 
   useEffect(() => {
     form.setValue(
-      "leftColor",
-      logoData?.leftColor ? logoData.leftColor : form.getValues("leftColor"),
+      "copyright",
+      settingsData?.copyright
+        ? settingsData.copyright
+        : form.getValues("copyright"),
     );
     form.setValue(
-      "rightColor",
-      logoData?.rightColor ? logoData.rightColor : form.getValues("rightColor"),
+      "primaryColor",
+      settingsData?.primaryColor
+        ? settingsData.primaryColor
+        : form.getValues("primaryColor"),
     );
     form.setValue(
-      "imagePath",
-      logoData?.imageUrl ? logoData.imageUrl : form.getValues("imagePath"),
+      "secondaryColor",
+      settingsData?.secondaryColor
+        ? settingsData.secondaryColor
+        : form.getValues("secondaryColor"),
     );
     form.setValue(
-      "fullName",
-      logoData?.fullName ? logoData.fullName : form.getValues("fullName"),
+      "circleColor",
+      settingsData?.circleColor
+        ? settingsData.circleColor
+        : form.getValues("circleColor"),
     );
     form.setValue(
-      "useImage",
-      logoData?.useImage ? logoData.useImage : form.getValues("useImage"),
+      "useCircle",
+      settingsData?.useCircle
+        ? settingsData.useCircle
+        : form.getValues("useCircle"),
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoading]);

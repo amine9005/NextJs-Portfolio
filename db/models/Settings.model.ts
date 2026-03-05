@@ -1,11 +1,11 @@
 import mongoose, { HydratedDocument, InferSchemaType } from "mongoose";
 const settingsSchema = new mongoose.Schema(
   {
-    fullName: { type: String, required: true },
-    title: { type: String, required: true },
-    description: { type: String, required: true },
-    leftColor: { type: String, required: false, default: "#fff" },
-    rightColor: { type: String, required: false, default: "#fff" },
+    copyright: { type: String, required: true },
+    useCircle: { type: Boolean, required: true },
+    primaryColor: { type: String, required: false, default: "#fefefe" },
+    secondaryColor: { type: String, required: false, default: "#f7f7f7" },
+    circleColor: { type: String, required: false, default: "#fff" },
   },
   { timestamps: true },
 );

@@ -31,6 +31,6 @@ export const settingsSchema = z
     }
   });
 
-export type settingsSchemaType = z.infer<typeof settingsSchema>;
+export type SettingsSchemaType = z.infer<typeof settingsSchema>;
 
-export type LogoFormType = UseFormReturn<settingsSchemaType>;
+export type SettingsFormType = UseFormReturn<SettingsSchemaType>;
