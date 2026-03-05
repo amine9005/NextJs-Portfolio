@@ -44,7 +44,8 @@ const ViewProjectRequestAction = () => {
         <Label className="text-primary col-span-3">{data.fullName}</Label>
         <Label>Description:</Label>
         <Label className="text-primary col-span-3">{data.description}</Label>
-        <div className="col-span-4 space-y-4">
+        {/* Hide Scroll Bar */}
+        <div className="col-span-4 space-y-4 max-h-80 overflow-y-scroll [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           <H2 size={"lg"}>Files:</H2>
           {data.fileUrls.map((url: string, index: number) => (
             <Link
