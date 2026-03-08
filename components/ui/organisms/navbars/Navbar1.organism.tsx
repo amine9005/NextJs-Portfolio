@@ -13,6 +13,7 @@ import { motion } from "motion/react";
 import { useState } from "react";
 import { useLogoQuery } from "@/hooks/queries/useLogoQuery.hook";
 import LogoWithNameMolecule from "../../molecules/logo-with-name/LogoWithName.molecule";
+import { useSettingsQuery } from "@/hooks/queries/useSettingsQuery.hook";
 interface RouteProps {
   href: string;
   label: string;
@@ -35,6 +36,31 @@ const routeList: RouteProps[] = [
 const Navbar1Organism = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { data: logoData, isLoading } = useLogoQuery();
+  const { data: settings } = useSettingsQuery();
+
+  if (settings) {
+    // Set the value of a CSS variable:
+    // Get the value of a CSS variable:
+    const color = getComputedStyle(document.documentElement).getPropertyValue(
+      "--primary",
+    );
+
+    console.log("settings: ", settings);
+    console.log("color: ", color);
+    document.documentElement.style.setProperty(
+      "--primary",
+      "oklch(57.401% 0.29236 45.044)",
+    );
+    const color2 = getComputedStyle(document.documentElement).getPropertyValue(
+      "--primary",
+    );
+    console.log("color2: ", color2);
+
+    document.documentElement.style.setProperty(
+      "--secondary",
+      settings.secondaryColor,
+    );
+  }
 
   return (
     <header
