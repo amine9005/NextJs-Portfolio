@@ -14,6 +14,7 @@ import { useState } from "react";
 import { useLogoQuery } from "@/hooks/queries/useLogoQuery.hook";
 import LogoWithNameMolecule from "../../molecules/logo-with-name/LogoWithName.molecule";
 import { useSettingsQuery } from "@/hooks/queries/useSettingsQuery.hook";
+import { User2Icon } from "lucide-react";
 interface RouteProps {
   href: string;
   label: string;
@@ -105,6 +106,7 @@ const Navbar1Organism = () => {
               </NavigationMenuItem>
             ))}
           </NavigationMenuList>
+          <User2Icon> </User2Icon>
           <MenuButtonMolecule isOpen={isOpen} setIsOpen={setIsOpen} />
         </NavigationMenuList>
 
