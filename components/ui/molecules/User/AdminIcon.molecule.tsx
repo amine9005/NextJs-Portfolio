@@ -1,7 +1,7 @@
 import React from "react";
 
 const AdminIconMolecule = () => {
-  return <div>AdminIconMolecule</div>;
+  return <div></div>;
 };
 
 export default AdminIconMolecule;
