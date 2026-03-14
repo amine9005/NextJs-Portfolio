@@ -14,7 +14,7 @@ import { useState } from "react";
 import { useLogoQuery } from "@/hooks/queries/useLogoQuery.hook";
 import LogoWithNameMolecule from "../../molecules/logo-with-name/LogoWithName.molecule";
 import { useSettingsQuery } from "@/hooks/queries/useSettingsQuery.hook";
-import { User2Icon } from "lucide-react";
+import AdminIconMolecule from "@/components/ui/molecules/User/AdminIcon.molecule";
 interface RouteProps {
   href: string;
   label: string;
@@ -74,7 +74,7 @@ const Navbar1Organism = () => {
             <Link
               rel="noreferrer noopener"
               href="/"
-              className="ml-2 font-bold text-xl flex"
+              className="ml-2 font-bold text-xl flex col-span-1"
             >
               {" "}
               {!isLoading && (
@@ -89,7 +89,7 @@ const Navbar1Organism = () => {
             </Link>
           </NavigationMenuItem>
 
-          <NavigationMenuList className="hidden md:flex gap-2">
+          <NavigationMenuList className="hidden md:flex gap-2 col-span-1">
             {routeList.map((route: RouteProps, i) => (
               <NavigationMenuItem key={i}>
                 <NavigationMenuLink asChild>
@@ -106,8 +106,10 @@ const Navbar1Organism = () => {
               </NavigationMenuItem>
             ))}
           </NavigationMenuList>
-          <User2Icon> </User2Icon>
           <MenuButtonMolecule isOpen={isOpen} setIsOpen={setIsOpen} />
+          <div className="flex items-center justify-end">
+            <AdminIconMolecule />
+          </div>
         </NavigationMenuList>
 
         <motion.div
