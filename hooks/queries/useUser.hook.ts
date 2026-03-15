@@ -1,16 +1,15 @@
-// import { getUser } from "@/helpers/authClientHelper.helper";
-// import { useEffect, useState } from "react";
+// import { useQuery } from "@tanstack/react-query";
 
-// export function useUser() {
-//   const [user, setUser] = useState<object | null>(null);
-
-//   useEffect(() => {
-//     const getCurrentUser = async () => {
-//       setUser(await getUser());
-//       console.log("getting user");
-//     };
-//     getCurrentUser();
-//   }, []);
-
-//   return user;
-// }
+// // Custom hook to fetch logo using React Query
+// export const useSettingsQuery = () => {
+//   // Define the API endpoint for fetching the logo
+//   const fetchSettings = async () => {
+//     const response = await axios.get("/api/admin/settings");
+//     return response.data.settings;
+//   };
+//   return useQuery({
+//     queryFn: fetchSettings,
+//     queryKey: ["user"],
+//     staleTime: 5,
+//   });
+// };

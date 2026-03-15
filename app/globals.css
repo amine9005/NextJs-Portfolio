@@ -79,6 +79,7 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+  --circle-color: rgb(36, 255, 72);
 }
 
 .dark {
@@ -88,7 +89,7 @@
   --card-foreground: oklch(0.985 0 0);
   --popover: oklch(0.205 0 0);
   --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(57.401% 0.29236 304.044);
+  --primary: oklch(93.094% 0.22632 123.207);
   --primary-foreground: oklch(0.205 0 0);
   --secondary: oklch(0.269 0 0);
   --secondary-foreground: oklch(0.985 0 0);
@@ -131,7 +132,11 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: radial-gradient(circle at top, rgb(36, 54, 255), transparent 70%);
+  background: radial-gradient(
+    circle at top,
+    var(--circle-color),
+    transparent 70%
+  );
   z-index: -1;
   /* Ensure the background stays behind the content */
 }

@@ -10,11 +10,12 @@ import { buttonVariants } from "@/components/ui/atoms/button/button";
 import Link from "next/link";
 import MenuButtonMolecule from "@/components/ui/molecules/menu-button/MenuButton.molecule";
 import { motion } from "motion/react";
-import { useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import { useLogoQuery } from "@/hooks/queries/useLogoQuery.hook";
 import LogoWithNameMolecule from "../../molecules/logo-with-name/LogoWithName.molecule";
 import { useSettingsQuery } from "@/hooks/queries/useSettingsQuery.hook";
 import AdminIconMolecule from "@/components/ui/molecules/User/AdminIcon.molecule";
+import { useTheme } from "next-themes";
 interface RouteProps {
   href: string;
   label: string;
@@ -36,32 +37,39 @@ const routeList: RouteProps[] = [
 
 const Navbar1Organism = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { setTheme } = useTheme();
   const { data: logoData, isLoading } = useLogoQuery();
   const { data: settings } = useSettingsQuery();
 
-  if (settings) {
-    // Set the value of a CSS variable:
-    // Get the value of a CSS variable:
-    const color = getComputedStyle(document.documentElement).getPropertyValue(
-      "--primary",
-    );
+  useLayoutEffect(() => {
+    function getTheme() {
+      if (settings) {
+        // Set the value of a CSS variable:
+        // Get the value of a CSS variable:
+        const color = getComputedStyle(
+          document.documentElement,
+        ).getPropertyValue("--primary");
 
-    console.log("settings: ", settings);
-    console.log("color: ", color);
-    document.documentElement.style.setProperty(
-      "--primary",
-      "oklch(57.401% 0.29236 45.044)",
-    );
-    const color2 = getComputedStyle(document.documentElement).getPropertyValue(
-      "--primary",
-    );
-    console.log("color2: ", color2);
+        console.log("settings: ", settings);
+        console.log("color: ", color);
+        document.documentElement.style.setProperty(
+          "--primary",
+          "oklch(57.401% 0.29236 45.044)",
+        );
+        const color2 = getComputedStyle(
+          document.documentElement,
+        ).getPropertyValue("--primary");
+        console.log("color2: ", color2);
 
-    document.documentElement.style.setProperty(
-      "--secondary",
-      settings.secondaryColor,
-    );
-  }
+        document.documentElement.style.setProperty(
+          "--secondary",
+          settings.secondaryColor,
+        );
+        setTheme("default");
+      }
+    }
+    getTheme();
+  }, [settings, setTheme]);
 
   return (
     <header
@@ -107,9 +115,7 @@ const Navbar1Organism = () => {
             ))}
           </NavigationMenuList>
           <MenuButtonMolecule isOpen={isOpen} setIsOpen={setIsOpen} />
-          <div className="flex items-center justify-end">
-            <AdminIconMolecule />
-          </div>
+          <AdminIconMolecule />
         </NavigationMenuList>
 
         <motion.div
