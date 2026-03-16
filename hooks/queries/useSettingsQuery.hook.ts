@@ -14,3 +14,20 @@ export const useSettingsQuery = () => {
     staleTime: Infinity,
   });
 };
+
+export async function serverSettingsQuery() {
+  try {
+    const response = await axios.get(
+      process.env.BETTER_AUTH_URL + "/api/admin/settings",
+    );
+    return response.data.settings;
+  } catch (error) {
+    console.log("Unable to get Setting", error);
+    return {
+      copyright: "Full Name",
+      primaryColor: "#fefefe",
+      secondaryColor: "#f7f7f7",
+      circleColor: "#fff",
+    };
+  }
+}

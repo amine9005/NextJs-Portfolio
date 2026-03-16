@@ -4,19 +4,24 @@ import ProjectsAction from "@/components/ui/actions/project/ProjectsSection.acti
 import { H2 } from "@/components/ui/atoms/heading/heading2";
 import { BlurFade } from "@/components/ui/Effects/blur-fade";
 import GeneralLayout from "@/components/ui/layouts/GeneralLayout.layout";
+import { serverProjectQuery } from "@/hooks/queries/useProjectQuery.hook";
 
-export default function Home() {
+export default async function Home() {
+  const projectsData = await serverProjectQuery();
+
   return (
     <main className="flex flex-col justify-center items-center">
       <Hero2ColsAction />
-      <GeneralLayout>
-        <BlurFade onlyOnce={false} inView className="w-full" delay={0}>
-          <H2 className="text-center mb-10" size={"3xl"}>
-            My Recent Projects
-          </H2>
-        </BlurFade>
-        <ProjectsAction />
-      </GeneralLayout>
+      {projectsData && (
+        <GeneralLayout>
+          <BlurFade onlyOnce={false} inView className="w-full" delay={0}>
+            <H2 className="text-center mb-10" size={"3xl"}>
+              My Recent Projects
+            </H2>
+          </BlurFade>
+          <ProjectsAction data={projectsData} />
+        </GeneralLayout>
+      )}
 
       <GeneralLayout>
         <BlurFade onlyOnce={false} inView className="w-full" delay={0}>

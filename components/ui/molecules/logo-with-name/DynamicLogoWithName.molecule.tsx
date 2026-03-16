@@ -1,12 +1,21 @@
-"use server";
 import { CSSProperties } from "react";
 import DynamicImage from "@/components/ui/molecules/Dynamic-image/DynamicImage.molecule";
-import { serverLogoQuery } from "@/hooks/queries/useLogoQuery.hook";
 
-const LogoWithNameMolecule = async () => {
-  const { leftColor, rightColor, fullName, imagePath, useImage } =
-    await serverLogoQuery();
+interface Props {
+  imageUrl: string | undefined;
+  leftColor: string;
+  rightColor: string;
+  name: string;
+  useImage: boolean;
+}
 
+const DynamicLogoWithNameMolecule = ({
+  imageUrl,
+  leftColor,
+  rightColor,
+  name,
+  useImage,
+}: Props) => {
   const spanStyle: CSSProperties = {
     backgroundImage: `linear-gradient(0.25turn, ${leftColor},  ${rightColor})`,
     backgroundClip: "text",
@@ -21,14 +30,14 @@ const LogoWithNameMolecule = async () => {
           className="mr-3 rounded-full"
           alt="logo"
           folder="logos"
-          imageName={imagePath}
+          imageName={imageUrl}
           width={24}
           height={24}
         />
       )}
-      <span style={spanStyle}>{fullName}</span>
+      <span style={spanStyle}>{name}</span>
     </div>
   );
 };
 
-export default LogoWithNameMolecule;
+export default DynamicLogoWithNameMolecule;

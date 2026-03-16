@@ -1,26 +1,10 @@
-"use client";
 import { H2 } from "@/components/ui/atoms/heading/heading2";
 import { P } from "@/components/ui/atoms/text/Text";
 import { BlurFade } from "@/components/ui/Effects/blur-fade";
-import { useHeroTextQuery } from "@/hooks/queries/useHeroTextQuery.hook";
+import { heroTextSchemaType } from "@/validations/hero.zod";
 import { CSSProperties } from "react";
-import Skeleton from "react-loading-skeleton";
 
-const HeroText = () => {
-  const { data: heroData, isLoading } = useHeroTextQuery();
-
-  if (isLoading) {
-    return (
-      <div className="max-w-xl w-full text-center lg:text-start space-y-8">
-        <div className="w-full grid grid-cols-2 gap-8">
-          <Skeleton width={"100%"} height={40} />
-          <Skeleton width={"100%"} height={40} />
-        </div>
-        <Skeleton width={"100%"} height={200} className="rounded-lg" />
-      </div>
-    );
-  }
-
+const HeroText = ({ heroData }: { heroData: heroTextSchemaType }) => {
   const { leftColor, rightColor, title, description } = heroData;
 
   const fullName = heroData?.fullName + " - ";

@@ -1,4 +1,3 @@
-"use client"; // Mark as client component (required for Suspense/state)
 // import { ImageImporter } from "@/helpers/ImageImporter";
 // import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import Image from "next/image";

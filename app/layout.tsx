@@ -3,12 +3,12 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
 import TanStackProvider from "@/providers/TanStackProvider";
-import Navbar1Organism from "@/components/ui/organisms/navbars/Navbar1.organism";
 import Footer1Organism from "@/components/ui/organisms/footers/Footer1.organism";
 import { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
-import axios from "axios";
 import { CSSProperties } from "react";
+import { serverSettingsQuery } from "@/hooks/queries/useSettingsQuery.hook";
+import NavBarHandlerOrganism from "@/components/ui/organisms/navbars/NavBarHandler.organism";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -28,14 +28,7 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const fetchSettings = async () => {
-    const response = await axios.get(
-      process.env.BETTER_AUTH_URL + "/api/admin/settings",
-    );
-    return response.data.settings;
-  };
-
-  const settings = await fetchSettings();
+  const settings = await serverSettingsQuery();
 
   const customStyle: CustomCSS = {
     "--primary": settings.primaryColor,
@@ -47,7 +40,7 @@ export default async function RootLayout({
     <>
       <SkeletonTheme baseColor="#202020" highlightColor="#444">
         <TanStackProvider>
-          <Navbar1Organism />
+          <NavBarHandlerOrganism />
           <html lang="en">
             <body className={`${inter.className} dark`} style={customStyle}>
               <Toaster />

@@ -18,6 +18,18 @@ export const useProjectsQuery = () => {
   });
 };
 
+export async function serverProjectQuery() {
+  try {
+    const response = await axios.get(
+      process.env.BETTER_AUTH_URL + "/api/admin/project",
+    );
+    return response.data.projects;
+  } catch (error) {
+    console.log("Unable to get projects", error);
+    return null;
+  }
+}
+
 export const useGetProjectByIdQuery = (id: string) => {
   // Define the API endpoint for fetching the logo
   const fetchProject = async ({ id }: Props) => {

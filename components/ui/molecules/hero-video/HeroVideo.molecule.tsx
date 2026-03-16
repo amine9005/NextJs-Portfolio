@@ -9,7 +9,7 @@ interface Props {
 }
 
 const HeroVideoMolecule = ({ videoSource, videoUrl, videoFileName }: Props) => {
-  console.log("Video Source: ", videoSource.toString() === "YouTube");
+  // console.log("Video Source: ", videoSource.toString() === "YouTube");
 
   if (videoSource === "Google Drive") {
     return (
@@ -24,7 +24,7 @@ const HeroVideoMolecule = ({ videoSource, videoUrl, videoFileName }: Props) => {
     );
   }
   if (videoSource === "YouTube") {
-    console.log("Youtube Video Source: ", videoUrl);
+    // console.log("Youtube Video Source: ", videoUrl);
     return (
       <ReactPlayer
         className="rounded-lg bg-gray-300 object-cover w-auto sm:w-140 h-100"

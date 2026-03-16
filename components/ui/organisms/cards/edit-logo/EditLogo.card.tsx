@@ -12,7 +12,7 @@ import { H2 } from "@/components/ui/atoms/heading/heading2";
 import LoadingSubmitButton from "@/components/ui/molecules/loading-submit-button/loadingSubmitButton.molecule";
 import EditLogoFormContent from "@/components/ui/organisms/contents/edit-logo/EditLogo.content";
 import { LogoFormType } from "@/validations/logo.zod";
-import LogoWithNameMolecule from "@/components/ui/molecules/logo-with-name/LogoWithName.molecule";
+import DynamicLogoWithNameMolecule from "@/components/ui/molecules/logo-with-name/DynamicLogoWithName.molecule";
 
 interface Card {
   title?: React.ReactNode;
@@ -39,7 +39,7 @@ const EditLogoCard = ({
       <CardHeader>
         <CardTitle className="flex justify-center items-center">
           <H2 size={"xl"}>
-            <LogoWithNameMolecule
+            <DynamicLogoWithNameMolecule
               useImage={form.watch("useImage")}
               imageUrl={form.watch("imagePath")}
               leftColor={form.watch("leftColor")}

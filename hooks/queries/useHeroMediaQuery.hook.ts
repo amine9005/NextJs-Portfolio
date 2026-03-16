@@ -14,3 +14,22 @@ export const useHeroMediaQuery = () => {
     staleTime: Infinity,
   });
 };
+
+export async function serverHeroMediaQuery() {
+  try {
+    const response = await axios.get(
+      process.env.BETTER_AUTH_URL + "/api/admin/hero/media",
+    );
+    return response.data.hero;
+  } catch (error) {
+    console.log("Unable to get Hero Media", error);
+    return {
+      displayType: "image",
+      videoSource: "Youtube",
+      imageUrl: "47741661.png",
+      videoUrl: "https://www.example.com/video.mp4",
+      videoFileName: "example.mp4",
+      model3D_Url: "https://www.example.com/model3d.obj",
+    };
+  }
+}

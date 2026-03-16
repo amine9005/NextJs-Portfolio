@@ -16,6 +16,7 @@ const HeroParallax = ({ imageUrl }: { imageUrl: string }) => {
             className="text-xl font-bold text-neutral-600 dark:text-white"
           >
             <Image
+              loading="eager"
               src={"/hero/images/" + imageUrl}
               className="rounded-lg bg-gray-300 object-cover w-full h-full"
               width={720}

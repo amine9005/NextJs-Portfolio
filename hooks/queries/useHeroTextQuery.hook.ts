@@ -14,3 +14,21 @@ export const useHeroTextQuery = () => {
     staleTime: Infinity,
   });
 };
+
+export async function serverHeroTextQuery() {
+  try {
+    const response = await axios.get(
+      process.env.BETTER_AUTH_URL + "/api/admin/hero/text",
+    );
+    return response.data.hero;
+  } catch (error) {
+    console.log("Unable to get Hero Text", error);
+    return {
+      fullName: "Full Name",
+      title: "Title",
+      description: "Description",
+      leftColor: "#ffffff",
+      rightColor: "#ffffff",
+    };
+  }
+}

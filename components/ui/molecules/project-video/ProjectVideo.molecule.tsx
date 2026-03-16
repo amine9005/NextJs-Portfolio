@@ -13,7 +13,7 @@ const ProjectVideoMolecule = ({
   videoUrl,
   videoFileName,
 }: Props) => {
-  console.log("Video Source: ", videoSource.toString() === "YouTube");
+  // console.log("Video Source: ", videoSource.toString() === "YouTube");
 
   if (videoSource === "Google Drive") {
     return (
@@ -28,7 +28,7 @@ const ProjectVideoMolecule = ({
     );
   }
   if (videoSource === "YouTube") {
-    console.log("Youtube Video Source: ", videoUrl);
+    // console.log("Youtube Video Source: ", videoUrl);
     return (
       <ReactPlayer
         className="rounded-lg bg-transparent min-h-50 w-full"
